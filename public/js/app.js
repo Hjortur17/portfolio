@@ -20166,7 +20166,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "Homepage"
+  name: "Homepage",
+  props: {
+    case_studies: Object
+  }
 });
 
 /***/ }),
@@ -20204,10 +20207,61 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<section class=\"max-w-screen-md mx-auto justify-center text-center py-16 lg:py-24 xl:py-36\"><div class=\"w-full mx-auto pb-6\"><img src=\"" + _images_me_svg__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" class=\"w-40 h-40 mx-auto\"></div><h2 class=\"text-4xl mb-3\">Hello, this is me 👋</h2><p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aspernatur at blanditiis, cupiditate explicabo laboriosam, laudantium minus molestiae natus nisi, pariatur perferendis quaerat quas repudiandae sequi vero vitae voluptate voluptatibus. </p></section><section class=\"max-w-screen-xl mx-auto\"><h3 class=\"text-xl mb-6\">Chosen projects</h3><div class=\"grid grid-rows-4 grid-cols-3 grid-flow-col gap-4\"><div class=\"p-4 sm:p-12 rounded-lg shadow-lg bg-yellow-400 grid place-content-center row-start-1 row-span-2\"> 01 </div><div class=\"p-4 sm:p-12 rounded-lg shadow-lg bg-yellow-400 grid place-content-center row-start-2 row-span-2\"> 02 </div><div class=\"p-4 sm:p-12 rounded-lg shadow-lg bg-yellow-400 grid place-content-center row-start-1 row-span-2\"> 03 </div></div></section>", 2);
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", {
+  "class": "max-w-screen-md mx-auto justify-center text-center py-16 lg:py-24 xl:py-36"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "w-full mx-auto pb-6"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  src: _images_me_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
+  "class": "w-40 h-40 mx-auto"
+})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+  "class": "text-4xl mb-3"
+}, "Hello, this is me 👋"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aspernatur at blanditiis, cupiditate explicabo laboriosam, laudantium minus molestiae natus nisi, pariatur perferendis quaerat quas repudiandae sequi vero vitae voluptate voluptatibus. ")], -1
+/* HOISTED */
+);
+
+var _hoisted_2 = {
+  "class": "max-w-screen-xl mx-auto"
+};
+
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", {
+  "class": "text-xl mb-6"
+}, "Chosen projects", -1
+/* HOISTED */
+);
+
+var _hoisted_4 = {
+  "class": "grid grid-rows-4 grid-cols-3 grid-flow-col gap-4"
+};
+var _hoisted_5 = {
+  "class": "p-4 sm:p-12 rounded-lg shadow-lg bg-yellow-400 grid place-content-center row-start-1 row-span-2"
+};
+var _hoisted_6 = ["textContent"];
+
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "p-4 sm:p-12 rounded-lg shadow-lg bg-yellow-400 grid place-content-center row-start-2 row-span-2"
+}, " 02 ", -1
+/* HOISTED */
+);
+
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "p-4 sm:p-12 rounded-lg shadow-lg bg-yellow-400 grid place-content-center row-start-1 row-span-2"
+}, " 03 ", -1
+/* HOISTED */
+);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return _hoisted_1;
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.case_studies, function (case_study) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      textContent: (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(case_study.name)
+    }, null, 8
+    /* PROPS */
+    , _hoisted_6)]);
+  }), 256
+  /* UNKEYED_FRAGMENT */
+  )), _hoisted_7, _hoisted_8])])], 64
+  /* STABLE_FRAGMENT */
+  );
 }
 
 /***/ }),

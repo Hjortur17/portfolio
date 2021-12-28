@@ -14,10 +14,9 @@
     <section class="max-w-screen-xl mx-auto">
         <h3 class="text-xl mb-6">Chosen projects</h3>
 
-        <div
-            class="grid grid-rows-4 grid-cols-3 grid-flow-col gap-4">
-            <div class="p-4 sm:p-12 rounded-lg shadow-lg bg-yellow-400 grid place-content-center row-start-1 row-span-2">
-                01
+        <div class="grid grid-rows-4 grid-cols-3 grid-flow-col gap-4">
+            <div class="p-4 sm:p-12 rounded-lg shadow-lg bg-yellow-400 grid place-content-center row-start-1 row-span-2" v-for="case_study in case_studies">
+                <span v-text="case_study.name"></span>
             </div>
             <div class="p-4 sm:p-12 rounded-lg shadow-lg bg-yellow-400 grid place-content-center row-start-2 row-span-2">
                 02
@@ -31,6 +30,10 @@
 
 <script>
 export default {
-    name: "Homepage"
+    name: "Homepage",
+
+    props: {
+        case_studies: Object
+    }
 }
 </script>
