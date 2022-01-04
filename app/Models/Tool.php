@@ -9,8 +9,8 @@ class Tool extends Model
 {
     use HasFactory;
 
-    public function caseStudies()
+    public function projects()
     {
-        return $this->belongsToMany(CaseStudy::class);
+        return $this->belongsToMany(Project::class);
     }
 }

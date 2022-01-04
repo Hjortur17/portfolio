@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCaseStudiesTable extends Migration
+class CreateProjectToolTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateCaseStudiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('case_studies', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('description');
+        Schema::create('project_tool', function (Blueprint $table) {
+            $table->foreignId('project_id')->constrained()->onDelete('cascade');
+            $table->foreignId('tool_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            $table->primary(['project_id', 'tool_id']);
         });
     }
 
@@ -28,6 +28,6 @@ class CreateCaseStudiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('case_studies');
+        Schema::dropIfExists('project_tool');
     }
 }

@@ -15,9 +15,9 @@
         <h3 class="text-xl mb-6">Chosen projects</h3>
 
         <div class="grid grid-rows-4 grid-cols-3 grid-flow-col gap-4">
-            <div class="p-4 sm:p-12 rounded-lg shadow-lg bg-yellow-400 grid place-content-center row-start-1 row-span-2" v-for="case_study in case_studies">
-                <span v-text="case_study.name"></span>
-            </div>
+            <Link :href="'/projects/' + project.slug" class="p-4 sm:p-12 rounded-lg shadow-lg bg-yellow-400 grid place-content-center row-start-1 row-span-2" v-for="project in projects">
+                <span v-text="project.name"></span>
+            </Link>
             <div class="p-4 sm:p-12 rounded-lg shadow-lg bg-yellow-400 grid place-content-center row-start-2 row-span-2">
                 02
             </div>
@@ -33,7 +33,7 @@ export default {
     name: "Homepage",
 
     props: {
-        case_studies: Object
+        projects: Object
     }
 }
 </script>

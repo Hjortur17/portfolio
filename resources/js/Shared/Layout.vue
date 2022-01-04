@@ -1,6 +1,6 @@
 <template>
     <nav class="max-w-screen-xl mx-auto flex items-center justify-between pt-16">
-        <h1 class="w-full text-xl font-medium">Hjörtur Freyr</h1>
+        <Link href="/"><h1 class="w-full text-xl font-medium">Hjörtur Freyr</h1></Link>
 
 <!--        <div class="flex justify-end items-center w-full">-->
 <!--            <label for="toggleB" class="flex items-center cursor-pointer">-->
@@ -33,9 +33,7 @@
 </template>
 
 <script>
-export default {
-    name: "Layout"
-}
+    export default {}
 </script>
 
 <style scoped>

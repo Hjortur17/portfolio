@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CaseStudy;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -11,11 +11,12 @@ class PageController extends Controller
     public function index()
     {
         return Inertia::render('Index', [
-            'case_studies' => CaseStudy::orderByDesc('created_at')
+            'projects' => Project::orderByDesc('created_at')
                 ->get()
-                ->transform(function ($case_studies) {
+                ->transform(function ($projects) {
                     return [
-                        'name' => $case_studies->name,
+                        'slug' => $projects->slug,
+                        'name' => $projects->name,
                     ];
                 })
         ]);
