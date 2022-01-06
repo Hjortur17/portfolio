@@ -1,4 +1,8 @@
 <template>
+    <Head>
+        <title>{{ project.name }}</title>
+    </Head>
+
     <header class="max-w-screen-md mx-auto justify-center text-center py-16 lg:py-24 xl:py-36">
         <h1 v-text="project.name" class="text-5xl mb-4"></h1>
         <p v-text="project.description" class="text-lg"></p>

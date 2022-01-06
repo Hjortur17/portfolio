@@ -1,4 +1,8 @@
 <template>
+    <Head>
+        <title>Freelance Web-Developer</title>
+    </Head>
+
     <section class="max-w-screen-md mx-auto justify-center text-center py-16 lg:py-24 xl:py-36">
         <div class="w-full mx-auto pb-6">
             <img src="../../images/me.svg" class="w-40 h-40 mx-auto">
