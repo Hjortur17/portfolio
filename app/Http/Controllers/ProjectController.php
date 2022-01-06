@@ -10,7 +10,7 @@ class ProjectController extends Controller
 {
     public function show($slug)
     {
-        $project = Project::where('slug', $slug)->firstOrFail();
+        $project = Project::where('slug', $slug)->with('tools')->firstOrFail();
 
         return Inertia::render('Show', [
             'project' => $project

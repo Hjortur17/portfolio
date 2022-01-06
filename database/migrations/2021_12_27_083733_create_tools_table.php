@@ -16,6 +16,7 @@ class CreateToolsTable extends Migration
         Schema::create('tools', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->text('tool_icon');
             $table->timestamps();
         });
     }
