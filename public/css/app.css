@@ -474,14 +474,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-8{
   height: 2rem;
 }
+.h-80{
+  height: 20rem;
+}
 .h-5{
   height: 1.25rem;
 }
 .h-4{
   height: 1rem;
-}
-.h-80{
-  height: 20rem;
 }
 .w-full{
   width: 100%;
@@ -498,8 +498,8 @@ Ensure the default browser behavior of the `hidden` attribute.
 .w-8{
   width: 2rem;
 }
-.w-80{
-  width: 20rem;
+.w-96{
+  width: 24rem;
 }
 .w-5{
   width: 1.25rem;
@@ -509,9 +509,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .w-4{
   width: 1rem;
-}
-.w-96{
-  width: 24rem;
 }
 .max-w-screen-md{
   max-width: 768px;
@@ -537,9 +534,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .snap-start{
   scroll-snap-align: start;
-}
-.snap-end{
-  scroll-snap-align: end;
 }
 .snap-center{
   scroll-snap-align: center;
@@ -710,8 +704,16 @@ h3, h4 {
     font-weight: 500;
 }
 
+.first\:snap-start:first-child{
+  scroll-snap-align: start;
+}
+
 .first\:pl-8:first-child{
   padding-left: 2rem;
+}
+
+.last\:snap-end:last-child{
+  scroll-snap-align: end;
 }
 
 .last\:pr-8:last-child{

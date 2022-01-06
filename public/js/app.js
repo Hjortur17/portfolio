@@ -20382,9 +20382,17 @@ var _hoisted_16 = {
 };
 var _hoisted_17 = ["src"];
 var _hoisted_18 = ["textContent"];
-
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<section class=\"relative max-w-screen overflow-auto\" data-v-732c8ba6><div class=\"relative w-full flex gap-6 snap-x snap-mandatory overflow-x-auto\" id=\"image-slider\" data-v-732c8ba6><div class=\"snap-always snap-start shrink-0 first:pl-8 last:pr-8\" data-v-732c8ba6><img class=\"shrink-0 w-96 h-80 object-cover rounded-lg shadow-xl bg-white\" src=\"https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80\" data-v-732c8ba6></div><div class=\"snap-always snap-center shrink-0 first:pl-8 last:pr-8\" data-v-732c8ba6><img class=\"shrink-0 w-96 h-80 object-cover rounded-lg shadow-xl bg-white\" src=\"https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80\" data-v-732c8ba6></div><div class=\"snap-always snap-center shrink-0 first:pl-8 last:pr-8\" data-v-732c8ba6><img class=\"shrink-0 w-96 h-80 object-cover rounded-lg shadow-xl bg-white\" src=\"https://images.unsplash.com/photo-1622890806166-111d7f6c7c97?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80\" data-v-732c8ba6></div><div class=\"snap-always snap-center shrink-0 first:pl-8 last:pr-8\" data-v-732c8ba6><img class=\"shrink-0 w-96 h-80 object-cover rounded-lg shadow-xl bg-white\" src=\"https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80\" data-v-732c8ba6></div><div class=\"snap-always snap-center shrink-0 first:pl-8 last:pr-8\" data-v-732c8ba6><img class=\"shrink-0 w-96 h-80 object-cover rounded-lg shadow-xl bg-white\" src=\"https://images.unsplash.com/photo-1575424909138-46b05e5919ec?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80\" data-v-732c8ba6></div><div class=\"snap-always snap-center shrink-0 first:pl-8 last:pr-8\" data-v-732c8ba6><img class=\"shrink-0 w-96 h-80 object-cover rounded-lg shadow-xl bg-white\" src=\"https://images.unsplash.com/photo-1559333086-b0a56225a93c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80\" data-v-732c8ba6></div><div class=\"snap-always snap-center shrink-0 first:pl-8 last:pr-8\" data-v-732c8ba6><img class=\"shrink-0 w-96 h-80 object-cover rounded-lg shadow-xl bg-white\" src=\"https://images.unsplash.com/photo-1575424909138-46b05e5919ec?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80\" data-v-732c8ba6></div><div class=\"snap-always snap-end shrink-0 first:pl-8 last:pr-8\" data-v-732c8ba6><img class=\"shrink-0 w-96 h-80 object-cover rounded-lg shadow-xl bg-white\" src=\"https://images.unsplash.com/photo-1559333086-b0a56225a93c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=320&amp;h=160&amp;q=80\" data-v-732c8ba6></div></div></section>", 1);
-
+var _hoisted_19 = {
+  "class": "relative max-w-screen overflow-auto"
+};
+var _hoisted_20 = {
+  "class": "relative w-full flex gap-6 snap-x snap-mandatory overflow-x-auto",
+  id: "image-slider"
+};
+var _hoisted_21 = {
+  "class": "snap-always first:snap-start last:snap-end snap-center shrink-0 first:pl-8 last:pr-8"
+};
+var _hoisted_22 = ["src"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Head = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Head");
 
@@ -20442,7 +20450,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     , _hoisted_18)]);
   }), 256
   /* UNKEYED_FRAGMENT */
-  ))])])]), _hoisted_19], 64
+  ))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.project.images, function (image) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+      "class": "shrink-0 w-96 h-80 object-cover object-center rounded-lg shadow-xl bg-white",
+      src: image.image_url
+    }, null, 8
+    /* PROPS */
+    , _hoisted_22)]);
+  }), 256
+  /* UNKEYED_FRAGMENT */
+  ))])])], 64
   /* STABLE_FRAGMENT */
   );
 }
