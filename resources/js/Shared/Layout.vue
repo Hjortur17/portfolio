@@ -27,7 +27,7 @@
 
     <slot></slot>
 
-    <footer class="max-w-screen-xl mx-auto flex items-center justify-between py-16">
+    <footer class="max-w-screen-xl mx-auto flex items-center justify-between pb-16 pt-32">
         <p>© {{ new Date().getFullYear() }} Hjörtur Freyr </p>
     </footer>
 </template>

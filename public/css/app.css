@@ -428,15 +428,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .top-0{
   top: 0px;
 }
-.row-span-2{
-  grid-row: span 2 / span 2;
-}
-.row-start-1{
-  grid-row-start: 1;
-}
-.row-start-2{
-  grid-row-start: 2;
-}
 .mx-auto{
   margin-left: auto;
   margin-right: auto;
@@ -444,8 +435,8 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mb-3{
   margin-bottom: 0.75rem;
 }
-.mb-6{
-  margin-bottom: 1.5rem;
+.mb-12{
+  margin-bottom: 3rem;
 }
 .mb-4{
   margin-bottom: 1rem;
@@ -468,14 +459,17 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-40{
   height: 10rem;
 }
+.h-96{
+  height: 24rem;
+}
+.h-80{
+  height: 20rem;
+}
 .h-full{
   height: 100%;
 }
 .h-8{
   height: 2rem;
-}
-.h-80{
-  height: 20rem;
 }
 .h-5{
   height: 1.25rem;
@@ -532,9 +526,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .snap-mandatory{
   --tw-scroll-snap-strictness: mandatory;
 }
-.snap-start{
-  scroll-snap-align: start;
-}
 .snap-center{
   scroll-snap-align: center;
 }
@@ -549,12 +540,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .grid-cols-6{
   grid-template-columns: repeat(6, minmax(0, 1fr));
-}
-.grid-rows-4{
-  grid-template-rows: repeat(4, minmax(0, 1fr));
-}
-.place-content-center{
-  place-content: center;
 }
 .items-center{
   align-items: center;
@@ -600,9 +585,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .rounded-full{
   border-radius: 9999px;
 }
-.bg-yellow-400{
+.rounded-sm{
+  border-radius: 0.125rem;
+}
+.bg-lighter{
   --tw-bg-opacity: 1;
-  background-color: rgb(250 204 21 / var(--tw-bg-opacity));
+  background-color: rgb(225 225 225 / var(--tw-bg-opacity));
 }
 .bg-white{
   --tw-bg-opacity: 1;
@@ -611,6 +599,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-gray-600{
   --tw-bg-opacity: 1;
   background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+}
+.object-contain{
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 .object-cover{
   -o-object-fit: cover;
@@ -623,9 +615,28 @@ Ensure the default browser behavior of the `hidden` attribute.
 .p-4{
   padding: 1rem;
 }
+.p-8{
+  padding: 2rem;
+}
 .py-16{
   padding-top: 4rem;
   padding-bottom: 4rem;
+}
+.py-4{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.px-8{
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.px-16{
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+.py-8{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 .pb-6{
   padding-bottom: 1.5rem;
@@ -635,6 +646,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .pt-16{
   padding-top: 4rem;
+}
+.pb-16{
+  padding-bottom: 4rem;
+}
+.pt-32{
+  padding-top: 8rem;
 }
 .text-center{
   text-align: center;
@@ -647,13 +664,13 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-size: 1.25rem;
   line-height: 1.75rem;
 }
-.text-5xl{
-  font-size: 3rem;
-  line-height: 1;
-}
 .text-lg{
   font-size: 1.125rem;
   line-height: 1.75rem;
+}
+.text-5xl{
+  font-size: 3rem;
+  line-height: 1;
 }
 .text-3xl{
   font-size: 1.875rem;
@@ -668,7 +685,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 .leading-relaxed{
   line-height: 1.625;
 }
-.text-light-main{
+.text-light{
   --tw-text-opacity: 1;
   color: rgb(126 126 126 / var(--tw-text-opacity));
 }
@@ -688,6 +705,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+.duration-300{
+  transition-duration: 300ms;
+}
+.ease-in-out{
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
@@ -736,15 +759,20 @@ h3, h4 {
   grid-column-start: 2;
 }
 
+.even\:mt-16:nth-child(even){
+  margin-top: 4rem;
+}
+
 .even\:text-right:nth-child(even){
   text-align: right;
 }
 
-@media (min-width: 640px){
+.hover\:-mt-4:hover{
+  margin-top: -1rem;
+}
 
-  .sm\:p-12{
-    padding: 3rem;
-  }
+.even\:hover\:mt-12:hover:nth-child(even){
+  margin-top: 3rem;
 }
 
 @media (min-width: 1024px){

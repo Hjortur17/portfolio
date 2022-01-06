@@ -16,18 +16,15 @@
     </section>
 
     <section class="max-w-screen-xl mx-auto">
-        <h3 class="text-xl mb-6">Chosen projects</h3>
+        <h3 class="text-xl mb-12">Chosen projects</h3>
 
-        <div class="grid grid-rows-4 grid-cols-3 grid-flow-col gap-4">
-            <Link :href="'/projects/' + project.slug" class="p-4 sm:p-12 rounded-lg shadow-lg bg-yellow-400 grid place-content-center row-start-1 row-span-2" v-for="project in projects">
-                <span v-text="project.name"></span>
+        <div class="h-96 grid grid-cols-3 grid-flow-col gap-4">
+            <Link :href="'/projects/' + project.slug" class="even:mt-16 hover:-mt-4 even:hover:mt-12 ease-in-out duration-300" v-for="project in projects">
+                <div class="rounded-lg shadow-lg bg-lighter h-80 mb-4 py-8 px-16">
+                    <img class="object-center w-full h-full" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASIAAACuCAMAAAClZfCTAAAAn1BMVEX////x8fHl5eXi4uL7+/vo6OjV1dX39/f09PTt7e3v7+/hsWfSbm7j4+Pq6uqbxX3RaWngrmCYxHjc3Nz3+fzv2NrcmZnaj4zourvz8Ofmy5vlv4jpzqjz8u7d6ta006HO4sLQYl/gqqqSwXLI27feoKDp2sLt49Pz6uro1bnirlyxz5f08fXkyMnQZ2Xit3XR3ce20KTVe3rr4NeiyYbkfHaLAAACeUlEQVR4nO3YXXPSQBhA4Q0xkA0hfLW0FVusVFHEYtX//9vcVOqMvci5hJHz5OLdZG92zuQmCVmuTlkYBXUaheqNOlUhvnoySNefeVicuxiawbPnNq2LdD3Pl8W5a14SXS6urtt583b57jbNi7vV6v0RD3Y6mlCUyeCynkzuP9yW2XA63S7Tk7vZbLZ+KFUWociS8uOkrutJVX7aDofD6aYsV7PxeDzbZSpCL6uqqly0iR4/7760ibabbPe1TbTetZt//XPz+vZ/3cx6YVTFGKtv95P68aqKzTS9RPsmVt/XqdDTLp69ahTy2DRNjNc/6kUvNnGz3y9/phkffo2fmnbvzMU85IdVMUo9iqIpbg57aa0kJSrUKQ/zoqcOxTz0j32GU9cP8746zUMWjv2deNpSoOzY/2NOnYmQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkIlQFvJjH+HU5aHM1an8DWpZfV1dzFjZAAAAAElFTkSuQmCC" alt="">
+                </div>
+                <span v-text="project.name" class="text-lg"></span>
             </Link>
-            <div class="p-4 sm:p-12 rounded-lg shadow-lg bg-yellow-400 grid place-content-center row-start-2 row-span-2">
-                02
-            </div>
-            <div class="p-4 sm:p-12 rounded-lg shadow-lg bg-yellow-400 grid place-content-center row-start-1 row-span-2">
-                03
-            </div>
         </div>
     </section>
 </template>
