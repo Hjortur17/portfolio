@@ -1,6 +1,6 @@
 <template>
     <nav class="max-w-screen-xl mx-auto flex items-center justify-between pt-16">
-        <Link href="/"><h1 class="w-full text-xl font-medium">Hjörtur Freyr</h1></Link>
+        <Link href="/" class="link"><h1 class="w-full text-xl font-medium">Hjörtur Freyr</h1></Link>
 
 <!--        <div class="flex justify-end items-center w-full">-->
 <!--            <label for="toggleB" class="flex items-center cursor-pointer">-->
@@ -29,6 +29,11 @@
 
     <footer class="max-w-screen-xl mx-auto flex items-center justify-between pb-16 pt-32">
         <p>© {{ new Date().getFullYear() }} Hjörtur Freyr </p>
+
+        <ul class="list-none flex space-x-4">
+            <li><a href="https://dribbble.com/hjortur17" target="_blank" class="link">Dribbble</a></li>
+            <li><a href="mailto:hjorturfreyr@hjorturfreyr.com" class="link">Contact Me</a></li>
+        </ul>
     </footer>
 </template>
 
