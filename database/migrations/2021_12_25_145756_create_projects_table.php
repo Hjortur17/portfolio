@@ -17,6 +17,7 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string('slug');
             $table->string('name');
+            $table->string('path');
             $table->text('description');
             $table->text('problem');
             $table->string('problem_url')->nullable();
