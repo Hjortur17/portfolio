@@ -29,8 +29,8 @@
             <p v-text="project.solution" class="leading-relaxed"></p>
 
             <h4 class="text-lg pt-8 mb-4 uppercase">Tools</h4>
-            <div class="grid grid-cols-6 gap-y-2.5">
-                <div class="flex items-center text-light space-x-4 odd:col-start-1 odd:col-span-2 even:col-start-2 even:col-span-3 even:text-right" v-for="tool in project.tools">
+            <div class="grid grid-cols-4 gap-y-2.5">
+                <div class="flex items-center text-light space-x-4" v-for="tool in project.tools">
                     <img :src="tool.tool_icon" class="w-8 h-8">
                     <p v-text="tool.title"></p>
                 </div>
