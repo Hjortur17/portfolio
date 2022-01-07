@@ -480,12 +480,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-4{
   height: 1rem;
 }
-.h-60{
-  height: 15rem;
-}
-.h-auto{
-  height: auto;
-}
 .w-full{
   width: 100%;
 }
@@ -512,9 +506,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .w-4{
   width: 1rem;
-}
-.w-auto{
-  width: auto;
 }
 .max-w-screen-md{
   max-width: 768px;
@@ -585,11 +576,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-right: calc(1rem * var(--tw-space-x-reverse));
   margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
-.space-x-6 > :not([hidden]) ~ :not([hidden]){
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
-}
 .space-x-8 > :not([hidden]) ~ :not([hidden]){
   --tw-space-x-reverse: 0;
   margin-right: calc(2rem * var(--tw-space-x-reverse));
@@ -626,9 +612,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 1;
   background-color: rgb(75 85 99 / var(--tw-bg-opacity));
 }
-.fill-current{
-  fill: currentColor;
-}
 .object-cover{
   -o-object-fit: cover;
      object-fit: cover;
@@ -643,12 +626,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .p-2{
   padding: 0.5rem;
 }
-.p-4{
-  padding: 1rem;
-}
-.p-8{
-  padding: 2rem;
-}
 .py-16{
   padding-top: 4rem;
   padding-bottom: 4rem;
@@ -660,14 +637,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .px-16{
   padding-left: 4rem;
   padding-right: 4rem;
-}
-.py-4{
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-.px-8{
-  padding-left: 2rem;
-  padding-right: 2rem;
 }
 .pb-6{
   padding-bottom: 1.5rem;
