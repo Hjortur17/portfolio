@@ -30,7 +30,8 @@
     <footer class="max-w-screen-xl mx-auto flex items-center justify-between pb-16 pt-32">
         <p>© {{ new Date().getFullYear() }} Hjörtur Freyr </p>
 
-        <ul class="list-none flex space-x-4">
+        <ul class="list-none flex space-x-8">
+            <li><a href="https://github.com/hjortur17" target="_blank" class="link">Github</a></li>
             <li><a href="https://dribbble.com/hjortur17" target="_blank" class="link">Dribbble</a></li>
             <li><a href="mailto:hjorturfreyr@hjorturfreyr.com" class="link">Contact Me</a></li>
         </ul>
