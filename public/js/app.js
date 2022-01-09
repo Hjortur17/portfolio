@@ -20235,7 +20235,7 @@ var _hoisted_1 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<section class=\"max-w-screen-md mx-auto justify-center text-center py-16 lg:py-24 xl:py-36\" data-v-3655eff9><div class=\"w-full mx-auto pb-6\" data-v-3655eff9><img src=\"" + _images_me_svg__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" class=\"w-40 h-40 mx-auto\" data-v-3655eff9></div><h2 class=\"text-4xl mb-3\" data-v-3655eff9>Hello, this is me <span class=\"wave\" data-v-3655eff9>👋</span></h2><p data-v-3655eff9> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aspernatur at blanditiis, cupiditate explicabo laboriosam, laudantium minus molestiae natus nisi, pariatur perferendis quaerat quas repudiandae sequi vero vitae voluptate voluptatibus. </p></section>", 1);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<section class=\"max-w-screen-md mx-auto justify-center text-center py-16 lg:py-24\" data-v-3655eff9><div class=\"w-full mx-auto pb-6\" data-v-3655eff9><img src=\"" + _images_me_svg__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" class=\"w-40 h-40 mx-auto\" data-v-3655eff9></div><h2 class=\"text-4xl mb-3\" data-v-3655eff9>Hello, this is me <span class=\"wave\" data-v-3655eff9>👋</span></h2><p data-v-3655eff9> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aspernatur at blanditiis, cupiditate explicabo laboriosam, laudantium minus molestiae natus nisi, pariatur perferendis quaerat quas repudiandae sequi vero vitae voluptate voluptatibus. </p></section>", 1);
 
 var _hoisted_3 = {
   "class": "max-w-screen-xl mx-auto"
@@ -20252,20 +20252,11 @@ var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_5 = {
   "class": "h-96 grid grid-cols-3 grid-flow-col gap-4"
 };
-
-var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "rounded-lg shadow-lg bg-lighter h-80 mb-4 py-8 px-16"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-    "class": "object-center w-full h-full",
-    src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASIAAACuCAMAAAClZfCTAAAAn1BMVEX////x8fHl5eXi4uL7+/vo6OjV1dX39/f09PTt7e3v7+/hsWfSbm7j4+Pq6uqbxX3RaWngrmCYxHjc3Nz3+fzv2NrcmZnaj4zourvz8Ofmy5vlv4jpzqjz8u7d6ta006HO4sLQYl/gqqqSwXLI27feoKDp2sLt49Pz6uro1bnirlyxz5f08fXkyMnQZ2Xit3XR3ce20KTVe3rr4NeiyYbkfHaLAAACeUlEQVR4nO3YXXPSQBhA4Q0xkA0hfLW0FVusVFHEYtX//9vcVOqMvci5hJHz5OLdZG92zuQmCVmuTlkYBXUaheqNOlUhvnoySNefeVicuxiawbPnNq2LdD3Pl8W5a14SXS6urtt583b57jbNi7vV6v0RD3Y6mlCUyeCynkzuP9yW2XA63S7Tk7vZbLZ+KFUWociS8uOkrutJVX7aDofD6aYsV7PxeDzbZSpCL6uqqly0iR4/7760ibabbPe1TbTetZt//XPz+vZ/3cx6YVTFGKtv95P68aqKzTS9RPsmVt/XqdDTLp69ahTy2DRNjNc/6kUvNnGz3y9/phkffo2fmnbvzMU85IdVMUo9iqIpbg57aa0kJSrUKQ/zoqcOxTz0j32GU9cP8746zUMWjv2deNpSoOzY/2NOnYmQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkImQiZCJkIlQFvJjH+HU5aHM1an8DWpZfV1dzFjZAAAAAElFTkSuQmCC",
-    alt: ""
-  })], -1
-  /* HOISTED */
-  );
-});
-
-var _hoisted_7 = ["textContent"];
+var _hoisted_6 = {
+  "class": "rounded-lg shadow-lg bg-lighter h-80 mb-4"
+};
+var _hoisted_7 = ["src", "alt"];
+var _hoisted_8 = ["textContent"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Head = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Head");
 
@@ -20284,12 +20275,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "class": "hover:-mt-2 ease-in-out duration-300"
     }, {
       "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-        return [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+        return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+          "class": "object-center w-full h-full rounded-lg",
+          src: project.image,
+          alt: project.name
+        }, null, 8
+        /* PROPS */
+        , _hoisted_7)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
           textContent: (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(project.name),
           "class": "text-lg"
         }, null, 8
         /* PROPS */
-        , _hoisted_7)];
+        , _hoisted_8)];
       }),
       _: 2
       /* DYNAMIC */
@@ -20363,11 +20360,11 @@ var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_11 = ["textContent"];
-var _hoisted_12 = ["src"];
+var _hoisted_12 = ["src", "alt"];
 var _hoisted_13 = {
   "class": "max-w-screen-xl mx-auto flex items-center justify-between py-16 lg:py-24 xl:py-24"
 };
-var _hoisted_14 = ["src"];
+var _hoisted_14 = ["src", "alt"];
 var _hoisted_15 = {
   "class": "w-1/2"
 };
@@ -20406,7 +20403,7 @@ var _hoisted_24 = {
   id: "image-slider"
 };
 var _hoisted_25 = {
-  "class": "snap-always first:snap-start last:snap-end snap-center shrink-0 first:pl-8 last:pr-8"
+  "class": "snap-always first:snap-start last:snap-end snap-center shrink-0 first:pl-16 last:pr-16 p-4 bg-transparent"
 };
 var _hoisted_26 = ["src"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -20444,14 +20441,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , _hoisted_11)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: $props.project.problem_url,
-    alt: "",
-    "class": "w-2/5 min-h-104 h-full max-h-104 object-center object-cover"
+    alt: $props.project.name + '- Problem',
+    "class": "w-2/5 h-3/5 rounded-lg shadow-lg"
   }, null, 8
   /* PROPS */
   , _hoisted_12)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: $props.project.solution_url,
-    alt: "",
-    "class": "w-2/5 min-h-104 h-full max-h-104 object-center object-cover"
+    alt: $props.project.name + '- Solution',
+    "class": "w-2/5 h-3/5 rounded-lg shadow-lg"
   }, null, 8
   /* PROPS */
   , _hoisted_14), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
@@ -20474,7 +20471,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* UNKEYED_FRAGMENT */
   ))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.project.images, function (image) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-      "class": "shrink-0 w-96 h-80 object-cover object-center rounded-lg shadow-xl bg-white",
+      "class": "shrink-0 w-104 h-80 object-fit object-center shadow-lg rounded-lg",
       src: image.image_url
     }, null, 8
     /* PROPS */
@@ -20734,7 +20731,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.min-h-104[data-v-732c8ba6] {\n    min-height: 28rem;\n}\n.max-h-104[data-v-732c8ba6] {\n    max-height: 28rem;\n}\n\n/* Hide scrollbar for Chrome, Safari and Opera */\n#image-slider[data-v-732c8ba6]::-webkit-scrollbar {\n    display: none;\n}\n\n/* Hide scrollbar for IE, Edge and Firefox */\n#image-slider[data-v-732c8ba6] {\n    -ms-overflow-style: none; /* IE and Edge */\n    scrollbar-width: none; /* Firefox */\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.min-h-104[data-v-732c8ba6] {\n    min-height: 28rem;\n}\n.max-h-104[data-v-732c8ba6] {\n    max-height: 28rem;\n}\n.w-104[data-v-732c8ba6] {\n    width: 32rem;\n}\n\n/* Hide scrollbar for Chrome, Safari and Opera */\n#image-slider[data-v-732c8ba6]::-webkit-scrollbar {\n    display: none;\n}\n\n/* Hide scrollbar for IE, Edge and Firefox */\n#image-slider[data-v-732c8ba6] {\n    -ms-overflow-style: none; /* IE and Edge */\n    scrollbar-width: none; /* Firefox */\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

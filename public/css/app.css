@@ -428,6 +428,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .top-0{
   top: 0px;
 }
+.m-4{
+  margin: 1rem;
+}
 .mx-auto{
   margin-left: auto;
   margin-right: auto;
@@ -480,6 +483,23 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-4{
   height: 1rem;
 }
+.h-auto{
+  height: auto;
+}
+.h-fit{
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.h-3\/5{
+  height: 60%;
+}
+.h-60{
+  height: 15rem;
+}
+.h-72{
+  height: 18rem;
+}
 .w-full{
   width: 100%;
 }
@@ -507,6 +527,15 @@ Ensure the default browser behavior of the `hidden` attribute.
 .w-4{
   width: 1rem;
 }
+.w-auto{
+  width: auto;
+}
+.w-80{
+  width: 20rem;
+}
+.min-w-full{
+  min-width: 100%;
+}
 .max-w-screen-md{
   max-width: 768px;
 }
@@ -515,6 +544,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .shrink-0{
   flex-shrink: 0;
+}
+.shrink{
+  flex-shrink: 1;
 }
 .transform{
   transform: var(--tw-transform);
@@ -546,6 +578,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .grid-cols-4{
   grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.items-start{
+  align-items: flex-start;
 }
 .items-center{
   align-items: center;
@@ -584,6 +619,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .overflow-auto{
   overflow: auto;
 }
+.overflow-hidden{
+  overflow: hidden;
+}
 .overflow-x-auto{
   overflow-x: auto;
 }
@@ -595,6 +633,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .rounded-full{
   border-radius: 9999px;
+}
+.rounded{
+  border-radius: 0.25rem;
 }
 .bg-lighter{
   --tw-bg-opacity: 1;
@@ -612,9 +653,28 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 1;
   background-color: rgb(75 85 99 / var(--tw-bg-opacity));
 }
+.bg-gray-200{
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
+.bg-transparent{
+  background-color: transparent;
+}
+.object-contain{
+  -o-object-fit: contain;
+     object-fit: contain;
+}
 .object-cover{
   -o-object-fit: cover;
      object-fit: cover;
+}
+.object-none{
+  -o-object-fit: none;
+     object-fit: none;
+}
+.object-scale-down{
+  -o-object-fit: scale-down;
+     object-fit: scale-down;
 }
 .object-center{
   -o-object-position: center;
@@ -625,6 +685,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .p-2{
   padding: 0.5rem;
+}
+.p-4{
+  padding: 1rem;
 }
 .py-16{
   padding-top: 4rem;
@@ -740,6 +803,14 @@ h3, h4 {
     color: #F0B429;
 }
 
+.first\:ml-8:first-child{
+  margin-left: 2rem;
+}
+
+.first\:ml-16:first-child{
+  margin-left: 4rem;
+}
+
 .first\:snap-start:first-child{
   scroll-snap-align: start;
 }
@@ -748,12 +819,28 @@ h3, h4 {
   padding-left: 2rem;
 }
 
+.first\:pl-16:first-child{
+  padding-left: 4rem;
+}
+
+.last\:mr-8:last-child{
+  margin-right: 2rem;
+}
+
+.last\:mr-16:last-child{
+  margin-right: 4rem;
+}
+
 .last\:snap-end:last-child{
   scroll-snap-align: end;
 }
 
 .last\:pr-8:last-child{
   padding-right: 2rem;
+}
+
+.last\:pr-16:last-child{
+  padding-right: 4rem;
 }
 
 .hover\:-mt-2:hover{

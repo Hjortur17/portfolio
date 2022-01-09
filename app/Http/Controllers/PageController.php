@@ -17,6 +17,7 @@ class PageController extends Controller
                     return [
                         'slug' => $projects->slug,
                         'name' => $projects->name,
+                        'image' => $projects->images[0]->image_url,
                     ];
                 })
         ]);
