@@ -8,7 +8,7 @@
             <h1 v-text="project.name" class="text-4xl md:text-5xl"></h1>
 
             <a :href="project.path" target="_blank"
-               class="bg-gray-300 hover:bg-gray-200 text-gray-700 hover:text-gray-500 duration-300 ease-in-out rounded-full w-10 h-10 p-2.5 cursor-pointer">
+               class="bg-main hover:bg-yellow-300 text-gray-700 hover:text-gray-500 duration-300 ease-in-out rounded-full w-10 h-10 p-2.5 cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-full h-full">
                     <!-- Font Awesome Pro 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
                     <path

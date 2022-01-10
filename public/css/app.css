@@ -483,23 +483,17 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-10{
   height: 2.5rem;
 }
-.h-80{
-  height: 20rem;
-}
 .h-8{
   height: 2rem;
 }
-.h-56{
-  height: 14rem;
+.h-52{
+  height: 13rem;
 }
 .h-5{
   height: 1.25rem;
 }
 .h-4{
   height: 1rem;
-}
-.h-52{
-  height: 13rem;
 }
 .w-full{
   width: 100%;
@@ -644,6 +638,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
+.bg-yellow-300{
+  --tw-bg-opacity: 1;
+  background-color: rgb(253 224 71 / var(--tw-bg-opacity));
+}
+.bg-main{
+  --tw-bg-opacity: 1;
+  background-color: rgb(247 201 72 / var(--tw-bg-opacity));
+}
 .object-center{
   -o-object-position: center;
      object-position: center;
@@ -779,9 +781,19 @@ h3, h4 {
   margin-top: -0.5rem;
 }
 
-.hover\:bg-gray-200:hover{
+.hover\:bg-yellow-200:hover{
   --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+  background-color: rgb(254 240 138 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-yellow-400:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 204 21 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-yellow-300:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(253 224 71 / var(--tw-bg-opacity));
 }
 
 .hover\:text-gray-500:hover{
@@ -803,32 +815,20 @@ h3, h4 {
     height: auto;
   }
 
-  .md\:h-80{
-    height: 20rem;
+  .md\:h-72{
+    height: 18rem;
   }
 
   .md\:h-3\/5{
     height: 60%;
   }
 
-  .md\:h-72{
-    height: 18rem;
-  }
-
-  .md\:h-4\/5{
-    height: 80%;
-  }
-
-  .md\:h-3\/4{
-    height: 75%;
-  }
-
   .md\:h-full{
     height: 100%;
   }
 
-  .md\:h-64{
-    height: 16rem;
+  .md\:h-80{
+    height: 20rem;
   }
 
   .md\:w-1\/2{
@@ -841,10 +841,6 @@ h3, h4 {
 
   .md\:w-128{
     width: 32rem;
-  }
-
-  .md\:w-96{
-    width: 24rem;
   }
 
   .md\:flex-row{

@@ -20426,7 +20426,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   , _hoisted_3), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: $props.project.path,
     target: "_blank",
-    "class": "bg-gray-300 hover:bg-gray-200 text-gray-700 hover:text-gray-500 duration-300 ease-in-out rounded-full w-10 h-10 p-2.5 cursor-pointer"
+    "class": "bg-main hover:bg-yellow-300 text-gray-700 hover:text-gray-500 duration-300 ease-in-out rounded-full w-10 h-10 p-2.5 cursor-pointer"
   }, _hoisted_6, 8
   /* PROPS */
   , _hoisted_4)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
