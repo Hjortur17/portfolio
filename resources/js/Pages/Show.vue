@@ -3,9 +3,9 @@
         <title>{{ project.name }}</title>
     </Head>
 
-    <header class="max-w-screen-md mx-auto justify-center text-center py-16 lg:py-24 xl:py-36">
-        <div class="w-full justify-center flex items-center space-x-4 mb-4">
-            <h1 v-text="project.name" class="text-5xl"></h1>
+    <header class="max-w-screen-md mx-auto justify-center text-center py-16 lg:py-24 xl:py-36 px-6 md:px-0">
+        <div class="w-full justify-center flex items-center space-x-2 md:space-x-4 mb-4">
+            <h1 v-text="project.name" class="text-4xl md:text-5xl"></h1>
 
             <a :href="project.path" target="_blank"
                class="bg-gray-300 hover:bg-gray-200 text-gray-700 hover:text-gray-500 duration-300 ease-in-out rounded-full w-10 h-10 p-2.5 cursor-pointer">
@@ -19,23 +19,23 @@
         <p v-text="project.description" class="text-lg"></p>
     </header>
 
-    <section class="max-w-screen-xl mx-auto flex items-center justify-between py-16">
-        <div class="w-1/2">
+    <section class="max-w-screen-xl mx-auto flex items-start md:items-center justify-between flex-col md:flex-row py-16 px-6 md:px-0 space-y-8 md:space-y-0">
+        <div class="w-full md:w-1/2">
             <h3 class="text-3xl mb-4">Problem</h3>
             <p v-text="project.problem" class="leading-relaxed"></p>
         </div>
-        <img :src="project.problem_url" :alt="project.name + '- Problem'" class="w-2/5 h-3/5 rounded-lg shadow-lg" />
+        <img :src="project.problem_url" :alt="project.name + '- Problem'" class="w-full md:w-2/5 h-80 md:h-3/5 rounded-lg shadow-lg" />
     </section>
 
-    <section class="max-w-screen-xl mx-auto flex items-center justify-between py-16 lg:py-24 xl:py-24">
-        <img :src="project.solution_url" :alt="project.name + '- Solution'" class="w-2/5 h-3/5 rounded-lg shadow-lg" />
-        <div class="w-1/2">
+    <section class="max-w-screen-xl mx-auto flex items-start md:items-center justify-between flex-col-reverse md:flex-row py-16 lg:py-24 xl:py-24 px-6 md:px-0">
+        <img :src="project.solution_url" :alt="project.name + '- Solution'" class="w-full md:w-2/5 h-80 md:h-3/5 rounded-lg shadow-lg mt-8 md:mt-0" />
+        <div class="w-full md:w-1/2">
             <h3 class="text-3xl mb-4">Solution</h3>
             <p v-text="project.solution" class="leading-relaxed"></p>
 
             <h4 class="text-lg pt-8 mb-4 uppercase">Tools</h4>
             <div class="grid grid-cols-4 gap-y-2.5">
-                <div class="flex items-center text-light space-x-4" v-for="tool in project.tools">
+                <div class="col-span-2 md:col-span-1 flex items-center text-light space-x-4" v-for="tool in project.tools">
                     <img :src="tool.tool_icon" class="w-8 h-8">
                     <p v-text="tool.title"></p>
                 </div>
@@ -44,10 +44,10 @@
     </section>
 
     <section class="relative max-w-screen overflow-auto">
-        <div class="relative w-full flex gap-6 snap-x snap-mandatory overflow-x-auto" id="image-slider">
-            <div class="snap-always first:snap-start last:snap-end snap-center shrink-0 first:pl-16 last:pr-16 p-4 bg-transparent"
+        <div class="relative w-full flex gap-2 md:gap-6 snap-x snap-mandatory overflow-x-auto" id="image-slider">
+            <div class="snap-always first:snap-start last:snap-end snap-center shrink-0 first:pl-6 last:pr-6 md:first:pl-16 md:last:pr-16 p-4 bg-transparent"
                  v-for="image in project.images">
-                <img class="shrink-0 w-104 h-80 object-fit object-center shadow-lg rounded-lg"
+                <img class="shrink-0 w-72 md:w-104 h-56 md:h-80 object-fit object-center shadow-lg rounded-lg"
                      :src="image.image_url">
             </div>
         </div>

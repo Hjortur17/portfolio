@@ -3,11 +3,11 @@
         <title>Freelance Web-Developer</title>
     </Head>
 
-    <section class="max-w-screen-md mx-auto justify-center text-center py-16 lg:py-24">
+    <section class="h-screen md:h-auto flex flex-col items-center max-w-screen-md mx-auto justify-center text-center py-16 lg:py-24 px-6 md:px-0">
         <div class="w-full mx-auto pb-6">
             <img src="../../images/me.svg" class="w-40 h-40 mx-auto">
         </div>
-        <h2 class="text-4xl mb-3">Hello, this is me <span class="wave">👋</span></h2>
+        <h2 class="text-3xl md:text-4xl mb-3">Hello, this is me <span class="wave">👋</span></h2>
         <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aspernatur at blanditiis, cupiditate
             explicabo laboriosam, laudantium minus molestiae natus nisi, pariatur perferendis quaerat quas repudiandae
@@ -15,12 +15,12 @@
         </p>
     </section>
 
-    <section class="max-w-screen-xl mx-auto">
+    <section class="max-w-screen-xl mx-auto px-6 md:px-0">
         <h3 class="text-xl mb-12">Chosen projects</h3>
 
         <div class="h-96 grid grid-cols-3 grid-flow-col gap-4">
-            <Link :href="'/projects/' + project.slug" class="hover:-mt-2 ease-in-out duration-300" v-for="project in projects">
-                <div class="rounded-lg shadow-lg bg-lighter h-80 mb-4">
+            <Link :href="'/projects/' + project.slug" class="col-span-3 md:col-span-1 hover:-mt-2 ease-in-out duration-300" v-for="project in projects">
+                <div class="rounded-lg shadow-lg bg-lighter h-64 md:h-80 mb-4">
                     <img class="object-center w-full h-full rounded-lg" :src="project.image" :alt="project.name">
                 </div>
                 <span v-text="project.name" class="text-lg"></span>
