@@ -23,7 +23,7 @@
         <div class="h-96 grid grid-cols-3 grid-flow-col gap-4">
             <Link :href="'/projects/' + project.slug"
                   class="col-span-3 md:col-span-1 hover:-mt-2 ease-in-out duration-300" v-for="project in projects">
-                <div class="rounded-lg shadow-lg bg-lighter h-64 md:h-80 mb-4">
+                <div class="rounded-lg shadow-lg bg-lighter h-64 md:h-72 mb-4">
                     <img class="object-center w-full h-full rounded-lg" :src="project.image" :alt="project.name">
                 </div>
                 <span v-text="project.name" class="text-lg"></span>

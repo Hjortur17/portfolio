@@ -20253,7 +20253,7 @@ var _hoisted_5 = {
   "class": "h-96 grid grid-cols-3 grid-flow-col gap-4"
 };
 var _hoisted_6 = {
-  "class": "rounded-lg shadow-lg bg-lighter h-64 md:h-80 mb-4"
+  "class": "rounded-lg shadow-lg bg-lighter h-64 md:h-72 mb-4"
 };
 var _hoisted_7 = ["src", "alt"];
 var _hoisted_8 = ["textContent"];
@@ -20442,13 +20442,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   , _hoisted_11)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: $props.project.problem_url,
     alt: $props.project.name + '- Problem',
-    "class": "w-full md:w-2/5 h-80 md:h-3/5 rounded-lg shadow-lg"
+    "class": "w-full md:w-2/5 h-96 md:h-3/5 rounded-lg shadow-lg"
   }, null, 8
   /* PROPS */
   , _hoisted_12)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: $props.project.solution_url,
     alt: $props.project.name + '- Solution',
-    "class": "w-full md:w-2/5 h-80 md:h-3/5 rounded-lg shadow-lg mt-8 md:mt-0"
+    "class": "w-full md:w-2/5 h-96 md:h-full rounded-lg shadow-lg mt-8 md:mt-0"
   }, null, 8
   /* PROPS */
   , _hoisted_14), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
@@ -20471,7 +20471,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* UNKEYED_FRAGMENT */
   ))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.project.images, function (image) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-      "class": "shrink-0 w-72 md:w-128 h-56 md:h-80 object-fit object-center shadow-lg rounded-lg",
+      "class": "shrink-0 w-72 md:w-128 h-52 md:h-80 object-fit object-center shadow-lg rounded-lg",
       src: image.image_url
     }, null, 8
     /* PROPS */
