@@ -20471,7 +20471,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* UNKEYED_FRAGMENT */
   ))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.project.images, function (image) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-      "class": "shrink-0 w-72 md:w-104 h-56 md:h-80 object-fit object-center shadow-lg rounded-lg",
+      "class": "shrink-0 w-72 md:w-128 h-56 md:h-80 object-fit object-center shadow-lg rounded-lg",
       src: image.image_url
     }, null, 8
     /* PROPS */
@@ -20731,7 +20731,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.min-h-104[data-v-732c8ba6] {\n    min-height: 28rem;\n}\n.max-h-104[data-v-732c8ba6] {\n    max-height: 28rem;\n}\n.w-104[data-v-732c8ba6] {\n    width: 32rem;\n}\n\n/* Hide scrollbar for Chrome, Safari and Opera */\n#image-slider[data-v-732c8ba6]::-webkit-scrollbar {\n    display: none;\n}\n\n/* Hide scrollbar for IE, Edge and Firefox */\n#image-slider[data-v-732c8ba6] {\n    -ms-overflow-style: none; /* IE and Edge */\n    scrollbar-width: none; /* Firefox */\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/* Hide scrollbar for Chrome, Safari and Opera */\n#image-slider[data-v-732c8ba6]::-webkit-scrollbar {\n    display: none;\n}\n\n/* Hide scrollbar for IE, Edge and Firefox */\n#image-slider[data-v-732c8ba6] {\n    -ms-overflow-style: none; /* IE and Edge */\n    scrollbar-width: none; /* Firefox */\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

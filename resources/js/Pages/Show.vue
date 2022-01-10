@@ -47,7 +47,7 @@
         <div class="relative w-full flex gap-2 md:gap-6 snap-x snap-mandatory overflow-x-auto" id="image-slider">
             <div class="snap-always first:snap-start last:snap-end snap-center shrink-0 first:pl-6 last:pr-6 md:first:pl-16 md:last:pr-16 p-4 bg-transparent"
                  v-for="image in project.images">
-                <img class="shrink-0 w-72 md:w-104 h-56 md:h-80 object-fit object-center shadow-lg rounded-lg"
+                <img class="shrink-0 w-72 md:w-128 h-56 md:h-80 object-fit object-center shadow-lg rounded-lg"
                      :src="image.image_url">
             </div>
         </div>
@@ -64,18 +64,6 @@ export default {
 </script>
 
 <style scoped>
-.min-h-104 {
-    min-height: 28rem;
-}
-
-.max-h-104 {
-    max-height: 28rem;
-}
-
-.w-104 {
-    width: 32rem;
-}
-
 /* Hide scrollbar for Chrome, Safari and Opera */
 #image-slider::-webkit-scrollbar {
     display: none;
