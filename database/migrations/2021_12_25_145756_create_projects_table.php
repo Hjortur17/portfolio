@@ -23,6 +23,7 @@ class CreateProjectsTable extends Migration
             $table->string('problem_url')->nullable();
             $table->text('solution');
             $table->string('solution_url')->nullable();
+            $table->string('hero_url');
             $table->timestamps();
         });
     }

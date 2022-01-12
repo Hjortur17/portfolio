@@ -24,7 +24,7 @@
             <h3 class="text-3xl mb-4">Problem</h3>
             <p v-text="project.problem" class="leading-relaxed"></p>
         </div>
-        <img :src="project.problem_url" :alt="project.name + '- Problem'" class="w-full md:w-2/5 h-96 md:h-3/5 rounded-lg shadow-lg" />
+        <img v-if="project.problem_url" :src="project.problem_url" :alt="project.name + '- Problem'" class="w-full md:w-2/5 h-96 md:h-3/5 rounded-lg shadow-lg" />
     </section>
 
     <section class="max-w-screen-xl mx-auto flex items-start md:items-center justify-between flex-col-reverse md:flex-row py-16 lg:py-24 xl:py-24 px-6 md:px-0">
@@ -47,7 +47,7 @@
         <div class="relative w-full flex gap-2 md:gap-6 snap-x snap-mandatory overflow-x-auto" id="image-slider">
             <div class="snap-always first:snap-start last:snap-end snap-center shrink-0 first:pl-6 last:pr-6 md:first:pl-16 md:last:pr-16 p-4 bg-transparent"
                  v-for="image in project.images">
-                <img class="shrink-0 w-72 md:w-128 h-52 md:h-80 object-fit object-center shadow-lg rounded-lg"
+                <img v-if="project.solution_url" class="shrink-0 w-72 md:w-128 h-52 md:h-80 object-fit object-center shadow-lg rounded-lg"
                      :src="image.image_url">
             </div>
         </div>
