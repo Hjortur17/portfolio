@@ -4,11 +4,11 @@
     </Head>
 
     <section
-        class="h-screen md:h-auto flex flex-col items-center max-w-screen-md mx-auto justify-center text-center py-16 lg:py-24 px-6 md:px-0">
+        class="h-screen xl:h-auto flex flex-col items-center max-w-screen-md mx-auto justify-center text-center py-16 xl:py-24 px-6 xl:px-0">
         <div class="w-full mx-auto pb-6">
             <img src="../../images/me.svg" class="w-40 h-40 mx-auto">
         </div>
-        <h2 class="text-3xl md:text-4xl mb-3">Hello, this is me <span class="wave">👋</span></h2>
+        <h2 class="text-3xl xl:text-4xl mb-3">Hello, this is me <span class="wave">👋</span></h2>
         <p>
             My name is Hjörtur Freyr, and I’m a 22-year-old computer science student at Reykjavík University. For a
             while, I have been building websites just for fun and learning new techniques in the meantime. My passion is
@@ -17,13 +17,13 @@
         </p>
     </section>
 
-    <section class="max-w-screen-xl mx-auto px-6 md:px-0">
+    <section class="max-w-screen-xl mx-auto px-6 xl:px-0">
         <h3 class="text-xl mb-12">Chosen projects</h3>
 
-        <div class="h-96 grid grid-cols-3 grid-flow-col gap-4">
+        <div class="flex flex-col xl:grid xl:grid-cols-3 xl:grid-flow-col xl:gap-4">
             <Link :href="'/projects/' + project.slug"
-                  class="col-span-3 md:col-span-1 hover:-mt-2 ease-in-out duration-300" v-for="project in projects">
-                <div class="rounded-lg shadow-lg bg-lighter h-64 md:h-72 mb-4">
+                  class="xl:col-span-1 xl:hover:-mt-2 ease-in-out duration-300 mb-8 xl:mb-0" v-for="project in projects">
+                <div class="rounded-lg shadow-lg hover:shadow-xl xl:hover:shadow-lg ease-in-out duration-300 h-4/5 mb-4">
                     <img class="object-center w-full h-full rounded-lg" :src="project.image" :alt="project.name">
                 </div>
                 <span v-text="project.name" class="text-lg"></span>
