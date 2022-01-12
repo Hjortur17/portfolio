@@ -1,6 +1,6 @@
 <template>
-    <nav class="max-w-screen-xl mx-auto flex items-center justify-between px-6 xl:px-0 pt-16">
-        <Link href="/" class="link"><h1 class="w-full text-xl font-medium">Hjörtur Freyr</h1></Link>
+    <nav class="max-w-screen-xl mx-auto flex items-center justify-between px-6 xl:px-0 pt-8 sm:pt-16">
+        <Link href="/" class="link"><h1 class="w-full text-lg sm:text-xl font-medium">Hjörtur Freyr</h1></Link>
 
 <!--        <div class="flex justify-end items-center w-full">-->
 <!--            <label for="toggleB" class="flex items-center cursor-pointer">-->

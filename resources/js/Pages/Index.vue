@@ -4,12 +4,12 @@
     </Head>
 
     <section
-        class="h-screen xl:h-auto flex flex-col items-center max-w-screen-md mx-auto justify-center text-center py-16 xl:py-24 px-6 xl:px-0">
+        class="h-screen xl:h-auto flex flex-col items-center max-w-screen-md mx-auto justify-center text-center py-56 sm:py-16 xl:py-24 px-6 xl:px-0">
         <div class="w-full mx-auto pb-6">
-            <img src="../../images/me.svg" class="w-40 h-40 mx-auto">
+            <img src="../../images/me.svg" class="w-32 sm:w-40 h-32 sm:h-40 mx-auto">
         </div>
-        <h2 class="text-3xl xl:text-4xl mb-3">Hello, this is me <span class="wave">👋</span></h2>
-        <p>
+        <h2 class="text-2xl sm:text-3xl xl:text-4xl mb-3">Hello, this is me <span class="wave">👋</span></h2>
+        <p class="text-sm sm:text-base">
             My name is Hjörtur Freyr, and I’m a 22-year-old computer science student at Reykjavík University. For a
             while, I have been building websites just for fun and learning new techniques in the meantime. My passion is
             creating clean and functional websites that can help people or businesses achieve their goals to reach
@@ -20,13 +20,15 @@
     <section class="max-w-screen-xl mx-auto px-6 xl:px-0">
         <h3 class="text-xl mb-12">Chosen projects</h3>
 
-        <div class="flex flex-col xl:grid xl:grid-cols-3 xl:grid-flow-col xl:gap-4">
+        <div class="flex flex-col md:grid md:grid-cols-4 xl:grid-cols-3 md:grid-flow-col md:gap-4">
             <Link :href="'/projects/' + project.slug"
-                  class="xl:col-span-1 xl:hover:-mt-2 ease-in-out duration-300 mb-8 xl:mb-0" v-for="project in projects">
-                <div class="rounded-lg shadow-lg hover:shadow-xl xl:hover:shadow-lg ease-in-out duration-300 h-4/5 mb-4">
-                    <img class="object-center w-full h-full rounded-lg" :src="project.image" :alt="project.name">
+                  class="md:col-span-2 xl:col-span-1 mb-8 md:mb-0"
+                  v-for="project in projects">
+                <div
+                    class="rounded-md shadow-md hover:shadow-xl ease-in-out duration-300 mb-4">
+                    <img class="object-center w-full h-full rounded-md" :src="project.image" :alt="project.name">
                 </div>
-                <span v-text="project.name" class="text-lg"></span>
+                <span v-text="project.name" class="text-md"></span>
             </Link>
         </div>
     </section>
