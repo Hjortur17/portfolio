@@ -1,6 +1,10 @@
 <template>
     <Head>
         <title>Freelance Web-Developer</title>
+        <meta name="description" content="I have great passion for creating clean and functional websites that can help people or businesses achieve their goals to reach
+            further on the internet.">
+        <meta name="keywords"
+              content="Freelancer, Freelance Web Developer, Web Developer, Web Development, Laravel, VueJS">
     </Head>
 
     <section
