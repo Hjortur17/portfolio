@@ -7,6 +7,9 @@
 
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet"/>
     <script src="{{ mix('/js/app.js') }}" defer></script>
+    @if( config('app.env') == 'production')
+        <script async defer data-website-id="2e5b0513-5a9a-4f3f-b7c9-125620cfe33e" src="https://stats.hjorturfreyr.com/umami.js"></script>
+    @endif
 </head>
 <body>
     @inertia
