@@ -1,0 +1,76 @@
+{
+    "title": "Complete redesign",
+    "company": "Route 1 Car Rental",
+    "company_url": "https://route1.is",
+    "feature_image": "/images/projects/route1/feature.png",
+    "images": [
+        "/images/projects/route1/first.png",
+        "/images/projects/route1/second.png"
+    ],
+    "overview": "Route 1 Car Rental is a daughter company to Geysir Car Rental. The company was founded in 2010 and started on a small scale and as the years have passed the size of the company has grown. Their website wasn't updated since the company was founded (back in 2010) so it was long overdue on some fresh makeover. So my task was to get it back to the 21st century.",
+    "roles": [
+        "UI/UX Design",
+        "Front-end development",
+        "Back-end development"
+    ],
+    "technical_stack": [
+        {
+            "svg": "laravel",
+            "title": "Laravel",
+            "description": "I used Laravel for this project tight with Statmic. Laravel makes web development a creative experience with its abundance of features and capabilities."
+        },
+        {
+            "svg": "vuejs",
+            "title": "Vue JS",
+            "description": "Vue JS, a simple yet powerful Javascript framework. It's not as huge as React but still can perform much of the same things as React"
+        },
+        {
+            "svg": "statamic",
+            "title": "Statamic",
+            "description": "Statmic a great CMS that is developed around the Laravel eco-system. Similar to Wordpress, but more lightweight and more customizable for the developer."
+        }
+    ],
+    "colors": {
+        "description": "Route 1 has their signature red so I went with it as their main color. I added some supporting colors to their color palette and some neutral.",
+        "neutral": [
+            "#F7F7F7",
+            "#E1E1E1",
+            "#CFCFCF",
+            "#B1B1B1",
+            "#9E9E9E",
+            "#7E7E7E",
+            "#626262",
+            "#515151",
+            "#3B3B3B",
+            "#222222"
+        ],
+        "main": [
+            "#C23A2C"
+        ],
+        "second": [
+            "#E0FCFF",
+            "#BEF8FD",
+            "#87EAF2",
+            "#54D1DB",
+            "#38BEC9",
+            "#2CB1BC",
+            "#14919B",
+            "#0E7C86",
+            "#0A6C74",
+            "#044E54"
+        ],
+        "third": [
+            "#F2FDE0",
+            "#E2F7C2",
+            "#C7EA8F",
+            "#ABDB5E",
+            "#94C843",
+            "#7BB026",
+            "#63921A",
+            "#507712",
+            "#42600C",
+            "#2B4005"
+        ]
+    },
+    "summary": "I'm very happy with how the product turned out. Very simple but effect look with heritage to the old design. First time I used Statmic for a CMS and really happy how to flow and development with it went."
+}

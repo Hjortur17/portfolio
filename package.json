@@ -15,13 +15,14 @@
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.4.21",
+        "prettier": "^2.8.4",
+        "prettier-plugin-tailwindcss": "^0.2.3",
         "tailwindcss": "^3.2.6",
         "vue-loader": "^16.8.3"
     },
     "dependencies": {
-        "@inertiajs/inertia": "^0.10.1",
-        "@inertiajs/inertia-vue3": "^0.5.2",
-        "@inertiajs/progress": "^0.2.6",
+        "@inertiajs/vue3": "^1.0.2",
+        "@vueuse/core": "^9.13.0",
         "vue": "^3.2.26"
     }
 }

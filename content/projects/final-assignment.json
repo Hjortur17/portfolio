@@ -1,0 +1,73 @@
+{
+    "title": "Final assignment at Reykjavík University",
+    "company": "Aurbjörg",
+    "company_url": "https://aurbjorg.is",
+    "feature_image": "/images/projects/aurbjorg/feature.png",
+    "images": [
+        "/images/projects/aurbjorg/first.png",
+        "/images/projects/aurbjorg/second.png"
+    ],
+    "overview": "Aurbjörg wanted to create a platform for teenagers and people in general that need better understanding of finance. In Iceland that are no education in schools (other than University) that teaches kids finance, thats why there is a platform for expanding this field.",
+    "roles": [
+        "UI/UX Design",
+        "Front-end development",
+        "Back-end development"
+    ],
+    "technical_stack": [
+        {
+            "svg": "react",
+            "title": "React",
+            "description": "We used React for the frontend because Aurbjörg uses it for all of it's UI."
+        },
+        {
+            "svg": "dotnet",
+            "title": "Dotnet",
+            "description": "We used .NET for the backend because Aurbjörg uses it for all of it's projects. Plus it had the easies connections to Cosmos DB"
+        },
+        {
+            "svg": "docker",
+            "title": "Docker",
+            "description": "Docker is used to host the project. Through layers of Dapr, the project is connected. The UI, Gateway and Microservices."
+        }
+    ],
+    "colors": {
+        "description": "This project was marketed toward younger people so the group decided to go forward with outstanding color palette.",
+        "neutral": [
+            "#F0F4F8",
+            "#D9E2EC",
+            "#BCCCDC",
+            "#9FB3C8",
+            "#829AB1",
+            "#627D98",
+            "#486581",
+            "#334E68",
+            "#243B53",
+            "#102A43"
+        ],
+        "main": [
+            "#EFFCF6",
+            "#C6F7E2",
+            "#8EEDC7",
+            "#65D6AD",
+            "#00C39B",
+            "#27AB83",
+            "#199473",
+            "#147D64",
+            "#0C6B58",
+            "#014D40"
+        ],
+        "second": [
+            "#E6E6FF",
+            "#C4C6FF",
+            "#A2A5FC",
+            "#8888FC",
+            "#7069FA",
+            "#5D55FA",
+            "#4D3DF7",
+            "#3525E6",
+            "#1D0EBE",
+            "#0C008C"
+        ]
+    },
+    "summary": "I want to start of thanking Aurbjörg for choosing my group for this project. It was really fun learning more of 'Clean architecture' and how we should develop sous project. Were we had all of the project split into three ways, UI (wich was React in the project), Gateway (wich was the middle step between the UI and the Micro-services, this part was written in .NET) and each Micro-service (written in .NET as well)"
+}
