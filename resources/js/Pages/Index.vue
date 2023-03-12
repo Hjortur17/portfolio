@@ -8,25 +8,25 @@
     </Head>
 
     <header
-        class="h-auto max-w-screen-xl overflow-hidden mx-auto py-56 sm:py-16 xl:py-16 px-6 xl:px-0 flex items-center space-x-12">
-        <div class="w-3/5">
-            <h2 class="text-2xl sm:text-3xl xl:text-4xl mb-3">Hi there, I’m Hjörtur Freyr <span class="wave">👋</span>
+        class="h-auto max-w-screen-xl mx-auto py-16 px-6 xl:px-0 flex flex-col lg:flex-row items-center space-y-6 lg:space-y-0 lg:space-x-12">
+        <div class="w-full lg:w-3/5">
+            <h2 class="text-3xl xl:text-4xl mb-3">Hi there, I’m Hjörtur Freyr <span class="wave">👋</span>
             </h2>
-            <h1 class="text-2xl sm:text-3xl xl:text-6xl mb-3">Freelance UX/UI Designer & <span
+            <h1 class="text-3xl xl:text-6xl mb-3">Freelance UX/UI Designer & <span
                 class="text-gradiant">full-stack</span>
                 developer
             </h1>
         </div>
-        <div class="w-2/5 xl:min-h-[70vh] 2xl:min-h-[50vh] rounded-xl jedi dark:sith relative group">
+        <div class="w-full lg:w-2/5 min-h-[55vh] lg:min-h-[70vh] 2xl:min-h-[50vh] rounded-xl jedi dark:sith relative group">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-                 class="group-hover:opacity-100 opacity-0 ease-in-out duration-200  text-red-600 fill-current absolute top-0 right-0 w-10 h-10 m-5"
+                 class="group-hover:opacity-100 opacity-0 ease-in-out duration-200 text-red-600 fill-current absolute top-0 right-0 w-8 h-8 lg:w-10 lg:h-10 m-3 lg:m-5"
                  v-if="isDark">
                 <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
                 <path
                     d="M0 32l69.71 118.75-58.86-11.52 69.84 91.03a146.741 146.741 0 0 0 0 51.45l-69.84 91.03 58.86-11.52L0 480l118.75-69.71-11.52 58.86 91.03-69.84c17.02 3.04 34.47 3.04 51.48 0l91.03 69.84-11.52-58.86L448 480l-69.71-118.78 58.86 11.52-69.84-91.03c3.03-17.01 3.04-34.44 0-51.45l69.84-91.03-58.86 11.52L448 32l-118.75 69.71 11.52-58.9-91.06 69.87c-8.5-1.52-17.1-2.29-25.71-2.29s-17.21.78-25.71 2.29l-91.06-69.87 11.52 58.9L0 32zm224 99.78c31.8 0 63.6 12.12 87.85 36.37 48.5 48.5 48.49 127.21 0 175.7s-127.2 48.46-175.7-.03c-48.5-48.5-48.49-127.21 0-175.7 24.24-24.25 56.05-36.34 87.85-36.34zm0 36.66c-22.42 0-44.83 8.52-61.92 25.61-34.18 34.18-34.19 89.68 0 123.87s89.65 34.18 123.84 0c34.18-34.18 34.19-89.68 0-123.87-17.09-17.09-39.5-25.61-61.92-25.61z"/>
             </svg>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-                 class="group-hover:opacity-100 opacity-0 ease-in-out duration-200 text-blue-600 fill-current absolute top-0 right-0 w-10 h-10 m-5"
+                 class="group-hover:opacity-100 opacity-0 ease-in-out duration-200 text-blue-600 fill-current absolute top-0 right-0 w-8 h-8 lg:w-10 lg:h-10 m-3 lg:m-5"
                  v-else>
                 <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
                 <path
@@ -36,11 +36,11 @@
     </header>
 
     <section class="max-w-screen-xl mx-auto px-6 xl:px-0">
-        <div class="gap-12 columns-2">
+        <div class="gap-12 columns-1 lg:columns-2">
             <div
                 v-for="project in projects.slice().reverse()"
                 class="py-4 md:py-6">
-                <div class="py-4 md:py-6 hidden [:nth-of-type(2)_&]:block min-h-[8rem]"></div>
+                <div class="py-4 md:py-6 hidden lg:[:nth-of-type(2)_&]:block min-h-[8rem]"></div>
                 <div
                     class="max-h-[35rem] cursor-pointer hover:scale-[.99] ease-in-out duration-200 flex flex-col rounded-lg shadow-lg overflow-hidden"
                     :class="findColor(project.feature_color)"

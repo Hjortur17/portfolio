@@ -1,9 +1,9 @@
 <template>
     <nav class="max-w-screen-xl mx-auto flex items-center justify-between px-6 xl:px-0 pt-8 sm:pt-16">
-        <Link href="/" class="link"><h1 class="w-full text-lg sm:text-xl font-medium">Hjörtur Freyr</h1></Link>
+        <Link href="/" class="link w-64 hidden md:block"><h1 class="w-full text-lg sm:text-xl font-medium">Hjörtur Freyr</h1></Link>
 
 
-        <ul class="flex space-x-6">
+        <ul class="w-full flex lg:space-x-6 justify-between md:justify-end">
             <li>
                 <Link href="/about-me" class="link" v-text="'About me'" />
             </li>

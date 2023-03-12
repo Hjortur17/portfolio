@@ -6,14 +6,14 @@
               content="Freelancer, Freelance Web Developer, Web Developer, Web Development, Web Design, Full-Stack Developer, Front-end Developer, React, React Native, Laravel, VueJS">
     </Head>
 
-    <header class="max-w-screen-xl mx-auto grid grid-cols-1 gap-4 px-6 xl:px-0 py-56 sm:py-16 xl:py-16">
+    <header class="max-w-screen-xl mx-auto grid grid-cols-1 gap-4 px-6 lg:px-0 py-16">
         <div class="col-span-1">
             <h4 class="text-lg mb-3">{{ project.company }} - <a
                 :href="project.company_url" class="link">{{ project.company_url }}</a>
             </h4>
-            <h1 class="text-2xl sm:text-3xl xl:text-5xl mb-3">{{ project.title }}</h1>
+            <h1 class="text-4xl lg:text-5xl mb-3">{{ project.title }}</h1>
         </div>
-        <div class="grid grid-cols-2 gap-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
             <div class="col-span-1">
                 <h3 class="text-3xl mb-2">Overview</h3>
                 <p v-text="project.overview"/>
@@ -27,18 +27,18 @@
         </div>
     </header>
 
-    <section class="max-w-screen-xl mx-auto space-y-24">
+    <section class="max-w-screen-xl mx-auto space-y-24 px-6 lg:px-0">
         <img :alt="'Project: ' + project.title" :src="project.images[0]" class="rounded-xl"/>
 
-        <div class="text-neutral-900 bg-neutral-100 rounded-xl h-96 items-center p-8 mx-auto flex space-x-12">
-            <div class="w-1/2">
+        <div class="text-neutral-900 bg-neutral-100 rounded-xl min-h-[24rem] items-center p-8 mx-auto flex flex-col lg:flex-row lg:space-x-12">
+            <div class="w-full lg:w-1/2">
                 <h3 class="text-4xl mb-2">Technical stack</h3>
                 <p>
                     Here you can see what programming language/frameworks was used for this project along with other
                     technology.
                 </p>
             </div>
-            <div class="w-1/2 relative py-12">
+            <div class="w-full lg:w-1/2 relative py-12">
                 <div class="overflow-x-scroll carousel flex space-x-6">
                     <div class="flex-none max-w-[22rem] bg-white rounded-lg p-8 space-y-2"
                          v-for="framework in project.technical_stack">
@@ -52,12 +52,12 @@
         </div>
 
         <div class="w-full space-y-12">
-            <div class="w-1/2 mx-auto">
+            <div class="w-3/4 lg:w-1/2 mx-auto">
                 <h3 class="text-4xl mb-2">Color palette</h3>
                 <p v-text="project.colors.description"/>
             </div>
-            <div class="grid grid-cols-10 gap-4">
-                <div class="space-y-2" :class="customColSpan ? 'col-span-10' : ''"
+            <div class="grid grid-cols-5 lg:grid-cols-10 gap-4">
+                <div class="space-y-2" :class="customColSpan ? 'col-span-5 lg:col-span-10' : ''"
                      v-for="color in project.colors.main">
                     <div class="h-24 w-full rounded" :style="'background-color: ' + color"/>
                     <p class="text-xs text-center">{{ color }}</p>
@@ -79,7 +79,7 @@
 
         <img :alt="'Project: ' + project.title" :src="project.images[1]" class="rounded-xl" v-if="project.images[1]"/>
 
-        <div class="w-1/2 mx-auto">
+        <div class="w-3/4 lg:w-1/2 mx-auto">
             <h3 class="text-4xl mb-2">Summary</h3>
             <p class="mb-12" v-text="project.summary"/>
 
@@ -87,7 +87,7 @@
         </div>
     </section>
 
-    <section class="max-w-screen-xl mx-auto px-6 xl:px-0">
+    <section class="max-w-screen-xl mx-auto px-6 lg:px-0">
         <ContactMe/>
     </section>
 </template>

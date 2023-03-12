@@ -8,19 +8,19 @@
     </Head>
 
     <header
-        class="h-auto max-w-screen-xl overflow-hidden mx-auto py-56 sm:py-16 xl:py-16 px-6 xl:px-0 flex items-center space-x-12">
-        <div class="w-2/5">
+        class="h-auto max-w-screen-xl overflow-hidden mx-auto py-16 px-6 xl:px-0 flex items-center space-x-12">
+        <div class="w-full lg:w-2/5">
             <h2 class="text-2xl sm:text-3xl xl:text-4xl mb-3">Projects 🚀</h2>
             <p class="text-lg">Here are the projects I have worked on. Also some of my projects from school</p>
         </div>
     </header>
 
     <section class="max-w-screen-xl mx-auto px-6 xl:px-0">
-        <div class="gap-12 columns-2">
+        <div class="gap-12 columns-1 lg:columns-2">
             <div
                 v-for="project in projects.slice().reverse()"
                 class="py-4 md:py-6">
-                <div class="py-4 md:py-6 hidden [:nth-of-type(3)_&]:block min-h-[8rem]"></div>
+                <div class="py-4 md:py-6 hidden lg:[:nth-of-type(3)_&]:block min-h-[8rem]"></div>
                 <div class="max-h-[35rem] hover:scale-[.99] ease-in-out duration-200 cursor-pointer flex flex-col rounded-lg shadow-lg overflow-hidden"
                      :class="findColor(project.feature_color)"
                      @click="$inertia.visit('projects/' + project.slug)"
