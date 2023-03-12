@@ -1,13 +1,11 @@
 import {createApp, h} from 'vue'
-import {createInertiaApp, Head, Link} from '@inertiajs/inertia-vue3'
-import {InertiaProgress} from '@inertiajs/progress'
+import {createInertiaApp, Head, Link, router} from '@inertiajs/vue3'
 import Layout from "./Shared/Layout";
 
-InertiaProgress.init({
-    color: '#fbbf24'
-});
-
 createInertiaApp({
+    progress: {
+        color: '#DB2777',
+    },
     resolve: name => {
         let page = require(`./Pages/${name}`).default;
 
