@@ -4,7 +4,7 @@
         "title": "Complete redesign",
         "company": "Route 1 Car Rental",
         "company_url": "https://route1.is",
-        "feature_image": "/images/projects/route1/feature.png",
+        "feature_image": "/images/projects/route1/feature.webp",
         "feature_color": "red"
     },
     {
@@ -12,7 +12,7 @@
         "title": "Information app assisting with pickup",
         "company": "Geysir Car Rental",
         "company_url": "https://geysir.is",
-        "feature_image": "/images/projects/geysircarrental/app/feature.png",
+        "feature_image": "/images/projects/geysircarrental/app/feature.webp",
         "feature_color": "orange"
     },
     {
@@ -20,7 +20,7 @@
         "title": "New and approved website",
         "company": "99 Car Rental",
         "company_url": "https://99carrental.is",
-        "feature_image": "/images/projects/99carrental/feature.png",
+        "feature_image": "/images/projects/99carrental/feature.webp",
         "feature_color": "green"
     },
     {
@@ -28,7 +28,7 @@
         "title": "Final assignment at Reykjavík University",
         "company": "Aurbjörg",
         "company_url": "https://aurbjorg.is",
-        "feature_image": "/images/projects/aurbjorg/feature.png",
+        "feature_image": "/images/projects/aurbjorg/feature.webp",
         "feature_color": "teal"
     }
 ]
