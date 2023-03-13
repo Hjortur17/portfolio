@@ -29,7 +29,7 @@
                     @click="$inertia.visit('projects/' + project.slug)"
                 >
                     <div class="p-6">
-                        <h4>{{ project.company }}</h4>
+                        <p class="font-medium text-lg">{{ project.company }}</p>
                         <h2>{{ project.title }}</h2>
                     </div>
                     <img :src="project.feature_image" :alt="project.title" class="w-full rounded-lg mx-24 mt-12">

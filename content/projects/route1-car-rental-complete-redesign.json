@@ -2,10 +2,10 @@
     "title": "Complete redesign",
     "company": "Route 1 Car Rental",
     "company_url": "https://route1.is",
-    "feature_image": "/images/projects/route1/feature.png",
+    "feature_image": "/images/projects/route1/feature.webp",
     "images": [
-        "/images/projects/route1/first.png",
-        "/images/projects/route1/second.png"
+        "/images/projects/route1/first.webp",
+        "/images/projects/route1/second.webp"
     ],
     "overview": "Route 1 Car Rental is a daughter company to Geysir Car Rental. The company was founded in 2010 and started on a small scale and as the years have passed the size of the company has grown. Their website wasn't updated since the company was founded (back in 2010) so it was long overdue on some fresh makeover. So my task was to get it back to the 21st century.",
     "roles": [

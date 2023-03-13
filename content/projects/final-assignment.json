@@ -2,10 +2,10 @@
     "title": "Final assignment at Reykjavík University",
     "company": "Aurbjörg",
     "company_url": "https://aurbjorg.is",
-    "feature_image": "/images/projects/aurbjorg/feature.png",
+    "feature_image": "/images/projects/aurbjorg/feature.webp",
     "images": [
-        "/images/projects/aurbjorg/first.png",
-        "/images/projects/aurbjorg/second.png"
+        "/images/projects/aurbjorg/first.webp",
+        "/images/projects/aurbjorg/second.webp"
     ],
     "overview": "Aurbjörg wanted to create a platform for teenagers and people in general that need better understanding of finance. In Iceland that are no education in schools (other than University) that teaches kids finance, thats why there is a platform for expanding this field.",
     "roles": [

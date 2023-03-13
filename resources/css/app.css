@@ -42,13 +42,13 @@
 
     .jedi {
         background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(219, 39, 119, 0.2) 90%, rgba(192, 132, 252, 0.3) 100%),
-        url(/images/me-jedi.jpg);
+        url(/images/me-jedi.webp);
         background-size: cover;
     }
 
     .sith {
         background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(219, 39, 119, 0.2) 90%, rgba(192, 132, 252, 0.3) 100%),
-        url(/images/me-sith.jpg);
+        url(/images/me-sith.webp);
         background-size: cover;
     }
 }

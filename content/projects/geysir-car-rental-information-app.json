@@ -2,10 +2,10 @@
     "title": "Information app",
     "company": "Geysir Car Rental",
     "company_url": "https://geysir.is",
-    "feature_image": "/images/projects/geysircarrental/app/feature.png",
+    "feature_image": "/images/projects/geysircarrental/app/feature.webp",
     "images": [
-        "/images/projects/geysircarrental/app/first.png",
-        "/images/projects/geysircarrental/app/second.png"
+        "/images/projects/geysircarrental/app/first.webp",
+        "/images/projects/geysircarrental/app/second.webp"
     ],
     "overview": "Geysir Car Rental is a family run company that was founded in 1973. Geysir Car Rental has been renting out cars through pick-up boxes but now with completely contactless pickup they customers can check in online and receive pickup information via email. Sometimes people can overlook those emails. So Geysir wanted to experiment with a app, an information app that could assist the customer on how to pick up their car through the box. These information should be in multiple languages because the customer bases is wide.",
     "roles": [

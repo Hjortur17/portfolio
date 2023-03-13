@@ -2,10 +2,10 @@
     "title": "New and approved website",
     "company": "99 Car Rental",
     "company_url": "https://99carrental.is",
-    "feature_image": "/images/projects/99carrental/feature.png",
+    "feature_image": "/images/projects/99carrental/feature.webp",
     "images": [
-        "/images/projects/99carrental/first.png",
-        "/images/projects/99carrental/second.png"
+        "/images/projects/99carrental/first.webp",
+        "/images/projects/99carrental/second.webp"
     ],
     "overview": "99 Car Rental is first of its kind in Iceland. 99 Car Rental is a new innovative company that specializes in providing environmentally friendly operation. They reached out because they wanted more optimized and cleaner experience for the customers. ",
     "roles": [
