@@ -10,7 +10,7 @@
     <header
         class="h-auto max-w-screen-xl overflow-hidden mx-auto py-16 px-6 xl:px-0 flex items-center space-x-12">
         <div class="w-full lg:w-2/5">
-            <h2 class="text-2xl sm:text-3xl xl:text-4xl mb-3">Projects 🚀</h2>
+            <h2 class="mb-3">Projects 🚀</h2>
             <p class="text-lg">Here are the projects I have worked on. Also some of my projects from school</p>
         </div>
     </header>
@@ -26,10 +26,10 @@
                      @click="$inertia.visit('projects/' + project.slug)"
                 >
                     <div class="p-6">
-                        <h3 class="text-lg font-light">{{ project.company }}</h3>
-                        <h2 class="text-4xl">{{ project.title }}</h2>
+                        <h4>{{ project.company }}</h4>
+                        <h2>{{ project.title }}</h2>
                     </div>
-                    <img :src="project.feature_image" alt="" class="w-full rounded-lg mx-24 mt-12">
+                    <img :src="project.feature_image" :alt="project.title" class="w-full rounded-lg mx-24 mt-12">
                 </div>
             </div>
         </div>

@@ -10,9 +10,9 @@
     <header
         class="h-auto max-w-screen-xl mx-auto py-16 px-6 xl:px-0 flex flex-col lg:flex-row items-center space-y-6 lg:space-y-0 lg:space-x-12">
         <div class="w-full lg:w-3/5">
-            <h2 class="text-3xl xl:text-4xl mb-3">Hi there, I’m Hjörtur Freyr <span class="wave">👋</span>
+            <h2 class="mb-3">Hi there, I’m Hjörtur Freyr <span class="wave">👋</span>
             </h2>
-            <h1 class="text-3xl xl:text-6xl mb-3">Freelance UX/UI Designer & <span
+            <h1>Freelance UX/UI Designer & <span
                 class="text-gradiant">full-stack</span>
                 developer
             </h1>
@@ -47,8 +47,8 @@
                     @click="$inertia.visit('projects/' + project.slug)"
                 >
                     <div class="p-6">
-                        <h3 class="text-lg font-light">{{ project.company }}</h3>
-                        <h2 class="text-4xl">{{ project.title }}</h2>
+                        <h4>{{ project.company }}</h4>
+                        <h2>{{ project.title }}</h2>
                     </div>
                     <img :src="project.feature_image" alt="" class="w-full rounded-lg mx-24 mt-12">
                 </div>

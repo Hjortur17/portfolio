@@ -8,18 +8,18 @@
 
     <header class="max-w-screen-xl mx-auto grid grid-cols-1 gap-4 px-6 lg:px-0 py-16">
         <div class="col-span-1">
-            <h4 class="text-lg mb-3">{{ project.company }} - <a
+            <h4 class="mb-3">{{ project.company }} - <a
                 :href="project.company_url" class="link">{{ project.company_url }}</a>
             </h4>
-            <h1 class="text-4xl lg:text-5xl mb-3">{{ project.title }}</h1>
+            <h1>{{ project.title }}</h1>
         </div>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 mt-6">
             <div class="col-span-1">
-                <h3 class="text-3xl mb-2">Overview</h3>
+                <h3 class="mb-2">Overview</h3>
                 <p v-text="project.overview"/>
             </div>
             <div class="col-span-1">
-                <h3 class="text-3xl mb-2">Roles</h3>
+                <h3 class="mb-2">Roles</h3>
                 <ul class="space-y-1" v-for="role in project.roles">
                     <li v-text="role"/>
                 </ul>
@@ -31,20 +31,20 @@
         <img :alt="'Project: ' + project.title" :src="project.images[0]" class="rounded-xl"/>
 
         <div class="text-neutral-900 bg-neutral-100 rounded-xl min-h-[24rem] items-center p-8 mx-auto flex flex-col lg:flex-row lg:space-x-12">
-            <div class="w-full lg:w-1/2">
-                <h3 class="text-4xl mb-2">Technical stack</h3>
+            <div class="w-full lg:w-2/5">
+                <h3 class="mb-2">Technical stack</h3>
                 <p>
                     Here you can see what programming language/frameworks was used for this project along with other
                     technology.
                 </p>
             </div>
-            <div class="w-full lg:w-1/2 relative py-12">
+            <div class="w-full lg:w-3/5 relative py-12">
                 <div class="overflow-x-scroll carousel flex space-x-6">
-                    <div class="flex-none max-w-[22rem] bg-white rounded-lg p-8 space-y-2"
+                    <div class="flex-none max-w-[22rem] bg-white rounded-lg p-8"
                          v-for="framework in project.technical_stack">
                         <img :alt="framework.title" :src="'/images/svgs/' + framework.svg + '.svg'"
                              class="w-8 h-8 mb-2"/>
-                        <h2 class="text-xl" v-text="framework.title"/>
+                        <p class="font-bold text-xl" v-text="framework.title"/>
                         <p class="text-sm" v-text="framework.description"/>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
 
         <div class="w-full space-y-12">
             <div class="w-3/4 lg:w-1/2 mx-auto">
-                <h3 class="text-4xl mb-2">Color palette</h3>
+                <h3 class="mb-2">Color palette</h3>
                 <p v-text="project.colors.description"/>
             </div>
             <div class="grid grid-cols-5 lg:grid-cols-10 gap-4">
@@ -80,7 +80,7 @@
         <img :alt="'Project: ' + project.title" :src="project.images[1]" class="rounded-xl" v-if="project.images[1]"/>
 
         <div class="w-3/4 lg:w-1/2 mx-auto">
-            <h3 class="text-4xl mb-2">Summary</h3>
+            <h3 class="mb-2">Summary</h3>
             <p class="mb-12" v-text="project.summary"/>
 
             <SeeMoreProjects button="true"/>

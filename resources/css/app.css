@@ -10,12 +10,20 @@
         @apply text-neutral-900 dark:text-neutral-50 dark:bg-neutral-900
     }
 
-    h1, h2 {
-        font-weight: 700;
+    h1 {
+        @apply font-bold text-3xl xl:text-6xl
     }
 
-    h3, h4 {
-        font-weight: 500;
+    h2 {
+        @apply font-bold text-2xl xl:text-4xl
+    }
+
+    h3 {
+        @apply text-3xl font-medium
+    }
+
+    h4 {
+        @apply font-medium text-lg
     }
 }
 
@@ -50,5 +58,38 @@
 }
 
 ::selection {
-  @apply bg-pink-200
+    @apply bg-pink-200
+}
+
+@keyframes fade-bottom {
+    0% {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-left {
+    0% {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-right {
+    0% {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
