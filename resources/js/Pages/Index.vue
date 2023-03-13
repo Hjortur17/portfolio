@@ -38,10 +38,10 @@
     </header>
 
     <section class="max-w-screen-xl mx-auto px-6 xl:px-0">
-        <div class="gap-12 grid grid-cols-2 mb-16" id="trigger-grid-animation">
+        <div class="gap-12 grid grid-cols-1 lg:grid-cols-2 mb-16" id="trigger-grid-animation">
             <div
                 v-for="project in projects.slice().reverse()"
-                class="col-span-1 last:mt-16"
+                class="col-span-1 lg:last:mt-16"
                 data-aos-anchor="#trigger-grid-animation"
                 data-aos="fade-grid"
             >
