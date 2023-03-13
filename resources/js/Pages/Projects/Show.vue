@@ -6,7 +6,7 @@
               content="Freelancer, Freelance Web Developer, Web Developer, Web Development, Web Design, Full-Stack Developer, Front-end Developer, React, React Native, Laravel, VueJS">
     </Head>
 
-    <header class="max-w-screen-xl mx-auto grid grid-cols-1 gap-4 px-6 lg:px-0 py-16">
+    <header class="max-w-screen-xl mx-auto grid grid-cols-1 gap-4 px-6 lg:px-0 py-16" data-aos="fade-up">
         <div class="col-span-1">
             <h4 class="mb-3">{{ project.company }} - <a
                 :href="project.company_url" class="link">{{ project.company_url }}</a>
@@ -28,9 +28,9 @@
     </header>
 
     <section class="max-w-screen-xl mx-auto space-y-24 px-6 lg:px-0">
-        <img :alt="'Project: ' + project.title" :src="project.images[0]" class="rounded-xl"/>
+        <img :alt="'Project: ' + project.title" :src="project.images[0]" class="rounded-xl" data-aos="fade-right"/>
 
-        <div class="text-neutral-900 bg-neutral-100 rounded-xl min-h-[24rem] items-center p-8 mx-auto flex flex-col lg:flex-row lg:space-x-12">
+        <div class="text-neutral-900 bg-neutral-100 rounded-xl min-h-[24rem] items-center p-8 mx-auto flex flex-col lg:flex-row lg:space-x-12" data-aos="fade-up">
             <div class="w-full lg:w-2/5">
                 <h3 class="mb-2">Technical stack</h3>
                 <p>
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div class="w-full space-y-12">
+        <div class="w-full space-y-12" data-aos="fade-left">
             <div class="w-3/4 lg:w-1/2 mx-auto">
                 <h3 class="mb-2">Color palette</h3>
                 <p v-text="project.colors.description"/>
@@ -77,9 +77,9 @@
             </div>
         </div>
 
-        <img :alt="'Project: ' + project.title" :src="project.images[1]" class="rounded-xl" v-if="project.images[1]"/>
+        <img :alt="'Project: ' + project.title" :src="project.images[1]" class="rounded-xl" v-if="project.images[1]" data-aos="fade-right"/>
 
-        <div class="w-3/4 lg:w-1/2 mx-auto">
+        <div class="w-3/4 lg:w-1/2 mx-auto" data-aos="fade-up">
             <h3 class="mb-2">Summary</h3>
             <p class="mb-12" v-text="project.summary"/>
 
