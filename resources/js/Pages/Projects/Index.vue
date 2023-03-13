@@ -17,10 +17,10 @@
     </header>
 
     <section class="max-w-screen-xl mx-auto px-6 xl:px-0">
-        <div class="gap-12 grid grid-cols-2 mb-16" id="trigger-grid-animation">
+        <div class="gap-12 grid grid-cols-1 lg:grid-cols-2 mb-16" id="trigger-grid-animation">
             <div
                 v-for="project in projects.slice().reverse()"
-                class="col-span-1 [&:nth-child(2)]:mt-16 [&:nth-child(3)]:-mt-16"
+                class="col-span-1 lg:[&:nth-child(2)]:mt-16 lg:[&:nth-child(3)]:-mt-16"
                 data-aos-anchor="#trigger-grid-animation"
                 data-aos="fade-grid">
                 <div
