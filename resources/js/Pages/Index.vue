@@ -8,16 +8,18 @@
     </Head>
 
     <header
-        class="h-auto max-w-screen-xl mx-auto py-16 px-6 xl:px-0 flex flex-col lg:flex-row items-center space-y-6 lg:space-y-0 lg:space-x-12">
+        class="h-auto max-w-screen-xl mx-auto py-16 px-6 xl:px-0 flex flex-col lg:flex-row items-center space-y-6 lg:space-y-0 lg:space-x-12"
+        data-aos="fade-up">
         <div class="w-full lg:w-3/5">
-            <h2 class="text-3xl xl:text-4xl mb-3">Hi there, I’m Hjörtur Freyr <span class="wave">👋</span>
+            <h2 class="mb-3">Hi there, I’m Hjörtur Freyr <span class="wave">👋</span>
             </h2>
-            <h1 class="text-3xl xl:text-6xl mb-3">Freelance UX/UI Designer & <span
+            <h1>Freelance UX/UI Designer & <span
                 class="text-gradiant">full-stack</span>
                 developer
             </h1>
         </div>
-        <div class="w-full lg:w-2/5 min-h-[55vh] lg:min-h-[70vh] 2xl:min-h-[50vh] rounded-xl jedi dark:sith relative group">
+        <div
+            class="w-full lg:w-2/5 min-h-[55vh] lg:min-h-[70vh] 2xl:min-h-[50vh] rounded-xl jedi dark:sith relative group">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
                  class="group-hover:opacity-100 opacity-0 ease-in-out duration-200 text-red-600 fill-current absolute top-0 right-0 w-8 h-8 lg:w-10 lg:h-10 m-3 lg:m-5"
                  v-if="isDark">
@@ -36,19 +38,21 @@
     </header>
 
     <section class="max-w-screen-xl mx-auto px-6 xl:px-0">
-        <div class="gap-12 columns-1 lg:columns-2">
+        <div class="gap-12 grid grid-cols-2 mb-16" id="trigger-grid-animation">
             <div
                 v-for="project in projects.slice().reverse()"
-                class="py-4 md:py-6">
-                <div class="py-4 md:py-6 hidden lg:[:nth-of-type(2)_&]:block min-h-[8rem]"></div>
+                class="col-span-1 last:mt-16"
+                data-aos-anchor="#trigger-grid-animation"
+                data-aos="fade-grid"
+            >
                 <div
                     class="max-h-[35rem] cursor-pointer hover:scale-[.99] ease-in-out duration-200 flex flex-col rounded-lg shadow-lg overflow-hidden"
                     :class="findColor(project.feature_color)"
                     @click="$inertia.visit('projects/' + project.slug)"
                 >
                     <div class="p-6">
-                        <h3 class="text-lg font-light">{{ project.company }}</h3>
-                        <h2 class="text-4xl">{{ project.title }}</h2>
+                        <h4>{{ project.company }}</h4>
+                        <h2>{{ project.title }}</h2>
                     </div>
                     <img :src="project.feature_image" alt="" class="w-full rounded-lg mx-24 mt-12">
                 </div>
@@ -56,7 +60,7 @@
         </div>
 
         <SeeMoreProjects button="true"/>
-        <ContactMe/>
+        <ContactMe />
     </section>
 </template>
 

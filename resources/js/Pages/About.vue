@@ -10,7 +10,7 @@
     <header
         class="h-auto max-w-screen-xl overflow-hidden mx-auto py-56 sm:py-16 xl:py-16 px-6 xl:px-0 flex items-center space-x-12">
         <div class="w-3/5 space-y-2">
-            <h2 class="text-2xl sm:text-3xl xl:text-4xl mb-4">A little bit more about myself</h2>
+            <h2 class="mb-4">A little bit more about myself</h2>
             <p class="2xl:text-lg">
                 My name is Hjörtur Freyr and I'm from Iceland. I’m a {{ new Date().getFullYear() - 1999 }}-year-old
                 computer science student at Reykjavík University but I will be graduating this summer.

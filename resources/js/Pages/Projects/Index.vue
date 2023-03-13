@@ -8,28 +8,31 @@
     </Head>
 
     <header
-        class="h-auto max-w-screen-xl overflow-hidden mx-auto py-16 px-6 xl:px-0 flex items-center space-x-12">
+        class="h-auto max-w-screen-xl overflow-hidden mx-auto py-16 px-6 xl:px-0 flex items-center space-x-12"
+        data-aos="fade-up">
         <div class="w-full lg:w-2/5">
-            <h2 class="text-2xl sm:text-3xl xl:text-4xl mb-3">Projects 🚀</h2>
+            <h2 class="mb-3">Projects 🚀</h2>
             <p class="text-lg">Here are the projects I have worked on. Also some of my projects from school</p>
         </div>
     </header>
 
     <section class="max-w-screen-xl mx-auto px-6 xl:px-0">
-        <div class="gap-12 columns-1 lg:columns-2">
+        <div class="gap-12 grid grid-cols-2 mb-16" id="trigger-grid-animation">
             <div
                 v-for="project in projects.slice().reverse()"
-                class="py-4 md:py-6">
-                <div class="py-4 md:py-6 hidden lg:[:nth-of-type(3)_&]:block min-h-[8rem]"></div>
-                <div class="max-h-[35rem] hover:scale-[.99] ease-in-out duration-200 cursor-pointer flex flex-col rounded-lg shadow-lg overflow-hidden"
-                     :class="findColor(project.feature_color)"
-                     @click="$inertia.visit('projects/' + project.slug)"
+                class="col-span-1 [&:nth-child(2)]:mt-16 [&:nth-child(3)]:-mt-16"
+                data-aos-anchor="#trigger-grid-animation"
+                data-aos="fade-grid">
+                <div
+                    class="max-h-[35rem] hover:scale-[.99] ease-in-out duration-200 cursor-pointer flex flex-col rounded-lg shadow-lg overflow-hidden"
+                    :class="findColor(project.feature_color)"
+                    @click="$inertia.visit('projects/' + project.slug)"
                 >
                     <div class="p-6">
-                        <h3 class="text-lg font-light">{{ project.company }}</h3>
-                        <h2 class="text-4xl">{{ project.title }}</h2>
+                        <h4>{{ project.company }}</h4>
+                        <h2>{{ project.title }}</h2>
                     </div>
-                    <img :src="project.feature_image" alt="" class="w-full rounded-lg mx-24 mt-12">
+                    <img :src="project.feature_image" :alt="project.title" class="w-full rounded-lg mx-24 mt-12">
                 </div>
             </div>
         </div>

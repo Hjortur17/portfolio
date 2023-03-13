@@ -1,6 +1,14 @@
 import {createApp, h} from 'vue'
 import {createInertiaApp, Head, Link, router} from '@inertiajs/vue3'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import Layout from "./Shared/Layout";
+
+AOS.init({
+    duration: 500,
+    once: true,
+    easing: 'ease-in-out'
+});
 
 createInertiaApp({
     progress: {

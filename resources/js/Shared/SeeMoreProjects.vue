@@ -1,5 +1,6 @@
 <template>
     <div
+        data-aos="fade-up"
         class="w-full flex items-end justify-center mt-6 mb-12">
         <Link
             href="/projects"

@@ -10,12 +10,20 @@
         @apply text-neutral-900 dark:text-neutral-50 dark:bg-neutral-900
     }
 
-    h1, h2 {
-        font-weight: 700;
+    h1 {
+        @apply font-bold text-3xl xl:text-6xl
     }
 
-    h3, h4 {
-        font-weight: 500;
+    h2 {
+        @apply font-bold text-2xl xl:text-4xl
+    }
+
+    h3 {
+        @apply text-3xl font-medium
+    }
+
+    h4 {
+        @apply font-medium text-lg
     }
 }
 
@@ -50,5 +58,27 @@
 }
 
 ::selection {
-  @apply bg-pink-200
+    @apply bg-pink-200
+}
+
+[data-aos=fade-grid] {
+    transform: translateX(-250px);
+    opacity: 0;
+    transition-property: transform, opacity;
+}
+
+[data-aos=fade-grid]:nth-child(2n) {
+    transform: translateX(250px);
+    opacity: 0;
+    transition-property: transform, opacity;
+}
+
+[data-aos=fade-grid].aos-animate {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+[data-aos=fade-grid]:nth-child(2).aos-animate {
+    transform: translateX(0);
+    opacity: 1;
 }
