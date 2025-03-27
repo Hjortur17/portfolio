@@ -8,13 +8,17 @@ import "../styles/global.css";
 ---
 
 <Layout>
-  <section class="flex flex-col items-left justify-center h-screen">
-    <h1 class="text-4xl uppercase font-thin mb-6">Full Stack Developer</h1>
-    <h2 class="text-9xl font-bold">
+  <section class="flex flex-col items-left justify-center sm:h-screen">
+    <h1 class="text-3xl sm:text-4xl uppercase font-thin mb-6 mt-48">
+      Full Stack Developer
+    </h1>
+    <h2 class="text-8xl sm:text-9xl font-bold">
       Hi, I'm Hjörtur Freyr <span class="text-orange-600 -ml-2">.</span>
     </h2>
 
-    <p class="text-3xl font-thin max-w-3xl mt-32 leading-snug">
+    <p
+      class="text-3xl font-thin max-w-3xl mt-32 sm:mt-0 mb-32 sm:mb-0 leading-snug"
+    >
       I'm a full stack developer with a passion for building web applications.
       I'm currently working as a full stack developer at <a
         href="https://dacoda.is"
@@ -26,7 +30,7 @@ import "../styles/global.css";
     </p>
   </section>
 
-  <section class="grid grid-cols-3">
+  <section class="grid grid-cols-1 sm:grid-cols-3 gap-6">
     <div>
       <p class="text-xl font-thin uppercase mb-2">Based In</p>
       <p class="text-3xl font-semibold">Njarðvík, Iceland</p>
@@ -41,14 +45,14 @@ import "../styles/global.css";
     </div>
   </section>
 
-  <section id="pet-projects" class="grid grid-cols-3 gap-16 mt-72 relative">
+  <section id="pet-projects" class="grid grid-cols-1 sm:grid-cols-3 gap-16 mt-72 relative">
     <h3
-      class="text-8xl uppercase font-black mb-3 absolute -top-24 -left-24 text-neutral-300/40 -z-10"
+      class="text-6xl sm:text-8xl uppercase font-black mb-3 absolute -top-20 sm:-top-24 -left-5 sm:-left-24 text-neutral-300/40 -z-10"
     >
       Pet projects
     </h3>
 
-    <div class="col-span-3 mb-10">
+    <div class="sm:col-span-3 mb-10">
       <p class="text-3xl font-thin max-w-3xl leading-snug">
         Here is a list of my "pet" projects. These are projects that I have
         worked on over the years in my spare time.
@@ -66,22 +70,6 @@ import "../styles/global.css";
       />
 
       <div
-        class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300"
-      >
-        <p class="text-3xl font-semibold">Gjafalistar.is</p>
-      </div>
-    </a>
-
-    <div
-      class="bg-white border-3 border-neutral-800 p-8 relative group hover:before:bg-orange-600 before:absolute before:content-[''] before:w-full before:h-full before:-z-10 before:transition-all before:duration-300 hover:before:translate-x-0.5 hover:before:translate-y-0.5"
-    >
-      <img
-        src="/images/projects/project-1.webp"
-        alt="Project 1"
-        class="w-full h-full object-cover pb-10"
-      />
-
-      <div
         class="absolute top-4 right-4 bg-neutral-600 text-white px-4 py-2 rounded-full"
       >
         <p class="font-semibold">Coming soon</p>
@@ -90,19 +78,19 @@ import "../styles/global.css";
       <div
         class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300"
       >
-        <p class="text-3xl font-semibold">Movie quest</p>
+        <p class="text-3xl font-semibold">Gjafalistar.is</p>
       </div>
-    </div>
+    </a>
   </section>
 
-  <section id="projects" class="grid grid-cols-3 gap-16 mt-72 relative">
+  <section id="projects" class="grid grid-cols-1 sm:grid-cols-3 gap-16 mt-72 relative">
     <h3
-      class="text-8xl uppercase font-black mb-3 absolute -top-24 -left-24 text-neutral-300/40 -z-10"
+      class="text-6xl sm:text-8xl uppercase font-black mb-3 absolute -top-20 sm:-top-24 -left-5 sm:-left-24 text-neutral-300/40 -z-10"
     >
       Projects
     </h3>
 
-    <div class="col-span-3 mb-10">
+    <div class="sm:col-span-3 mb-10">
       <p class="text-3xl font-thin max-w-3xl leading-snug">
         Projects that have been worked with closely with clients. Find there
         problems and solving them.
@@ -163,13 +151,13 @@ import "../styles/global.css";
 
   <section id="about-me" class="grid grid-cols-3 gap-16 mt-72 relative">
     <h3
-      class="text-8xl uppercase font-black mb-3 absolute -top-24 -left-24 text-neutral-300/40 -z-10"
+      class="text-6xl sm:text-8xl uppercase font-black mb-3 absolute -top-20 sm:-top-24 -left-5 sm:-left-24 text-neutral-300/40 -z-10"
     >
       About me
     </h3>
 
     <div class="col-span-3 mb-10 flex flex-row gap-16">
-      <div class="w-3/4">
+      <div class="sm:w-3/4">
         <p class="text-3xl font-thin max-w-3xl leading-snug">
           I graduated from the Reykjavík University with a degree in Computer
           Science. Since I was young I have been interested in computers and

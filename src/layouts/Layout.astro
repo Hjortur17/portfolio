@@ -20,17 +20,51 @@ import Navbar from "../components/Navbar.astro";
   </head>
   <body class="bg-neutral-50 text-neutral-900">
     <Navbar />
-    
-    <div class="xl:px-0 mx-auto xl:max-w-[1400px] w-full max-w-full">
+
+    <div class="xl:px-0 mx-auto xl:max-w-[1400px] w-full max-w-full px-8">
       <slot />
     </div>
 
-    <footer class="bg-neutral-900 text-neutral-50 mt-72">
-      <div class="xl:px-0 mx-auto xl:max-w-[1400px] w-full max-w-full">
-        <p class="text-sm text-neutral-400">
-          &copy; {new Date().getFullYear()} Hjörtur Freyr. All rights reserved.
-        </p>
+    <footer
+      class="xl:px-0 mx-auto xl:max-w-[1400px] w-full max-w-full px-8 mt-48 mb-20"
+    >
+      <div class="flex gap-6 text-neutral-400 mb-12">
+        <a
+          href="https://github.com/Hjortur17"
+          target="_blank"
+          class="uppercase font-thin underline underline-offset-6 hover:text-neutral-900 ease-in-out duration-300"
+          >GitHub</a
+        >
+
+        <a
+          href="https://dribbble.com/Hjortur17"
+          target="_blank"
+          class="uppercase font-thin underline underline-offset-6 hover:text-neutral-900 ease-in-out duration-300"
+        >
+          Dribbble
+        </a>
+
+        <a
+          href="https://www.linkedin.com/in/hjortur-freyr/"
+          target="_blank"
+          class="uppercase font-thin underline underline-offset-6 hover:text-neutral-900 ease-in-out duration-300"
+        >
+          LinkedIn
+        </a>
+        </a>
+
+        <a
+          href="mailto:hjorturfreyr@hjorturfreyr.com"
+          target="_blank"
+          class="uppercase font-thin underline underline-offset-6 hover:text-neutral-900 ease-in-out duration-300"
+        >
+          Drop me a line
+        </a>
       </div>
+
+      <p class="text-neutral-400 font-thin uppercase">
+        &copy; {new Date().getFullYear()} Hjörtur Freyr. All rights reserved.
+      </p>
     </footer>
   </body>
 </html>
