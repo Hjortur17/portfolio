@@ -1,0 +1,195 @@
+---
+import Welcome from "../components/Welcome.astro";
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<Layout>
+  <section class="flex flex-col items-left justify-center h-screen">
+    <h1 class="text-4xl uppercase font-thin mb-6">Full Stack Developer</h1>
+    <h2 class="text-9xl font-bold">
+      Hi, I'm Hjörtur Freyr <span class="text-orange-600 -ml-2">.</span>
+    </h2>
+
+    <p class="text-3xl font-thin max-w-3xl mt-32 leading-snug">
+      I'm a full stack developer with a passion for building web applications.
+      I'm currently working as a full stack developer at <a
+        href="https://dacoda.is"
+        target="_blank"
+        class="underline underline-offset-6 hover:text-orange-600 ease-in-out duration-300"
+        >Dacoda</a
+      >, but if you are interested in freelance work, please don't hesitate to
+      contact me.
+    </p>
+  </section>
+
+  <section class="grid grid-cols-3">
+    <div>
+      <p class="text-xl font-thin uppercase mb-2">Based In</p>
+      <p class="text-3xl font-semibold">Njarðvík, Iceland</p>
+    </div>
+    <div>
+      <p class="text-xl font-thin uppercase mb-2">Technologies</p>
+      <p class="text-3xl font-semibold">React, Laravel and more</p>
+    </div>
+    <div>
+      <p class="text-xl font-thin uppercase mb-2">Hobbies</p>
+      <p class="text-3xl font-semibold">Video Games</p>
+    </div>
+  </section>
+
+  <section id="pet-projects" class="grid grid-cols-3 gap-16 mt-72 relative">
+    <h3
+      class="text-8xl uppercase font-black mb-3 absolute -top-24 -left-24 text-neutral-300/40 -z-10"
+    >
+      Pet projects
+    </h3>
+
+    <div class="col-span-3 mb-10">
+      <p class="text-3xl font-thin max-w-3xl leading-snug">
+        Here is a list of my "pet" projects. These are projects that I have
+        worked on over the years in my spare time.
+      </p>
+    </div>
+
+    <a
+      href="/projects/gjafalistar"
+      class="bg-white border-3 border-neutral-800 p-8 relative group hover:before:bg-orange-600 before:absolute before:content-[''] before:w-full before:h-full before:-z-10 before:transition-all before:duration-300 hover:before:translate-x-0.5 hover:before:translate-y-0.5"
+    >
+      <img
+        src="/images/projects/project-1.webp"
+        alt="Project 1"
+        class="w-full h-full object-cover pb-10"
+      />
+
+      <div
+        class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300"
+      >
+        <p class="text-3xl font-semibold">Gjafalistar.is</p>
+      </div>
+    </a>
+
+    <div
+      class="bg-white border-3 border-neutral-800 p-8 relative group hover:before:bg-orange-600 before:absolute before:content-[''] before:w-full before:h-full before:-z-10 before:transition-all before:duration-300 hover:before:translate-x-0.5 hover:before:translate-y-0.5"
+    >
+      <img
+        src="/images/projects/project-1.webp"
+        alt="Project 1"
+        class="w-full h-full object-cover pb-10"
+      />
+
+      <div
+        class="absolute top-4 right-4 bg-neutral-600 text-white px-4 py-2 rounded-full"
+      >
+        <p class="font-semibold">Coming soon</p>
+      </div>
+
+      <div
+        class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300"
+      >
+        <p class="text-3xl font-semibold">Movie quest</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="grid grid-cols-3 gap-16 mt-72 relative">
+    <h3
+      class="text-8xl uppercase font-black mb-3 absolute -top-24 -left-24 text-neutral-300/40 -z-10"
+    >
+      Projects
+    </h3>
+
+    <div class="col-span-3 mb-10">
+      <p class="text-3xl font-thin max-w-3xl leading-snug">
+        Projects that have been worked with closely with clients. Find there
+        problems and solving them.
+      </p>
+    </div>
+
+    <a
+      href="/projects/motorhome"
+      class="bg-white border-3 border-neutral-800 p-8 relative group hover:before:bg-orange-600 before:absolute before:content-[''] before:w-full before:h-full before:-z-10 before:transition-all before:duration-300 hover:before:translate-x-0.5 hover:before:translate-y-0.5"
+    >
+      <img
+        src="/images/projects/project-1.webp"
+        alt="Project 1"
+        class="w-full h-full object-cover pb-10"
+      />
+
+      <div
+        class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300"
+      >
+        <p class="text-3xl font-semibold">Motorhome.is</p>
+      </div>
+    </a>
+
+    <a
+      href="/projects/route-1"
+      class="bg-white border-3 border-neutral-800 p-8 relative group hover:before:bg-orange-600 before:absolute before:content-[''] before:w-full before:h-full before:-z-10 before:transition-all before:duration-300 hover:before:translate-x-0.5 hover:before:translate-y-0.5"
+    >
+      <img
+        src="/images/projects/project-1.webp"
+        alt="Project 1"
+        class="w-full h-full object-cover pb-10"
+      />
+
+      <div
+        class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300"
+      >
+        <p class="text-3xl font-semibold">Route 1</p>
+      </div>
+    </a>
+
+    <a
+      href="/projects/bilahotel"
+      class="bg-white border-3 border-neutral-800 p-8 relative group hover:before:bg-orange-600 before:absolute before:content-[''] before:w-full before:h-full before:-z-10 before:transition-all before:duration-300 hover:before:translate-x-0.5 hover:before:translate-y-0.5"
+    >
+      <img
+        src="/images/projects/project-1.webp"
+        alt="Project 1"
+        class="w-full h-full object-cover pb-10"
+      />
+
+      <div
+        class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300"
+      >
+        <p class="text-3xl font-semibold">Bilahotel.is</p>
+      </div>
+    </a>
+  </section>
+
+  <section id="about-me" class="grid grid-cols-3 gap-16 mt-72 relative">
+    <h3
+      class="text-8xl uppercase font-black mb-3 absolute -top-24 -left-24 text-neutral-300/40 -z-10"
+    >
+      About me
+    </h3>
+
+    <div class="col-span-3 mb-10 flex flex-row gap-16">
+      <div class="w-3/4">
+        <p class="text-3xl font-thin max-w-3xl leading-snug">
+          I graduated from the Reykjavík University with a degree in Computer
+          Science. Since I was young I have been interested in computers and
+          technology which led me to study Computer Science. I have been working
+          as a developer for over 3 years now.
+        </p>
+
+        <p class="text-3xl font-thin max-w-3xl leading-snug mt-16">
+          I have a passion for building web applications and embrace new
+          technologies. I am a quick learner and always looking for new
+          challenges.
+        </p>
+
+        <p class="text-3xl font-thin max-w-3xl leading-snug mt-16">
+          Right now I am diving deep into the backend and learn new things about
+          Laravel and how I can get the most out of it. However, the frontend
+          has been a passion of mine for a long time because that's where the
+          beauty lies.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

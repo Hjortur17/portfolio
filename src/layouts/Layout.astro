@@ -1,0 +1,36 @@
+---
+import Navbar from "../components/Navbar.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro Basics</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Lexend:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-neutral-50 text-neutral-900">
+    <Navbar />
+    
+    <div class="xl:px-0 mx-auto xl:max-w-[1400px] w-full max-w-full">
+      <slot />
+    </div>
+
+    <footer class="bg-neutral-900 text-neutral-50 mt-72">
+      <div class="xl:px-0 mx-auto xl:max-w-[1400px] w-full max-w-full">
+        <p class="text-sm text-neutral-400">
+          &copy; {new Date().getFullYear()} Hjörtur Freyr. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
