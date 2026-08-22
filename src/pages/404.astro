@@ -1,0 +1,114 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ColorBar from '../components/ColorBar.astro';
+import Button from '../components/Button.astro';
+import { site } from '../data/site';
+
+/* `bare` because this page paints its own overlays — its scanlines are darker
+   than the rest of the site and its vignette heavier — and its header is not
+   sticky, since a 404 can be served from any URL depth. */
+---
+
+<Layout
+  title={`404 — Signal lost | ${site.name}`}
+  description="That address has nothing behind it."
+  bare
+  boot={false}
+  noindex
+>
+  <div class="flex min-h-screen flex-col">
+    <Header sticky={false} />
+
+    <main class="relative flex flex-1 items-center justify-center overflow-hidden px-10 pt-20 pb-[110px]">
+      <!-- Broadcast bars. Percentage-positioned so they redistribute with
+           viewport height instead of clustering. -->
+      <div class="pointer-events-none absolute inset-x-0" style="top: 12%; height: 34px; background: #FF3B5C; opacity: 0.42"></div>
+      <div class="pointer-events-none absolute inset-x-0" style="top: calc(12% + 42px); height: 14px; background: var(--accent); opacity: 0.3"></div>
+      <div class="pointer-events-none absolute inset-x-0" style="bottom: 23%; height: 22px; background: #7CE04A; opacity: 0.26"></div>
+      <div class="pointer-events-none absolute inset-x-0" style="bottom: 15%; height: 38px; background: #B98CFF; opacity: 0.22"></div>
+
+      <!-- Rolling static -->
+      <div
+        data-static
+        class="pointer-events-none absolute inset-0"
+        style="background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.05) 0 2px, transparent 2px 6px); animation: hf-static 3.2s steps(12, end) infinite"
+      >
+      </div>
+
+      <!-- This page's own overlays: darker than the site default. -->
+      <div
+        data-scanline-layer
+        class="pointer-events-none absolute inset-0 z-10"
+        style="background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.28) 0px, rgba(0,0,0,0.28) 1px, transparent 1px, transparent 3px)"
+      >
+      </div>
+      <div class="pointer-events-none absolute inset-0 z-11" style="box-shadow: inset 0 0 200px rgba(0,0,0,0.92)"></div>
+
+      <!-- Translucent, so the static reads faintly through it. -->
+      <div
+        class="relative z-12 w-full max-w-[640px] border-4 border-border text-center"
+        style="background: rgba(8,10,20,0.94); box-shadow: 12px 12px 0 rgba(0,0,0,0.6); padding: 44px clamp(28px, 5vw, 60px)"
+      >
+        <div class="mb-[26px] flex items-center justify-center gap-3">
+          <div class="h-2.5 w-2.5 bg-red"></div>
+          <span class="font-pixel text-[10px] tracking-[3px] text-red">SIGNAL LOST</span>
+        </div>
+
+        <!-- Chromatic split: red offset left, cyan right — an RGB-misconverged
+             CRT. Decorative only; this stays a real heading. -->
+        <h1
+          class="m-0 mb-6 font-pixel leading-[1.2] text-text"
+          style="font-size: clamp(46px, 9vw, 76px); text-shadow: 6px 6px 0 #16203D, -3px 0 0 rgba(255,59,92,0.85), 3px 0 0 rgba(76,201,240,0.85)"
+        >
+          404
+        </h1>
+
+        <p
+          class="mx-auto m-0 mb-4 max-w-[38ch] text-text-muted"
+          style="font-size: clamp(23px, 2.6vw, 27px); line-height: 1.4"
+        >
+          Blow on the cartridge. Wiggle it. Try again.
+        </p>
+
+        <p
+          class="mx-auto m-0 mb-9 max-w-[44ch] text-text-dim"
+          style="font-size: clamp(20px, 2.2vw, 23px); line-height: 1.45"
+        >
+          There's nothing at this address — but everything else on the site is one
+          button away.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-[18px]">
+          <Button href="/?boot" variant="primary">▶ RESET CONSOLE</Button>
+          <Button href="/#work" variant="secondary">SEE THE WORK</Button>
+        </div>
+
+        <div
+          class="mt-[34px] flex flex-wrap justify-center gap-x-[26px] gap-y-3 border-t-2 border-dashed border-border-dim pt-[26px] text-[21px]"
+        >
+          <a href="/work" class="social-link">ALL WORK</a>
+          <a href="/uses" class="social-link">USES</a>
+          <a href="/#about" class="social-link">ABOUT</a>
+          <a href={`mailto:${site.email}`} class="social-link">{site.email.toUpperCase()}</a>
+        </div>
+      </div>
+
+      <!-- The reserve space on <main> (pb-[110px]) is what stops the panel
+           colliding with this at short viewport heights. -->
+      <div
+        class="absolute bottom-[34px] left-1/2 z-12 flex -translate-x-1/2 items-center gap-2 font-pixel text-[9px] text-text-faint"
+      >
+        <span>CH 04 &mdash; NO INPUT</span>
+        <span
+          data-caret
+          class="inline-block h-[14px] w-2 bg-text-faint"
+          style="animation: hf-blink 1s steps(1, end) infinite"></span>
+      </div>
+    </main>
+
+    <ColorBar />
+    <div style="background: #0B0F1F"><Footer /></div>
+  </div>
+</Layout>

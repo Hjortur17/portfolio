@@ -1,0 +1,227 @@
+---
+/* Boot screen (variant 1b — boot log). See boot-screen.md.
+ *
+ * Three non-negotiables from the handoff, all enforced below:
+ *   1. Once per SESSION (sessionStorage, never localStorage).
+ *   2. Always skippable — any key, click or touch.
+ *   3. prefers-reduced-motion bypasses it entirely.
+ *
+ * The overlay is built in JS and emitted by an inline script placed at the top
+ * of <body>. Inline and synchronous is deliberate: it means the overlay is in
+ * place before the page beneath paints, without the page ever being blocked
+ * from rendering — and it means the overlay is absent from the server HTML, so
+ * crawlers and JS-off visitors get the site, not a black rectangle.
+ */
+
+interface Props {
+  /** Printed as "N found" — kept honest by reading the real collection. */
+  projectCount: number;
+}
+
+const { projectCount } = Astro.props;
+
+/* TODO: these are the handoff's first draft — edit them to be true.
+ * Keep to six lines, and keep exactly one non-OK result: that's the joke. */
+const lines: { label: string; result: string; tone: 'ok' | 'warn' }[] = [
+  { label: 'Memory test', result: 'OK', tone: 'ok' },
+  { label: 'Mounting /projects', result: `${projectCount} found`, tone: 'ok' },
+  { label: 'Loading astro', result: 'OK', tone: 'ok' },
+  { label: 'Loading laravel', result: 'OK', tone: 'ok' },
+  { label: 'Coffee subsystem', result: 'WARM', tone: 'warn' },
+];
+
+const bios = 'HF.DEV BIOS v2.6 — Iceland';
+const command = './portfolio --start';
+
+/* Dot leaders are literal periods aligned by the monospace face — not flex
+ * with a border-bottom. Pad every label to the same column. */
+const LEADER_COL = 30;
+const rows = lines.map((l) => ({
+  ...l,
+  dots: ' ' + '.'.repeat(Math.max(3, LEADER_COL - l.label.length - 1)) + ' ',
+}));
+---
+
+<script is:inline define:vars={{ bios, rows, command }}>
+  (() => {
+    const KEY = 'hf.booted';
+
+    // ?boot replays the sequence even if this session has already seen it.
+    // Without it the once-per-session gate makes the boot screen almost
+    // impossible to iterate on — one page load and it never runs again in
+    // that tab. Harmless in production: it just lets someone watch the intro.
+    const forced = location.search.includes('boot');
+
+    let booted = false;
+    try {
+      booted = sessionStorage.getItem(KEY) === '1';
+    } catch (e) {
+      /* private mode — treat as booted so we never nag */
+      booted = true;
+    }
+    if (forced) booted = false;
+
+    const mark = () => {
+      try {
+        sessionStorage.setItem(KEY, '1');
+      } catch (e) {}
+    };
+
+    // Bypass entirely under reduced motion — do not "slow it down".
+    // This wins even over ?boot: it is an accessibility promise.
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (booted || reduced) {
+      mark();
+      return;
+    }
+
+    const coarse = matchMedia('(hover: none)').matches;
+
+    const el = (tag, cls, text) => {
+      const n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text) n.textContent = text;
+      return n;
+    };
+
+    const overlay = el('div', 'hf-boot');
+    // Decorative: kept out of the tab order and hidden from assistive tech.
+    // The real page underneath was never blocked, which is the actual escape.
+    overlay.setAttribute('aria-hidden', 'true');
+
+    const inner = el('div', 'hf-boot__inner');
+    const steps = [];
+
+    // Row 1 — BIOS banner
+    const r1 = el('div', 'hf-boot__row hf-boot__bios', bios);
+    inner.appendChild(r1);
+    steps.push(r1);
+
+    // Rows 2-6 — POST log
+    for (const row of rows) {
+      const r = el('div', 'hf-boot__row');
+      r.appendChild(document.createTextNode(row.label + row.dots));
+      r.appendChild(el('span', row.tone === 'warn' ? 'hf-boot__warn' : 'hf-boot__ok', row.result));
+      inner.appendChild(r);
+      steps.push(r);
+    }
+
+    inner.appendChild(el('div', 'hf-boot__spacer'));
+
+    // Row 7 — shell prompt
+    const prompt = el('div', 'hf-boot__row hf-boot__prompt');
+    prompt.appendChild(el('span', 'hf-boot__user', 'hjortur@dev'));
+    prompt.appendChild(el('span', 'hf-boot__tilde', '~'));
+    prompt.appendChild(el('span', 'hf-boot__sigil', '$'));
+    const cmd = el('span', 'hf-boot__cmd', command);
+    prompt.appendChild(cmd);
+    prompt.appendChild(el('span', 'hf-boot__caret'));
+    inner.appendChild(prompt);
+
+    // Row 8 — the 3a prompt mark + wordmark
+    const markRow = el('div', 'hf-boot__row hf-boot__mark');
+    markRow.innerHTML =
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 5" shape-rendering="crispEdges" aria-hidden="true">' +
+      '<g fill="#7CE04A">' +
+      '<rect x="0" y="0" width="1" height="2"/><rect x="1" y="1" width="1" height="3"/>' +
+      '<rect x="2" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="2"/>' +
+      '</g><rect x="3" y="0" width="2" height="5" fill="#E6ECFF"/></svg>';
+    markRow.appendChild(el('span', 'hf-boot__wordmark', 'HF.DEV'));
+    inner.appendChild(markRow);
+
+    const skip = el('div', 'hf-boot__skip', coarse ? 'TAP TO SKIP' : 'PRESS ANY KEY TO SKIP');
+
+    overlay.appendChild(inner);
+    overlay.appendChild(skip);
+    overlay.appendChild(el('div', 'hf-boot__scanlines'));
+    overlay.appendChild(el('div', 'hf-boot__vignette'));
+    document.documentElement.appendChild(overlay);
+
+    // Natural width of the command, measured with the real font in place.
+    function measureCmd() {
+      const prev = cmd.style.width;
+      cmd.style.width = 'auto';
+      const w = Math.ceil(cmd.getBoundingClientRect().width);
+      cmd.style.width = prev;
+      return w;
+    }
+
+    // Hard deadline. If anything above throws mid-sequence the overlay must
+    // still come off — a stuck overlay would hide the page from visitors and
+    // from Google's renderer alike.
+    const failsafe = setTimeout(() => {
+      const stuck = document.querySelector('.hf-boot');
+      if (stuck) stuck.remove();
+      mark();
+    }, 8000);
+
+    const timers = [];
+    const at = (ms, fn) => timers.push(setTimeout(fn, ms));
+    const show = (node) => node.classList.add('is-on');
+
+    let done = false;
+
+    function dismiss() {
+      if (done) return;
+      done = true;
+      clearTimeout(failsafe);
+      timers.forEach(clearTimeout);
+      removeSkipListeners();
+      mark();
+      overlay.classList.add('is-leaving');
+      setTimeout(() => {
+        overlay.remove();
+        // Don't strand keyboard focus on a removed node.
+        if (document.activeElement === overlay) document.body.focus();
+        // Drop ?boot from the address bar so a reload behaves normally and the
+        // URL people might copy is the clean one.
+        if (forced && history.replaceState) {
+          history.replaceState(null, '', location.pathname + location.hash);
+        }
+      }, 200);
+    }
+
+    // Skip jumps to the end state, then dismisses.
+    function skipNow() {
+      if (done) return;
+      timers.forEach(clearTimeout);
+      timers.length = 0;
+      steps.forEach(show);
+      show(prompt);
+      show(markRow);
+      cmd.classList.remove('is-typing');
+      cmd.style.width = measureCmd() + 'px';
+      dismiss();
+    }
+
+    function onKey(e) {
+      // Let people still use modifier combos / devtools.
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      skipNow();
+    }
+
+    function removeSkipListeners() {
+      document.removeEventListener('keydown', onKey, true);
+      document.removeEventListener('click', skipNow, true);
+      document.removeEventListener('touchstart', skipNow, true);
+    }
+
+    document.addEventListener('keydown', onKey, true);
+    document.addEventListener('click', skipNow, true);
+    document.addEventListener('touchstart', skipNow, true);
+
+    // --- the sequence: ~3.9s to the mark, then hand off -------------------
+    show(steps[0]);                                   // 0.00s  BIOS line
+    at(800, () => show(skip));                        // 0.80s  skip hint
+    for (let i = 1; i < steps.length; i++) {
+      at(i * 250, () => show(steps[i]));               // 0.25s … 1.25s
+    }
+    at(1700, () => show(prompt));                      // 1.70s  after a beat
+    at(1900, () => {                                   // 1.90s  types itself
+      cmd.style.setProperty('--hf-cmd-w', measureCmd() + 'px');
+      cmd.classList.add('is-typing');
+    });
+    at(3400, () => show(markRow));                     // 3.40s  mark lands
+    at(3900, dismiss);                                 // 3.90s  hand off
+  })();
+</script>

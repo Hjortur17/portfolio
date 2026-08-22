@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hjorturfreyr.com/sitemap-index.xml

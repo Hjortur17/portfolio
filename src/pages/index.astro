@@ -1,182 +1,228 @@
 ---
-import Welcome from "../components/Welcome.astro";
-import Layout from "../layouts/Layout.astro";
-import "../styles/global.css";
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Button from '../components/Button.astro';
+import Chip from '../components/Chip.astro';
+import Panel from '../components/Panel.astro';
+import StatTile from '../components/StatTile.astro';
+import SheetRow from '../components/SheetRow.astro';
+import ColorBar from '../components/ColorBar.astro';
+import PixelImage from '../components/PixelImage.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import LoadingQueue from '../components/LoadingQueue.astro';
+import { site, socials, tools } from '../data/site';
+import avatar from '../assets/me.webp';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const allProjects = await getCollection('projects');
+
+/* Anything unfinished belongs in the queue below, not the showcase — so a
+   project can't appear twice on this page even if it's flagged featured. */
+const inFlight = ['in-progress', 'loading'];
+
+const featured = allProjects
+  .filter((p) => p.data.featured && !inFlight.includes(p.data.status))
+  .sort((a, b) => a.data.order - b.data.order)
 ---
 
-<Layout>
-  <section class="flex flex-col items-left justify-center sm:h-screen">
-    <h1 class="text-3xl sm:text-4xl uppercase font-thin mb-6 mt-48">
-      Full Stack Developer
-    </h1>
-    <h2 class="text-8xl sm:text-9xl font-bold">
-      Hi, I'm Hjörtur Freyr <span class="text-orange-600 -ml-2">.</span>
+<Layout title={`${site.name} — Full Stack Developer`}>
+  <!-- ================= HERO ================= -->
+  <section
+    id="top"
+    class="mx-auto grid max-w-[1180px] items-center px-10 pt-24 pb-20"
+    style="grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr)); gap: 56px"
+  >
+    <div>
+      <div class="mb-[26px] flex items-center gap-2.5">
+        <div class="h-2.5 w-2.5 bg-green"></div>
+        <span class="font-pixel text-[10px] tracking-[2px] text-green">PLAYER 01 &mdash; READY</span>
+        <span
+          data-caret
+          class="h-4 w-[9px] bg-green"
+          style="animation: hf-blink 1s steps(1, end) infinite"></span>
+      </div>
+
+      <h1
+        class="m-0 mb-2 font-pixel leading-[1.5] text-text"
+        style="font-size: clamp(22px, 3.4vw, 40px); text-shadow: 5px 5px 0 #1A2140"
+      >
+        Hi, I'm
+      </h1>
+      <h1
+        class="m-0 mb-7 font-pixel leading-[1.5]"
+        style="font-size: clamp(22px, 3.4vw, 40px); color: var(--accent); text-shadow: 5px 5px 0 #10203A"
+      >
+        {site.name}.
+      </h1>
+
+      <p class="m-0 mb-[26px] font-pixel text-[12px] tracking-[2px] text-yellow">{site.role}</p>
+
+      <!-- TODO: replace with your own intro. Two or three sentences. -->
+      <p
+        class="m-0 mb-[38px] max-w-[52ch] text-[23px] leading-[1.5] text-text-muted"
+        style="text-wrap: pretty"
+      >
+        Currently at Dacoda, building web applications end to end. Open to freelance work on the side, so reach out if you've got something worth building.
+      </p>
+
+      <div class="flex flex-wrap gap-[18px]">
+        <Button href="#work" variant="primary">▶ START HERE</Button>
+        <Button href="#contact" variant="secondary">GET IN TOUCH</Button>
+      </div>
+    </div>
+
+    <!-- The cartridge panel, with a bleed glow behind it. -->
+    <div class="relative">
+      <div
+        class="absolute"
+        style="inset: -14px; background: linear-gradient(180deg, rgba(76,201,240,0.18), rgba(255,59,92,0.12))"
+      >
+      </div>
+      <Panel
+        label="AVATAR.PNG"
+        labelColor="#7C86A8"
+        meta="♥ ♥ ♥"
+        background="#0E1326"
+        shadow="12px 12px 0 rgba(0,0,0,0.6)"
+        padding="16px"
+        class="relative"
+      >
+        <div class="h-[340px] w-full">
+          <PixelImage src={avatar} alt={`${site.name}, portrait`} pixel={9} priority />
+        </div>
+        <div class="mt-4 grid grid-cols-3 gap-2.5">
+          <StatTile value="5+" label="YEARS" color="var(--accent)" />
+          <StatTile value="27 YEARS" label="UPTIME" color="#7CE04A" />
+          <StatTile value="∞" label="BUGS SQUASHED" color="#FFC53D" valueClass="text-[32px]" />
+        </div>
+      </Panel>
+    </div>
+  </section>
+
+  <ColorBar />
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about" class="mx-auto max-w-[1180px] px-10 py-[84px]" data-reveal>
+    <Eyebrow label="01 — ABOUT" class="mb-[30px]" />
+    <div
+      class="grid items-start"
+      style="grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 48px"
+    >
+      <div>
+        <h2
+          class="m-0 mb-[26px] font-pixel leading-[1.7] text-text"
+          style="font-size: clamp(16px, 2vw, 22px)"
+        >
+          Into computers<br />since I was young.<br />Still love it.
+        </h2>
+        <p
+          class="m-0 mb-5 max-w-[58ch] text-[23px] leading-[1.55] text-text-muted"
+          style="text-wrap: pretty"
+        >
+          I graduated from Reykjavík University with a degree in Computer Science.
+          Since I was young I've been interested in computers and technology, which is
+          what led me to study it. I've been working as a developer for over 3 years now.
+        </p>
+        <p class="m-0 max-w-[58ch] text-[23px] leading-[1.55] text-text-muted" style="text-wrap: pretty">
+          I have a passion for building web applications and embracing new technologies. I like to think of myself as a quick learner and always looking for new challenges. 
+          I've spent the last while getting deeper into the backend, learning Laravel and how to get the most out of it.
+          The frontend has been a passion of mine for a long time though, because that's where the beauty lies.
+        </p>
+      </div>
+
+      <Panel label="CHARACTER SHEET">
+        <div class="grid gap-4">
+          <!-- TODO: confirm each of these values. -->
+          <SheetRow label="CLASS" value="FULL STACK DEV" />
+          <SheetRow label="EDUCATION" value="B.Sc COMPUTER SCIENCE" />
+          <SheetRow label="MAIN WEAPON" value="NEXT.JS" valueColor="var(--accent)" />
+          <SheetRow label="OFF-HAND" value="LARAVEL" valueColor="#FF3B5C" />
+          <SheetRow label="STATUS" value="OPEN TO WORK" valueColor="#7CE04A" last />
+        </div>
+      </Panel>
+    </div>
+  </section>
+
+  <!-- ================= TOOLS BAND ================= -->
+  <section id="stack" class="border-t-4 border-b-4 border-rule" style="background: #0B0F1F">
+    <div
+      class="mx-auto flex max-w-[1180px] flex-wrap items-center justify-between gap-7 px-10 py-11"
+    >
+      <span class="font-pixel text-[10px] tracking-[3px] text-text-dim">TOOLS I REACH FOR</span>
+      <div class="flex flex-wrap items-center gap-x-3.5 gap-y-3">
+        {tools.map((tool) => <Chip variant="tool">{tool}</Chip>)}
+        <Button href="/uses" variant="primary" class="!py-4">SEE FULL INVENTORY ▶</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SELECTED WORK ================= -->
+  <section id="work" class="mx-auto max-w-[1180px] px-10 py-[100px]">
+    <Eyebrow label="02 — SELECT LEVEL" color="#7CE04A" class="mb-3.5" />
+    <h2
+      class="m-0 mb-5 font-pixel leading-[1.6] text-text"
+      style="font-size: clamp(16px, 2vw, 22px)"
+    >
+      Selected work
     </h2>
-
     <p
-      class="text-3xl font-thin max-w-3xl mt-32 mb-32 sm:mb-0 leading-snug"
+      class="m-0 mb-12 max-w-[56ch] text-[23px] leading-[1.5] text-text-muted"
+      style="text-wrap: pretty"
     >
-      I'm a full stack developer with a passion for building web applications.
-      I'm currently working as a full stack developer at <a
-        href="https://dacoda.is"
-        target="_blank"
-        class="underline underline-offset-6 hover:text-orange-600 ease-in-out duration-300"
-        >Dacoda</a
-      >, but if you are interested in freelance work, please don't hesitate to
-      contact me.
+      Projects that have been worked with closely with clients. Finding their problems and solving them.
     </p>
-  </section>
 
-  <section class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-    <div>
-      <p class="text-xl font-thin uppercase mb-2">Based In</p>
-      <p class="text-3xl font-semibold">Njarðvík, Iceland</p>
+    <div class="grid gap-9">
+      {
+        featured.map((project, i) => (
+          <ProjectCard project={project} imageSide={i % 2 === 0 ? 'left' : 'right'} />
+        ))
+      }
     </div>
-    <div>
-      <p class="text-xl font-thin uppercase mb-2">Technologies</p>
-      <p class="text-3xl font-semibold">React, Laravel and more</p>
-    </div>
-    <div>
-      <p class="text-xl font-thin uppercase mb-2">Hobbies</p>
-      <p class="text-3xl font-semibold">Video Games</p>
+
+    <div class="mt-12">
+      <a href="/work" class="case-link" style="color: var(--accent)">SEE ALL PROJECTS ▶</a>
     </div>
   </section>
 
-  <section id="pet-projects" class="grid grid-cols-1 sm:grid-cols-3 gap-16 mt-72 relative">
-    <h3
-      class="text-6xl sm:text-8xl uppercase font-black mb-3 absolute -top-20 sm:-top-24 -left-5 sm:-left-24 text-neutral-300/40 -z-10"
-    >
-      Pet projects
-    </h3>
-
-    <div class="sm:col-span-3 mb-10">
-      <p class="text-3xl font-thin max-w-3xl leading-snug">
-        Here is a list of my "pet" projects. These are projects that I have
-        worked on over the years in my spare time.
+  <!-- ================= CONTACT ================= -->
+  <section id="contact" class="border-t-4 border-rule" style="background: #0B0F1F">
+    <div class="mx-auto max-w-[1180px] px-10 pt-[90px] pb-[70px] text-center">
+      <div class="mb-[26px] font-pixel text-[10px] tracking-[3px] text-text-dim">
+        04 &mdash; CONTINUE?
+      </div>
+      <h2
+        class="m-0 mb-[22px] font-pixel leading-[1.6] text-text"
+        style="font-size: clamp(20px, 2.6vw, 30px); text-shadow: 5px 5px 0 #1A2140"
+      >
+        Got a level for<br />me to build?
+      </h2>
+      <p
+        class="mx-auto m-0 mb-10 max-w-[46ch] text-[23px] leading-[1.5] text-text-muted"
+        style="text-wrap: pretty"
+      >
+        Freelance work, or just a question about Laravel queues. The inbox is open.
       </p>
-    </div>
-
-    <a
-      href="/projects/gjafalistar"
-      class="bg-white border-3 border-neutral-800 p-8 relative group hover:before:bg-orange-600 before:absolute before:content-[''] before:w-full before:h-full before:-z-10 before:transition-all before:duration-300 hover:before:translate-x-0.5 hover:before:translate-y-0.5"
-    >
-      <img
-        src="/images/projects/project-1.webp"
-        alt="Project 1"
-        class="w-full h-full object-cover pb-10"
-      />
-
-      <div
-        class="absolute top-4 right-4 bg-neutral-600 text-white px-4 py-2 rounded-full"
-      >
-        <p class="font-semibold">Coming soon</p>
+      <div class="mb-[52px] flex flex-wrap justify-center gap-[18px]">
+        <Button href={`mailto:${site.email}`} variant="primary" class="!text-[12px] !px-[30px] !py-5">
+          ✉ SAY HELLO
+        </Button>
       </div>
-
       <div
-        class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300"
+        class="flex flex-wrap justify-center gap-x-[34px] gap-y-4 font-pixel text-[10px] tracking-[1px]"
       >
-        <p class="text-3xl font-semibold">Gjafalistar.is</p>
-      </div>
-    </a>
-  </section>
-
-  <section id="projects" class="grid grid-cols-1 sm:grid-cols-3 gap-16 mt-72 relative">
-    <h3
-      class="text-6xl sm:text-8xl uppercase font-black mb-3 absolute -top-20 sm:-top-24 -left-5 sm:-left-24 text-neutral-300/40 -z-10"
-    >
-      Projects
-    </h3>
-
-    <div class="sm:col-span-3 mb-10">
-      <p class="text-3xl font-thin max-w-3xl leading-snug">
-        Projects that have been worked with closely with clients. Find there
-        problems and solving them.
-      </p>
-    </div>
-
-    <a
-      href="/projects/motorhome"
-      class="bg-white border-3 border-neutral-800 p-8 relative group hover:before:bg-orange-600 before:absolute before:content-[''] before:w-full before:h-full before:-z-10 before:transition-all before:duration-300 hover:before:translate-x-0.5 hover:before:translate-y-0.5"
-    >
-      <img
-        src="/images/projects/project-1.webp"
-        alt="Project 1"
-        class="w-full h-full object-cover pb-10"
-      />
-
-      <div
-        class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300"
-      >
-        <p class="text-3xl font-semibold">Motorhome.is</p>
-      </div>
-    </a>
-
-    <a
-      href="/projects/route-1"
-      class="bg-white border-3 border-neutral-800 p-8 relative group hover:before:bg-orange-600 before:absolute before:content-[''] before:w-full before:h-full before:-z-10 before:transition-all before:duration-300 hover:before:translate-x-0.5 hover:before:translate-y-0.5"
-    >
-      <img
-        src="/images/projects/project-1.webp"
-        alt="Project 1"
-        class="w-full h-full object-cover pb-10"
-      />
-
-      <div
-        class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300"
-      >
-        <p class="text-3xl font-semibold">Route 1</p>
-      </div>
-    </a>
-
-    <a
-      href="/projects/bilahotel"
-      class="bg-white border-3 border-neutral-800 p-8 relative group hover:before:bg-orange-600 before:absolute before:content-[''] before:w-full before:h-full before:-z-10 before:transition-all before:duration-300 hover:before:translate-x-0.5 hover:before:translate-y-0.5"
-    >
-      <img
-        src="/images/projects/project-1.webp"
-        alt="Project 1"
-        class="w-full h-full object-cover pb-10"
-      />
-
-      <div
-        class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300"
-      >
-        <p class="text-3xl font-semibold">Bilahotel.is</p>
-      </div>
-    </a>
-  </section>
-
-  <section id="about-me" class="grid grid-cols-3 gap-16 mt-72 relative">
-    <h3
-      class="text-6xl sm:text-8xl uppercase font-black mb-3 absolute -top-20 sm:-top-24 -left-5 sm:-left-24 text-neutral-300/40 -z-10"
-    >
-      About me
-    </h3>
-
-    <div class="col-span-3 mb-10 flex flex-row gap-16">
-      <div class="sm:w-3/4">
-        <p class="text-3xl font-thin max-w-3xl leading-snug">
-          I graduated from the Reykjavík University with a degree in Computer
-          Science. Since I was young I have been interested in computers and
-          technology which led me to study Computer Science. I have been working
-          as a developer for over 3 years now.
-        </p>
-
-        <p class="text-3xl font-thin max-w-3xl leading-snug mt-16">
-          I have a passion for building web applications and embrace new
-          technologies. I am a quick learner and always looking for new
-          challenges.
-        </p>
-
-        <p class="text-3xl font-thin max-w-3xl leading-snug mt-16">
-          Right now I am diving deep into the backend and learn new things about
-          Laravel and how I can get the most out of it. However, the frontend
-          has been a passion of mine for a long time because that's where the
-          beauty lies.
-        </p>
+        {
+          socials.map((s) => (
+            <a
+              href={s.href}
+              class="social-link"
+              target={s.href.startsWith('http') ? '_blank' : undefined}
+              rel={s.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            >
+              {s.label}
+            </a>
+          ))
+        }
       </div>
     </div>
   </section>

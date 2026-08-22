@@ -1,70 +1,114 @@
 ---
-import Navbar from "../components/Navbar.astro";
+import '@fontsource/press-start-2p/400.css';
+import '@fontsource/vt323/400.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BootScreen from '../components/BootScreen.astro';
+import { getCollection } from 'astro:content';
+import { site } from '../data/site';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Which nav item is the current page. */
+  current?: string;
+  /** Case-study pages swap the nav for a single "back to work" link. */
+  navVariant?: 'default' | 'case';
+  /** The 404 paints its own overlays and pins its own header. */
+  bare?: boolean;
+  /** Set false to never boot on this page. The 404 must appear instantly —
+   *  people arrive there from stale links, often as their first page, and the
+   *  whole job of that page is to get them somewhere useful fast. */
+  boot?: boolean;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = site.description,
+  current,
+  navVariant = 'default',
+  bare = false,
+  boot = true,
+  noindex = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+
+/* The boot log prints the real project count, so the line stays true as the
+   collection grows. */
+const projectCount = (await getCollection('projects')).length;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Lexend:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    
+
+    <!-- Set both flags before first paint: `js` releases the scroll-reveal
+         hidden state, and the scanline preference must not flash. -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      try {
+        if (localStorage.getItem('scanlines') === 'off') {
+          document.documentElement.dataset.scanlines = 'off';
+        }
+      } catch (e) {}
+    </script>
   </head>
-  <body class="bg-neutral-50 text-neutral-900">
-    <Navbar />
 
-    <div class="xl:px-0 mx-auto xl:max-w-[1400px] w-full max-w-full px-8">
+  <body>
+    {boot && <BootScreen projectCount={projectCount} />}
+
+    <div class="relative min-h-screen">
+      {
+        !bare && (
+          <>
+            <div
+              data-scanline-layer
+              class="pointer-events-none absolute inset-0 z-50 mix-blend-multiply"
+              style="background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.22) 0px, rgba(0,0,0,0.22) 1px, transparent 1px, transparent 3px)"
+            />
+            <div
+              class="pointer-events-none absolute inset-0 z-51"
+              style="box-shadow: inset 0 0 220px rgba(0,0,0,0.85)"
+            />
+          </>
+        )
+      }
+
+      {!bare && <Header current={current} variant={navVariant} />}
+
       <slot />
+
+      {!bare && <Footer />}
     </div>
 
-    <footer
-      class="xl:px-0 mx-auto xl:max-w-[1400px] w-full max-w-full px-8 mt-48 mb-20"
-    >
-      <div class="flex gap-6 text-neutral-400 mb-12">
-        <a
-          href="https://github.com/Hjortur17"
-          target="_blank"
-          class="uppercase font-thin underline underline-offset-6 hover:text-neutral-900 ease-in-out duration-300"
-          >GitHub</a
-        >
-
-        <a
-          href="https://dribbble.com/Hjortur17"
-          target="_blank"
-          class="uppercase font-thin underline underline-offset-6 hover:text-neutral-900 ease-in-out duration-300"
-        >
-          Dribbble
-        </a>
-
-        <a
-          href="https://www.linkedin.com/in/hjortur-freyr/"
-          target="_blank"
-          class="uppercase font-thin underline underline-offset-6 hover:text-neutral-900 ease-in-out duration-300"
-        >
-          LinkedIn
-        </a>
-        </a>
-
-        <a
-          href="mailto:hjorturfreyr@hjorturfreyr.com"
-          target="_blank"
-          class="uppercase font-thin underline underline-offset-6 hover:text-neutral-900 ease-in-out duration-300"
-        >
-          Drop me a line
-        </a>
-      </div>
-
-      <p class="text-neutral-400 font-thin uppercase">
-        &copy; {new Date().getFullYear()} Hjörtur Freyr. All rights reserved.
-      </p>
-    </footer>
+    <script>
+      import '../scripts/retro-fx';
+    </script>
   </body>
 </html>
+
+<style is:global>
+  /* The scanline toggle. Static — never animate it. */
+  html[data-scanlines='off'] [data-scanline-layer] {
+    opacity: 0;
+  }
+</style>

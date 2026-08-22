@@ -1,0 +1,12 @@
+---
+interface Props {
+  label?: string;
+  padding?: string;
+  last?: boolean;
+}
+const { label, padding = '24px 26px', last = false } = Astro.props;
+---
+<div class:list={['cell', !last && 'border-r-4 border-border']} style={`padding: ${padding}`}>
+  {label && <div class="mb-3.5 font-pixel text-[8px] tracking-[2px] text-text-dim">{label}</div>}
+  <slot />
+</div>

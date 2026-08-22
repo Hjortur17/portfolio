@@ -1,0 +1,42 @@
+---
+/* Scanlines bother some people; the handoff requires they be switchable.
+   The initial state is applied by the inline head script in Layout.astro so
+   there is no flash before hydration. */
+---
+
+<button
+  type="button"
+  data-scanline-toggle
+  class="shrink-0 border-3 border-border px-2 py-[6px] font-pixel text-[8px] tracking-[1px] text-text-dim transition-colors duration-100 hover:border-accent hover:text-accent"
+  style="transition-timing-function: steps(2)"
+  aria-pressed="false"
+>
+  SCAN <span data-scanline-state>ON</span>
+</button>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-scanline-toggle]');
+  const state = btn?.querySelector<HTMLElement>('[data-scanline-state]');
+
+  function render() {
+    const off = document.documentElement.dataset.scanlines === 'off';
+    if (state) state.textContent = off ? 'OFF' : 'ON';
+    btn?.setAttribute('aria-pressed', off ? 'true' : 'false');
+    btn?.setAttribute('aria-label', off ? 'Turn scanlines on' : 'Turn scanlines off');
+  }
+
+  btn?.addEventListener('click', () => {
+    const off = document.documentElement.dataset.scanlines === 'off';
+    if (off) {
+      delete document.documentElement.dataset.scanlines;
+    } else {
+      document.documentElement.dataset.scanlines = 'off';
+    }
+    try {
+      localStorage.setItem('scanlines', off ? 'on' : 'off');
+    } catch (e) {}
+    render();
+  });
+
+  render();
+</script>

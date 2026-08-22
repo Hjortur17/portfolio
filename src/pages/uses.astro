@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Button from '../components/Button.astro';
+import ColorBar from '../components/ColorBar.astro';
+import InventoryPanel from '../components/InventoryPanel.astro';
+import { site } from '../data/site';
+import { lastUpdated } from '../data/uses';
+
+const [y, m] = lastUpdated.split('-');
+const month = new Date(Number(y), Number(m) - 1)
+  .toLocaleString('en', { month: 'short' })
+  .toUpperCase();
+---
+
+<Layout
+  title={`Loadout — ${site.name}`}
+  description="Every tool I actually open in a working week."
+  current="uses"
+>
+  <section class="mx-auto max-w-[1180px] px-10 pt-[88px] pb-11">
+    <Eyebrow label="INVENTORY" class="mb-[26px]" />
+    <h1
+      class="m-0 mb-[26px] font-pixel leading-[1.55] text-text"
+      style="font-size: clamp(22px, 3.2vw, 38px); text-shadow: 5px 5px 0 #1A2140"
+    >
+      Loadout
+    </h1>
+    <p
+      class="m-0 mb-[22px] max-w-[56ch] text-[26px] leading-[1.45] text-text-muted"
+      style="text-wrap: pretty"
+    >
+      The full version of the character sheet on the home page &mdash; every tool I
+      actually open in a working week. No wishlist entries, no affiliate links, and
+      nothing here because it looked good in a screenshot.
+    </p>
+
+    <!-- Legend up front, before anyone meets a mixed list. -->
+    <div class="flex flex-wrap items-center gap-6 text-[20px] tracking-[1px] text-text-dim">
+      <span class="flex items-center gap-2">
+        <span style="color: var(--accent)" aria-hidden="true">▶</span>links out
+      </span>
+      <span class="flex items-center gap-2">
+        <span class="inline-block h-[9px] w-[9px] bg-border"></span>no link
+      </span>
+      <span class="text-text-faint">LAST UPDATED &mdash; {month} {y}</span>
+    </div>
+  </section>
+
+  <InventoryPanel />
+
+  <section class="mx-auto max-w-[1180px] px-10 py-11">
+    <div
+      class="flex flex-wrap items-center justify-between gap-8 border-t-2 border-dashed border-border-dim pt-[34px]"
+    >
+      <p class="m-0 max-w-[46ch] text-[20px] leading-[1.45] text-text-dim" style="text-wrap: pretty">
+        TODO — replace the placeholder items above with your real setup, then delete
+        this line.
+      </p>
+      <div class="flex flex-wrap gap-[18px]">
+        <Button href="/#work" variant="primary">▶ SEE THE WORK</Button>
+        <Button href={`mailto:${site.email}`} variant="secondary">GET IN TOUCH</Button>
+      </div>
+    </div>
+  </section>
+
+  <ColorBar />
+</Layout>

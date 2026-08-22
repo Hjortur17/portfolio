@@ -1,0 +1,13 @@
+---
+interface Props {
+  label: string;
+  /** The square's colour. */
+  color?: string;
+  class?: string;
+}
+const { label, color = 'var(--accent)', class: klass = '' } = Astro.props;
+---
+<div class:list={['flex items-center gap-3', klass]}>
+  <div class="h-3 w-3 shrink-0" style={`background: ${color}`}></div>
+  <span class="font-pixel text-[10px] tracking-[3px] text-text-dim">{label}</span>
+</div>

@@ -1,0 +1,8 @@
+---
+interface Props {
+  variant?: 'tool' | 'tech';
+  class?: string;
+}
+const { variant = 'tech', class: klass = '' } = Astro.props;
+---
+<span class:list={[variant === 'tool' ? 'chip-tool' : 'chip-tech', klass]}><slot /></span>
