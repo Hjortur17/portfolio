@@ -20,14 +20,14 @@ interface Props {
 
 const { projectCount } = Astro.props;
 
-/* TODO: these are the handoff's first draft — edit them to be true.
- * Keep to six lines, and keep exactly one non-OK result: that's the joke. */
-const lines: { label: string; result: string; tone: 'ok' | 'warn' }[] = [
+/* Keep to six lines. Two results deliberately fall short of OK — the failing
+ * one is the punchline, the warn is the sign-off. */
+const lines: { label: string; result: string; tone: 'ok' | 'warn' | 'bad' }[] = [
   { label: 'Memory test', result: 'OK', tone: 'ok' },
   { label: 'Mounting /projects', result: `${projectCount} found`, tone: 'ok' },
-  { label: 'Loading astro', result: 'OK', tone: 'ok' },
-  { label: 'Loading laravel', result: 'OK', tone: 'ok' },
-  { label: 'Coffee subsystem', result: 'WARM', tone: 'warn' },
+  { label: 'Blowing on cartridge', result: 'OK', tone: 'ok' },
+  { label: 'Dodging blue shell', result: 'FAILED', tone: 'bad' },
+  { label: 'Energy drink subsystem', result: 'LOW', tone: 'warn' },
 ];
 
 const bios = 'HF.DEV BIOS v2.6 — Iceland';
@@ -101,7 +101,8 @@ const rows = lines.map((l) => ({
     for (const row of rows) {
       const r = el('div', 'hf-boot__row');
       r.appendChild(document.createTextNode(row.label + row.dots));
-      r.appendChild(el('span', row.tone === 'warn' ? 'hf-boot__warn' : 'hf-boot__ok', row.result));
+      const tones = { ok: 'hf-boot__ok', warn: 'hf-boot__warn', bad: 'hf-boot__bad' };
+      r.appendChild(el('span', tones[row.tone] || tones.ok, row.result));
       inner.appendChild(r);
       steps.push(r);
     }

@@ -1,11 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 5" width="32" height="32" shape-rendering="crispEdges" role="img" aria-label="HF.DEV">
   <title>HF.DEV favicon</title>
-  <rect x="0" y="0" width="5" height="5" fill="#080A14"></rect>
-  <g fill="#7CE04A">
+  <!-- A favicon sits on the browser's chrome, not on the site, so the mark
+       follows the OS theme instead of the site's own (always dark) palette.
+       No background block: the tab bar is the background. -->
+  <style>
+    .prompt { fill: #3E9E1C }
+    .bar    { fill: #16203D }
+    @media (prefers-color-scheme: dark) {
+      .prompt { fill: #7CE04A }
+      .bar    { fill: #E6ECFF }
+    }
+  </style>
+  <g class="prompt">
     <rect x="0" y="0" width="1" height="2"></rect>
     <rect x="1" y="1" width="1" height="3"></rect>
     <rect x="2" y="2" width="1" height="1"></rect>
     <rect x="0" y="3" width="1" height="2"></rect>
   </g>
-  <rect x="3" y="0" width="2" height="5" fill="#E6ECFF"></rect>
+  <rect x="3" y="0" width="2" height="5" class="bar"></rect>
 </svg>

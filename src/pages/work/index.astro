@@ -33,7 +33,8 @@ const loading = all.filter((p) => inFlight.includes(p.data.status));
       All work
     </h1>
     <p class="m-0 max-w-[56ch] text-[26px] leading-[1.45] text-text-muted" style="text-wrap: pretty">
-      TODO — one or two sentences framing the full list.
+      Six projects that shipped and one that did not. Each page covers what was
+      actually broken, the decisions that fixed it, and the parts I got wrong.
     </p>
   </section>
 
@@ -62,7 +63,7 @@ const loading = all.filter((p) => inFlight.includes(p.data.status));
             class="m-0 mb-12 max-w-[56ch] text-[23px] leading-[1.5] text-text-muted"
             style="text-wrap: pretty"
           >
-            TODO — one line on what is currently in flight.
+            Started, still unfinished, and honest about why.
           </p>
 
           <LoadingQueue projects={loading} />

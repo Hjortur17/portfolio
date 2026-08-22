@@ -29,12 +29,12 @@ const statusTone = {
 const statusText = statusLabel[d.status];
 const statusColor = statusTone[d.status];
 
-/* Every project has a page, so the card always points inward. The live-site
-   link lives on the project page itself, not out here. */
-const hasCase = Boolean(d.caseStudy);
+/* Every project gets a case study, so the card always points inward with the
+   same label. The live-site link lives on the project page, never out here.
+   Link colour follows the level, matching the handoff's cards. */
 const href = `/work/${project.id}`;
-const linkLabel = hasCase ? 'READ THE CASE STUDY ▶' : 'VIEW PROJECT ▶';
-const linkColor = hasCase ? 'var(--accent)' : levelColor;
+const linkLabel = 'READ THE CASE STUDY ▶';
+const linkColor = levelColor;
 ---
 
 <article

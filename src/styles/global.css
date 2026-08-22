@@ -256,11 +256,32 @@
   }
 
   .stat-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background: var(--color-surface-2);
     border: 3px solid var(--color-border-dim);
-    padding: 12px 8px;
+    padding: 14px 8px;
     text-align: center;
     transition: transform .1s steps(2), border-color .1s steps(2);
+  }
+  /* Fixed row so an oversized glyph (e.g. "∞") can't push the label down or grow the tile. */
+  .stat-tile__value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 22px;
+    font-size: 13px;
+    line-height: 1;
+  }
+  /* Symbols like "∞" aren't in Press Start 2P, so they fall back to monospace: small and
+     sitting low on the line. Scale up and nudge onto the same optical row as the pixel values. */
+  .stat-tile__value--glyph {
+    font-size: 34px;
+    transform: translateY(-7px);
+  }
+  .stat-tile__label {
+    margin-top: 2px;
   }
   .stat-tile:hover {
     transform: translateY(-4px);
@@ -365,6 +386,7 @@
 .hf-boot__bios { color: var(--color-text-dim); }
 .hf-boot__ok { color: var(--color-green); }
 .hf-boot__warn { color: var(--color-yellow); }
+.hf-boot__bad { color: var(--color-red); }
 
 .hf-boot__spacer { height: 9px; }
 

@@ -1,5 +1,5 @@
 /* Single source of truth for identity, links and the copy that appears in more
- * than one place. TODO items are placeholder text from the design handoff. */
+ * than one place. */
 
 export const site = {
   name: 'Hjörtur Freyr',
@@ -35,7 +35,7 @@ export const nav: NavItem[] = [
   { label: 'CONTACT', href: '/#contact', key: 'contact', primary: true },
 ];
 
-/* Home page — the tools band. TODO: adjust to your actual stack. */
+/* Home page — the tools band. The short version of /uses. */
 export const tools = [
   'NEXT.JS',
   'LARAVEL',

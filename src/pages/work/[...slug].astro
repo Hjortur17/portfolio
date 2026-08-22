@@ -61,6 +61,19 @@ const facts = cs
     ]
   : [];
 
+/* Mirrors the card's status vocabulary. 'loading' work is still in flight, so
+   it must never render as cleared. */
+const statusLabel = {
+  shipped: `CLEARED — ${d.year}`,
+  updated: `CLEARED — ${d.year}`,
+  loading: `IN PROGRESS — ${d.year}`,
+} as const;
+const statusTone = {
+  shipped: '#7CE04A',
+  updated: 'var(--accent)',
+  loading: '#FFC53D',
+} as const;
+
 const br = (s: string) => s.replace(/\n/g, '<br />');
 ---
 
@@ -75,9 +88,9 @@ const br = (s: string) => s.replace(/\n/g, '<br />');
       <Badge color={levelColor}>LEVEL {String(d.level).padStart(2, '0')}</Badge>
       <span
         class="text-[19px] tracking-[1px]"
-        style={`color: ${d.status === 'in-progress' ? '#FFC53D' : '#7CE04A'}`}
+        style={`color: ${statusTone[d.status]}`}
       >
-        {d.status === 'in-progress' ? `IN PROGRESS — ${d.year}` : `CLEARED — ${d.year}`}
+        {statusLabel[d.status]}
       </span>
     </div>
 
@@ -106,22 +119,31 @@ const br = (s: string) => s.replace(/\n/g, '<br />');
       )
     }
 
-    {/* No case study yet: show the stack as chips and send people to the
-        live site. This is the only place VIEW PROJECT appears. */}
+    {/* Without a fact bar there is nowhere else the stack is stated. */}
     {
       !cs && (
-        <>
-          <div class="mb-10 flex flex-wrap gap-2.5">
-            {d.tags.map((tag) => (
-              <Chip variant="tech">{tag}</Chip>
-            ))}
-          </div>
-          {d.externalHref && (
-            <Button href={d.externalHref} variant="primary" target="_blank" rel="noopener noreferrer">
-              {d.externalLabel} ▶
-            </Button>
-          )}
-        </>
+        <div class="mb-10 flex flex-wrap gap-2.5">
+          {d.tags.map((tag) => (
+            <Chip variant="tech">{tag}</Chip>
+          ))}
+        </div>
+      )
+    }
+
+    {/* The live-site link. This is the only place it appears anywhere on the
+        site — cards never link off-site. */}
+    {
+      d.externalHref && (
+        <div class={cs ? 'mt-10' : ''}>
+          <Button
+            href={d.externalHref}
+            variant="primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {d.externalLabel} ▶
+          </Button>
+        </div>
       )
     }
   </section>

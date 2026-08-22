@@ -57,7 +57,6 @@ const featured = allProjects
 
       <p class="m-0 mb-[26px] font-pixel text-[12px] tracking-[2px] text-yellow">{site.role}</p>
 
-      <!-- TODO: replace with your own intro. Two or three sentences. -->
       <p
         class="m-0 mb-[38px] max-w-[52ch] text-[23px] leading-[1.5] text-text-muted"
         style="text-wrap: pretty"
@@ -91,9 +90,9 @@ const featured = allProjects
           <PixelImage src={avatar} alt={`${site.name}, portrait`} pixel={9} priority />
         </div>
         <div class="mt-4 grid grid-cols-3 gap-2.5">
-          <StatTile value="5+" label="YEARS" color="var(--accent)" />
+          <StatTile value="2020" label="SHIPPING SINCE" color="var(--accent)" />
           <StatTile value="27 YEARS" label="UPTIME" color="#7CE04A" />
-          <StatTile value="∞" label="BUGS SQUASHED" color="#FFC53D" valueClass="text-[32px]" />
+          <StatTile value="∞" label="BUGS SQUASHED" color="#FFC53D" valueClass="stat-tile__value--glyph" />
         </div>
       </Panel>
     </div>
@@ -121,7 +120,8 @@ const featured = allProjects
         >
           I graduated from Reykjavík University with a degree in Computer Science.
           Since I was young I've been interested in computers and technology, which is
-          what led me to study it. I've been working as a developer for over 3 years now.
+          what led me to study it. I've been employed as a developer for over three years, and building
+          things for clients since 2020.
         </p>
         <p class="m-0 max-w-[58ch] text-[23px] leading-[1.55] text-text-muted" style="text-wrap: pretty">
           I have a passion for building web applications and embracing new technologies. I like to think of myself as a quick learner and always looking for new challenges. 
@@ -132,7 +132,6 @@ const featured = allProjects
 
       <Panel label="CHARACTER SHEET">
         <div class="grid gap-4">
-          <!-- TODO: confirm each of these values. -->
           <SheetRow label="CLASS" value="FULL STACK DEV" />
           <SheetRow label="EDUCATION" value="B.Sc COMPUTER SCIENCE" />
           <SheetRow label="MAIN WEAPON" value="NEXT.JS" valueColor="var(--accent)" />
@@ -169,7 +168,8 @@ const featured = allProjects
       class="m-0 mb-12 max-w-[56ch] text-[23px] leading-[1.5] text-text-muted"
       style="text-wrap: pretty"
     >
-      Projects that have been worked with closely with clients. Finding their problems and solving them.
+      Work done close to the people who depend on it — finding the real problem
+      first, then building the smallest thing that solves it.
     </p>
 
     <div class="grid gap-9">

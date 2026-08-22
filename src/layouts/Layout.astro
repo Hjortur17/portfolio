@@ -7,6 +7,9 @@ import Footer from '../components/Footer.astro';
 import BootScreen from '../components/BootScreen.astro';
 import { getCollection } from 'astro:content';
 import { site } from '../data/site';
+import ogImageDefault from '../assets/og-image.jpg';
+import faviconLight from '../assets/logo/logo-light.svg';
+import faviconDark from '../assets/logo/logo-dark.svg';
 
 interface Props {
   title: string;
@@ -22,6 +25,9 @@ interface Props {
    *  whole job of that page is to get them somewhere useful fast. */
   boot?: boolean;
   noindex?: boolean;
+  /** Social card. Pages with their own art pass it in; everything else gets
+   *  the site card. */
+  image?: ImageMetadata;
 }
 
 const {
@@ -32,9 +38,11 @@ const {
   bare = false,
   boot = true,
   noindex = false,
+  image = ogImageDefault,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image.src, Astro.site).href;
 
 /* The boot log prints the real project count, so the line stays true as the
    collection grows. */
@@ -46,6 +54,12 @@ const projectCount = (await getCollection('projects')).length;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {/* Firefox honours `media` here and re-picks live when the OS theme
+        flips. Chrome ignores it and falls through to /favicon.svg, which
+        carries the same swap in its own internal media query. Between the
+        two every browser gets a theme-correct mark. */}
+    <link rel="icon" type="image/svg+xml" href={faviconLight.src} media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/svg+xml" href={faviconDark.src} media="(prefers-color-scheme: dark)" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>{title}</title>
@@ -57,9 +71,13 @@ const projectCount = (await getCollection('projects')).length;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content={String(image.width)} />
+    <meta property="og:image:height" content={String(image.height)} />
+    <meta property="og:image:alt" content={`${site.name} — ${site.role}`} />
     <meta name="twitter:card" content="summary_large_image" />
-
-    
+    <meta name="twitter:image" content={ogImage} />
 
     <!-- Set both flags before first paint: `js` releases the scroll-reveal
          hidden state, and the scanline preference must not flash. -->
