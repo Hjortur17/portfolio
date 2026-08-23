@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import PixelImage from './PixelImage.astro';
+import ProjectPlate from './ProjectPlate.astro';
 import Badge from './Badge.astro';
 import Chip from './Chip.astro';
 
@@ -8,9 +8,15 @@ interface Props {
   project: CollectionEntry<'projects'>;
   /** Cards alternate: image left, then right, then left. */
   imageSide: 'left' | 'right';
+  /** The card title's level, so headings stay sequential wherever the card is
+   *  used. On the homepage it sits under a section h2, so h3. On /work the
+   *  page heading is the h1 directly above it, so h2 — an h3 there would skip
+   *  a level and break the document outline. */
+  headingLevel?: 2 | 3;
 }
 
-const { project, imageSide } = Astro.props;
+const { project, imageSide, headingLevel = 3 } = Astro.props;
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
 const d = project.data;
 
 const levelColors = ['var(--accent)', '#FF3B5C', '#FFC53D', '#7CE04A', '#B98CFF'];
@@ -42,18 +48,26 @@ const linkColor = levelColor;
   style="grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 0"
   data-reveal
 >
-  <!-- Image and text meet at a shared 4px border, so the card has no gap. -->
+  {/* Image and text meet at a shared 4px border, so the card has no gap.
+      The plate is composed, not cropped: when the text column runs taller than
+      4:3, the field grows around a still-centred window instead of slicing the
+      screenshot the way object-cover on a flat image would. */}
   <div
     class:list={[
-      'relative min-h-[400px]',
       imageSide === 'left'
         ? 'border-r-4 border-border'
         : 'order-last border-l-4 border-border',
     ]}
   >
-    <div class="absolute inset-0">
-      <PixelImage src={d.cover} alt={`${d.title} screenshot`} pixel={8} />
-    </div>
+    <ProjectPlate
+      src={d.screenshot}
+      alt={`${d.title} — ${d.domain}`}
+      variant="cover"
+      brand={d.brand}
+      field={d.field}
+      block={d.block}
+      class="h-full w-full"
+    />
   </div>
 
   <div class="flex flex-col justify-center px-9 py-[38px]">
@@ -62,12 +76,12 @@ const linkColor = levelColor;
       <span class="text-[19px] tracking-[1px]" style={`color: ${statusColor}`}>{statusText}</span>
     </div>
 
-    <h3
+    <Heading
       class="m-0 mb-[18px] font-pixel leading-[1.6] text-text"
       style="font-size: clamp(15px, 1.6vw, 19px)"
     >
       {d.title}
-    </h3>
+    </Heading>
 
     <p class="m-0 mb-6 text-[22px] leading-[1.5] text-text-muted" style="text-wrap: pretty">
       {d.summary}

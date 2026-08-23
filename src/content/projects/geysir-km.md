@@ -5,7 +5,9 @@ year: 2026
 status: shipped
 summary: "Long-term lease customers report their odometer once a month through a form with no login. The difference between two readings is what the lease bills on."
 tags: ["NEXT.JS", "PRISMA", "POSTGRES", "RESEND"]
-cover: ../../assets/projects/placeholder.webp
+screenshot: ../../assets/projects/km-registry/hero.webp
+brand: '#2FA36B'
+domain: GEYSIR-KM.IS
 featured: false
 order: 4
 externalHref: https://geysir-km.vercel.app
@@ -16,8 +18,6 @@ caseStudy:
   stack: "Next.js 16, React 19, Prisma 7, PostgreSQL, SQLite in dev, JWT via jose, Resend"
   team: "Me, plus the long-term rental staff who use the dashboard daily"
   lead: "A car rental company bills long-term leases on distance driven, and was collecting odometer readings by phone and email. The whole product is one number, entered once a month, by someone who should not have to make an account to do it."
-  heroImage: ../../assets/projects/placeholder.webp
-  heroLabel: "KM-REGISTRY-HERO.PNG"
 
   problemTitle: "One number a month,\ncollected by hand."
   problemBody:
@@ -47,17 +47,17 @@ caseStudy:
       color: accent
       title: "Built for a phone in a car park"
       body: "The reading field is a numeric keypad input with live Icelandic thousands separators applied as you type, while the raw integer goes into form state. Plates are capped at five characters and uppercased automatically. If the device remembers the plate, the form shows the last reading and refuses a lower one before anything hits the network. Success swaps the button to a checkmark and resets the form three seconds later."
-      image: ../../assets/projects/placeholder.webp
+      image: ""
     - eyebrow: "THE DASHBOARD"
       color: red
       title: "Previous, current, difference"
       body: "Icelandic throughout, down to the routes. Three counters split by processed and outstanding, then a sortable, filterable table whose important column is the derived one: kilometres driven since the last reading, in green. Staff mark rows done, correct mistakes inline, or add a reading on behalf of a customer who phoned it in anyway."
-      image: ../../assets/projects/placeholder.webp
+      image: ""
     - eyebrow: "EDITING HISTORY"
       color: yellow
       title: "Corrections that cannot break the chain"
       body: "An odometer only goes up, so a staff correction in the middle of a sequence has to fit between its neighbours. The edit route loads the car's full reading history, finds the row's position, and validates the new value against both the reading before and the reading after it. There is a separate branch for the case where a plate has been reassigned. It is the most careful code in the project, and it exists because the dashboard lets people change the past."
-      image: ../../assets/projects/placeholder.webp
+      image: ""
 
   hardPart:
     title: "The rule I shipped\nwas the wrong rule."
@@ -87,9 +87,4 @@ caseStudy:
     - value: "41"
       label: "Commits over 58 days, 26 of them fixes"
       color: yellow
-  retrospective:
-    - "Route protection covers the dashboard pages and nothing else. Every API route is reachable without a session, including the ones that create admins, delete admins, and edit readings. There is an auth helper written for exactly this, and it is called from nowhere. That is the single thing I would fix before anything else on this list."
-    - "Verification codes come from `Math.random`, there is no attempt limit on the verify endpoint, and codes live for ten minutes — which makes a six-digit code brute-forceable by anyone who bothers. The login endpoint also confirms whether an email belongs to an admin, which is a free list of who to target."
-    - "Editing a plate to one that does not exist renames the existing vehicle row instead of moving the reading to a new one, so every other reading for that car silently changes plate too. A staff member fixing one typo can rewrite a year of history without any indication that it happened."
-    - "Running SQLite in development and Postgres in production means two schema files kept in sync by hand, two generated clients, and query branches for the features SQLite lacks. It made local work pleasant and it is the reason several build failures only appeared on deploy. I would use Postgres in both."
 ---

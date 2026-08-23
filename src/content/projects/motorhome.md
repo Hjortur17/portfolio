@@ -5,7 +5,15 @@ year: 2025
 status: shipped
 summary: "A campervan rental site for Iceland with the full booking funnel built in, search to payment. Content comes from a CMS; every price comes from the rental backend."
 tags: ["NEXT.JS", "PRISMIC", "TAILWIND", "CAREN API"]
-cover: ../../assets/projects/placeholder.webp
+screenshot: ../../assets/projects/motorhome/hero.webp
+brand: '#C0392B'
+domain: MOTORHOME.IS
+# motorhome.is red sits ~4° from the portfolio's own #FF3B5C, so this
+# page runs yellow wherever it would have run red. Never the reverse:
+# the client colour stays as it is.
+accentSwap:
+  role: red
+  with: yellow
 featured: true
 order: 3
 externalHref: https://motorhome.is
@@ -16,8 +24,6 @@ caseStudy:
   stack: "Next.js 16, React 19, TypeScript, Prismic, Tailwind v4, Caren API, MapLibre, Sentry, Vercel"
   team: "Me on the build; the rental team owns content and pricing in Prismic"
   lead: "A motorhome rental company with a booking backend it did not control and a marketing site that could not talk to it. The site had to sell the trip and sell the van, and those two things lived in different systems."
-  heroImage: ../../assets/projects/placeholder.webp
-  heroLabel: "MOTORHOME-HERO.PNG"
 
   problemTitle: "Two systems, one\nbooking, no shared truth."
   problemBody:
@@ -47,17 +53,17 @@ caseStudy:
       color: accent
       title: "Six steps, one state machine"
       body: "Search, availability, insurance and extras, driver details, payment, confirmation — all of it driven by one context that mirrors itself into sessionStorage as it goes. Refreshing the page mid-booking does not lose the booking. Once a reservation exists in Caren, the details step stops creating and starts editing, and a deep comparison against a snapshot means it only calls the API when something actually changed."
-      image: ../../assets/projects/placeholder.webp
+      image: ../../assets/projects/motorhome/screenshot-1.webp
     - eyebrow: "CONTENT MODEL"
       color: red
       title: "Thirteen slices the client can rearrange"
       body: "Pages are composed in Prismic from thirteen slices with eighteen variations, including one that mounts the entire booking widget — so the booking form is something an editor can place on a page rather than something I have to deploy. Navigation, footer, SEO metadata and a date-windowed site-wide banner are all CMS-owned. Vans get fifty-four hand-built feature icons across six categories."
-      image: ../../assets/projects/placeholder.webp
+      image: ../../assets/projects/motorhome/screenshot-3.webp
     - eyebrow: "TRIP PLANNING"
       color: yellow
       title: "823 points of interest, served as static files"
       body: "Campsites, fuel and groceries on a MapLibre map of Iceland. Rather than query a live geo API on every page view, a one-shot script pulls the data out of OpenStreetMap's Overpass endpoint and writes static GeoJSON into the repo — 303 campsites, 263 gas stations, 257 grocery stores, 227 KB in total. The map has no runtime dependency on anything but the tile server."
-      image: ../../assets/projects/placeholder.webp
+      image: ../../assets/projects/motorhome/screenshot-2.webp
 
   hardPart:
     title: "The coupon that\nrefuses to say its price."
@@ -87,9 +93,4 @@ caseStudy:
     - value: "0"
       label: "Cached commercial data — every price is live"
       color: yellow
-  retrospective:
-    - "The vehicle join fans out one CMS request per feature, per category, per vehicle. I hid that behind Suspense instead of fixing it, which made the page feel fast without making it cheap. Hiding latency is not the same as removing it, and the honest fix is one batched query."
-    - "Two blog routes still carry commented-out `noindex` blocks marked 'fix before production'. They shipped. A TODO in metadata is not a note to self, it is a live SEO decision nobody made on purpose."
-    - "There is no test suite. For a funnel that takes card payments and computes discounts by subtracting two API responses, that is the wrong place to have zero automated coverage — the coupon differential in particular is exactly the kind of logic that breaks silently and only shows up on an invoice."
-    - "Rewriting from Strapi and Redis to Prismic was right, but the cut landed as a single commit that deleted the old app with no explanation attached. Two years from now the most consequential decision in this repo has no reasoning recorded anywhere."
 ---

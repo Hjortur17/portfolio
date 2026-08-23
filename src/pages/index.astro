@@ -13,6 +13,7 @@ import ProjectCard from '../components/ProjectCard.astro';
 import LoadingQueue from '../components/LoadingQueue.astro';
 import { site, socials, tools } from '../data/site';
 import avatar from '../assets/me.webp';
+import { personSchema } from '../lib/seo';
 
 const allProjects = await getCollection('projects');
 
@@ -25,7 +26,10 @@ const featured = allProjects
   .sort((a, b) => a.data.order - b.data.order)
 ---
 
-<Layout title={`${site.name} — Full Stack Developer`}>
+<Layout
+  title={`${site.name} — Full Stack Developer`}
+  schema={personSchema(new URL(Astro.url.pathname, Astro.site).href)}
+>
   <!-- ================= HERO ================= -->
   <section
     id="top"
@@ -42,17 +46,14 @@ const featured = allProjects
           style="animation: hf-blink 1s steps(1, end) infinite"></span>
       </div>
 
-      <h1
-        class="m-0 mb-2 font-pixel leading-[1.5] text-text"
-        style="font-size: clamp(22px, 3.4vw, 40px); text-shadow: 5px 5px 0 #1A2140"
-      >
-        Hi, I'm
-      </h1>
-      <h1
-        class="m-0 mb-7 font-pixel leading-[1.5]"
-        style="font-size: clamp(22px, 3.4vw, 40px); color: var(--accent); text-shadow: 5px 5px 0 #10203A"
-      >
-        {site.name}.
+    {/* One h1, two visual lines. These were two separate h1 elements, which
+        gave the page two competing top-level headings and told a crawler the
+        document was about "Hi, I'm". The name is what should rank. */}
+      <h1 class="m-0 mb-7 font-pixel leading-[1.5]" style="font-size: clamp(22px, 3.4vw, 40px)">
+        <span class="mb-2 block text-text" style="text-shadow: 5px 5px 0 #1A2140">Hi, I'm</span>
+        <span class="block" style="color: var(--accent); text-shadow: 5px 5px 0 #10203A">
+          {site.name}.
+        </span>
       </h1>
 
       <p class="m-0 mb-[26px] font-pixel text-[12px] tracking-[2px] text-yellow">{site.role}</p>
@@ -87,7 +88,14 @@ const featured = allProjects
         class="relative"
       >
         <div class="h-[340px] w-full">
-          <PixelImage src={avatar} alt={`${site.name}, portrait`} pixel={9} priority />
+          <PixelImage
+            src={avatar}
+            alt={`${site.name}, portrait`}
+            pixel={9}
+            widths={[320, 480, 720, 1000]}
+            sizes="(min-width: 1260px) 482px, 60vw"
+            priority
+          />
         </div>
         <div class="mt-4 grid grid-cols-3 gap-2.5">
           <StatTile value="2020" label="SHIPPING SINCE" color="var(--accent)" />

@@ -18,11 +18,14 @@
   const btn = document.querySelector<HTMLButtonElement>('[data-scanline-toggle]');
   const state = btn?.querySelector<HTMLElement>('[data-scanline-state]');
 
+  /* No aria-label here on purpose. An aria-label of "Turn scanlines off" over
+     visible text of "SCAN ON" overrides the name a speech-input user can
+     actually see and say, which fails WCAG 2.5.3 Label in Name. The visible
+     text is the name; aria-pressed carries the state. */
   function render() {
     const off = document.documentElement.dataset.scanlines === 'off';
     if (state) state.textContent = off ? 'OFF' : 'ON';
     btn?.setAttribute('aria-pressed', off ? 'true' : 'false');
-    btn?.setAttribute('aria-label', off ? 'Turn scanlines on' : 'Turn scanlines off');
   }
 
   btn?.addEventListener('click', () => {

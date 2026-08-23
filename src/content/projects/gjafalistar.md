@@ -5,7 +5,9 @@ year: 2025
 status: loading
 summary: "An Icelandic gift registry. Paste a product link and it pulls the title and image off the page — everything works except reserving an item, which is the point."
 tags: ["NEXT.JS", "REACT", "LARAVEL", "TAILWIND"]
-cover: ../../assets/projects/placeholder.webp
+screenshot: ""
+brand: '#D98A1F'
+domain: GJAFALISTAR.IS
 featured: false
 order: 1
 caseStudy:
@@ -14,8 +16,6 @@ caseStudy:
   stack: "Next.js 15, React 19, TypeScript, Laravel 11, Sanctum, NextAuth, Tailwind v4, Sentry"
   team: "Just me, in spare time"
   lead: "A gift registry for Icelandic occasions — birthdays, weddings, christenings, graduations. Everything around the idea got built. The idea itself did not."
-  heroImage: ../../assets/projects/placeholder.webp
-  heroLabel: "GJAFALISTAR-HERO.PNG"
 
   problemTitle: "Adding a gift should\ntake one paste."
   problemBody:
@@ -45,17 +45,17 @@ caseStudy:
       color: accent
       title: "One field, three fallbacks"
       body: "The first scraper ran server-side in Laravel with a proper cascade: structured product data first, then Open Graph tags, then the bare page title, each tier wrapped in its own error handling. It is the best code in either repository. It is also dead — nothing calls it any more."
-      image: ../../assets/projects/placeholder.webp
+      image: ""
     - eyebrow: "OCCASIONS"
       color: red
       title: "Seven Icelandic occasions, colour-coded"
       body: "Birthdays, weddings, Christmas, summer, graduations, christenings and other — seeded as types rather than free text, each mapped to its own colour throughout the interface. The routes are Icelandic too, all the way down. Names run through a hand-written transliteration table that maps Þ, Ð, Æ, Ö and Ý to ASCII so the avatar service returns correct initials instead of question marks."
-      image: ../../assets/projects/placeholder.webp
+      image: ""
     - eyebrow: "COLLABORATION"
       color: yellow
       title: "Roles, policies, and tests for them"
       body: "Lists have members with roles, guarded by a policy and gated in the interface so only an owner sees edit controls. There is a complete friend-request lifecycle behind it — send, accept, decline, unfriend — with five passing tests and no user interface at all. It is finished code for a screen that was never built."
-      image: ../../assets/projects/placeholder.webp
+      image: ""
 
   hardPart:
     title: "I rewrote the good\nscraper into a worse one."
@@ -85,9 +85,4 @@ caseStudy:
     - value: "0"
       label: "Lines of reservation logic written"
       color: red
-  retrospective:
-    - "The scrape endpoint takes any URL from anyone with no authentication, no allowlist and no timeout, and fetches it from my server. That is an open proxy, and it is pointed at my infrastructure. It is the first thing to fix if this ever resumes."
-    - "The join endpoint adds the caller to a list with no invite token, no expiry and no authorisation check, over a GET request. Knowing a list's identifier is enough to join it, and a prefetched link is enough to trigger it. Two other endpoints let any signed-in user add or delete items on any list at all."
-    - "The auth token is spelled four different ways across the frontend, and the one path that works does so by accident through a nested object. A failed login returns an error object where it should return nothing, which NextAuth reads as a successful sign-in. Registration does not sign you in, and the FIXME explaining why has been sitting above the line for over a year."
-    - "The real lesson is about sequencing. I built membership roles, a friends system, a policy layer, Sentry on both apps and a formatting workflow that commits back to the branch — and never built reserving an item. The infrastructure was more comfortable to work on than the feature, and the live homepage is still the framework's starter template."
 ---

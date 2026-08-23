@@ -1,0 +1,54 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  /** Absent while the shot is still pending — the bezel renders empty. */
+  src?: ImageMetadata;
+  alt: string;
+  /** One line under the bezel. The handoff allows exactly one. */
+  caption?: string;
+  class?: string;
+}
+
+const { src, alt, caption, class: klass = '' } = Astro.props;
+
+const CANDIDATES = [480, 720, 960, 1280];
+const widths = src
+  ? [...new Set([...CANDIDATES.filter((w) => w < src.width), src.width])].sort((a, b) => a - b)
+  : [];
+
+/* Same rule as the plate: take the capture's own ratio so nothing is cropped.
+   Clamped against a stray full-page capture. */
+const ratio = src ? Math.min(2.2, Math.max(1.6, src.width / src.height)) : 16 / 9;
+---
+
+{/* Everything below the hero is a plain dark bezel: no crush, no hover reveal,
+    no client colour. The hero already did the branding — down here legibility
+    is the only job. */}
+<figure class:list={['m-0', klass]}>
+  <div
+    class="border-4 border-border"
+    style="background: #0E1326; padding: 14px; box-shadow: 12px 12px 0 rgba(0,0,0,0.55)"
+  >
+    <div class="w-full overflow-hidden" style={`aspect-ratio: ${ratio}; background: #0A0E1C`}>
+      {src && (
+        <Image
+          src={src}
+          alt={alt}
+          widths={widths}
+          sizes="(min-width: 1100px) 500px, 88vw"
+          loading="lazy"
+          class="block h-full w-full object-cover"
+        />
+      )}
+    </div>
+  </div>
+  {
+    caption && (
+      <figcaption class="mt-3.5 text-[19px] leading-[1.4] tracking-[1px] text-text-dim">
+        {caption}
+      </figcaption>
+    )
+  }
+</figure>

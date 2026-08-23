@@ -5,7 +5,12 @@ year: 2026
 status: shipped
 summary: "Shift scheduling and time tracking for Icelandic businesses. Web rosters, geofenced clock-in on mobile, and hours classified against whichever collective agreement applies."
 tags: ["LARAVEL", "NEXT.JS", "REACT NATIVE", "MYSQL"]
-cover: ../../assets/projects/placeholder.webp
+screenshot: ../../assets/projects/timr/hero.webp
+brand: '#0a7c68'
+domain: TIMR.IS
+accentSwap:
+  role: green
+  with: yellow
 featured: true
 order: 1
 externalHref: https://www.timr.is
@@ -16,8 +21,6 @@ caseStudy:
   stack: "Laravel 12, MySQL, Next.js 16, React 19, Expo / React Native, Sanctum, Verifone, Resend"
   team: "Just me"
   lead: "Icelandic rota software either ignores collective agreements entirely or hardcodes one of them. Timr treats the agreement as data, because a single company can employ people working under four different ones."
-  heroImage: ../../assets/projects/placeholder.webp
-  heroLabel: "TIMR-HERO.PNG"
 
   problemTitle: "There is no such thing\nas a normal working day."
   problemBody:
@@ -47,17 +50,17 @@ caseStudy:
       color: accent
       title: "Draft, then publish — and remember what you published"
       body: "Managers build rosters privately and bulk-publish a date range; until then employees see nothing. Publishing snapshots the date and the employee onto the row, so reassigning or deleting a shift later cannot retroactively rewrite what someone was told they were working. Exports read soft-deleted shifts too, for the same reason — a shift deleted last month must not erase a day that was actually worked."
-      image: ../../assets/projects/placeholder.webp
-    - eyebrow: "CLOCK IN"
+      image: ../../assets/projects/timr/screenshot-1.webp
+    - eyebrow: "TIME OFF"
       color: red
-      title: "Geofencing that degrades honestly"
-      body: "Clock-in compares GPS position against a per-location radius by haversine distance. Where a shift has no location attached it falls back to the nearest workplace, and where a location has no coordinates set it records the position but enforces nothing. The alternative — refusing to clock someone in because an admin never filled in a latitude — turns a data-entry gap into a payroll dispute."
-      image: ../../assets/projects/placeholder.webp
+      title: "The vacation year starts in May"
+      body: "Icelandic vacation years do not follow the calendar, so balances are counted against a company-configured window, and a working day is whatever days the company is open minus the red days — editing opening hours rewrites the vacation math instead of leaving two settings to drift apart. Pending requests hold their days so the same balance cannot be spent twice, and only holiday deducts: sick, parental and unpaid leave are recorded without touching it. Everyone can see who is away, but the type is hidden unless the request is your own — the roster needs to know someone is out, not why."
+      image: ../../assets/projects/timr/screenshot-2.webp
     - eyebrow: "BILLING"
       color: yellow
       title: "Recurring card payments, hand-rolled"
       body: "Three ISK tiers with employee caps, trial conversion, hosted checkout and merchant-initiated recurring charges through Verifone — no Cashier, no Stripe. Webhooks are verified as attached-payload JWS against the RFC 8785 canonicalisation of the request body, with keys selected by ID and a forced JWKS refresh for rotation. Billing routes deliberately sit outside the subscription middleware so a lapsed owner can still reach the page that lets them pay."
-      image: ../../assets/projects/placeholder.webp
+      image: ../../assets/projects/timr/screenshot-3.webp
 
   hardPart:
     title: "An hour's classification\ndepends on the month."
@@ -87,9 +90,4 @@ caseStudy:
     - value: "91"
       label: "API endpoints behind four middleware layers"
       color: yellow
-  retrospective:
-    - "Multi-tenancy is enforced by a global scope on every tenant model, and there are a dozen places — calendar feeds, employee dedupe, vacation lookups — that have to switch it off to do their job. Every one of those is a cross-tenant leak waiting for a careless refactor. A scope you routinely disable is not really a boundary."
-    - "The dunning retry window was anchored on a column that is null for a subscription converting off a trial, so those subscriptions never expired and were re-charged daily. It was caught by reading the code, not by a failing test or an alert. Money paths need monitoring that does not depend on me rereading them."
-    - "I shipped the collective-agreement engine without a payroll bureau or a union reviewing the interpretation. The code flags its own uncertainty and cites clauses, which is better than nothing, but 'the developer read the agreement carefully' is not the standard this needs to meet."
-    - "A meaningful share of the late work ran through an autonomous agent loop driven off my issue tracker. It moved fast and it is the least documented decision in the project — six months from now I will not be able to tell which choices were mine."
 ---

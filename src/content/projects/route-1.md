@@ -5,7 +5,9 @@ year: 2023
 status: shipped
 summary: "A brand site for an Icelandic car rental, built on a flat-file CMS with no database. Reservations went to a specialist vendor — the decision the project turns on."
 tags: ["STATAMIC", "VUE", "TAILWIND", "LARAVEL"]
-cover: ../../assets/projects/placeholder.webp
+screenshot: ../../assets/projects/route1/hero.webp
+brand: '#2FA36B'
+domain: ROUTE-1
 featured: false
 order: 6
 caseStudy:
@@ -14,8 +16,6 @@ caseStudy:
   stack: "Statamic 3 on Laravel 9, Vue 3, Tailwind 2, Laravel Mix, flat-file content"
   team: "Me, building against an existing brand and an existing booking vendor"
   lead: "A car rental brand that needed a website, not a booking system — because the booking system already existed and belonged to someone else."
-  heroImage: ../../assets/projects/placeholder.webp
-  heroLabel: "ROUTE1-HERO.PNG"
 
   problemTitle: "The interesting part\nwas already bought."
   problemBody:
@@ -45,17 +45,17 @@ caseStudy:
       color: accent
       title: "Pages composed from blocks"
       body: "Five blueprints and four reusable fieldsets over a nested page tree, with a repeater of sections that carries its own layout toggles — background on or off, border on or off — resolved into Tailwind classes in the template. Marketing composes a page from blocks and controls how each one looks without touching code."
-      image: ../../assets/projects/placeholder.webp
+      image: ""
     - eyebrow: "THE ESCAPE HATCH"
       color: red
       title: "A rich-text field that accepts a script"
       body: "Inner pages have a code-snippet field, which is how the vendor's booking widget gets onto a page at all. It means an editor can move the booking form, or add it to a new landing page, without a deploy. It also means the site trusts whatever gets pasted into it — a deliberate trade for a small team where the only people with CMS access are the ones who own the brand."
-      image: ../../assets/projects/placeholder.webp
+      image: ""
     - eyebrow: "DESIGN SYSTEM"
       color: yellow
       title: "Type scale on bare elements"
       body: "The global type scale is applied to unstyled heading elements in CSS rather than as classes in templates, so rich text authored in the CMS comes out correctly styled without an editor knowing anything about the design system. Brand colour and a nine-step neutral ramp sit in the Tailwind config, which is what made the second brand a config change rather than a rewrite."
-      image: ../../assets/projects/placeholder.webp
+      image: ""
 
   hardPart:
     title: "The build that proved\nitself three months later."
@@ -85,9 +85,4 @@ caseStudy:
     - value: "0"
       label: "Databases, migrations and booking code written"
       color: yellow
-  retrospective:
-    - "Compiled assets went into version control and back out again across three commits, with one message that just says the production build script was giving trouble. The repo's final state has build artefacts committed. I never sorted the build properly and worked around it instead, which is exactly the kind of thing that stays broken because it is never quite blocking."
-    - "Placeholder content shipped. Lorem ipsum testimonials with stock headshots and two untitled blog posts were live on a real brand's site. 'Site complete' meant the templates were complete, and I did not draw a line between those two things clearly enough."
-    - "The vendor's booking script is embedded three separate times — twice pasted into content, once hardcoded in a template — and two of those point at different widget configurations. It should have been one partial with one source of truth. Copy-paste in content is still copy-paste."
-    - "The widget points at the vendor's development endpoint rather than a production one. Whether that was ever corrected before launch, I cannot tell from this repo, and that I cannot tell is itself the problem."
 ---

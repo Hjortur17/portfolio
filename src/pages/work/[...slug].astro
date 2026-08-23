@@ -11,8 +11,10 @@ import Cell from '../../components/Cell.astro';
 import DecisionCard from '../../components/DecisionCard.astro';
 import FlowDiagram from '../../components/FlowDiagram.astro';
 import PullQuote from '../../components/PullQuote.astro';
-import PixelImage from '../../components/PixelImage.astro';
+import ProjectPlate from '../../components/ProjectPlate.astro';
+import Screenshot from '../../components/Screenshot.astro';
 import { site } from '../../data/site';
+import { metaDescription, caseStudySchema } from '../../lib/seo';
 
 export async function getStaticPaths() {
   const projects = (await getCollection('projects')).sort(
@@ -41,15 +43,29 @@ const { project, next } = Astro.props;
 const d = project.data;
 const cs = d.caseStudy;
 
-const colorMap: Record<string, string> = {
+const PALETTE = {
   accent: 'var(--accent)',
   red: '#FF3B5C',
   yellow: '#FFC53D',
   green: '#7CE04A',
   violet: '#B98CFF',
-};
+} as const;
 
-const levelColors = ['var(--accent)', '#FF3B5C', '#FFC53D', '#7CE04A', '#B98CFF'];
+/* A project whose brand colour sits too close to one of these substitutes it
+   for the whole page, so the client's colour and ours never appear together.
+   Every page colour reads through this map — hardcoding a hex anywhere below
+   would leak the clashing accent straight back in. */
+const colorMap: Record<string, string> = d.accentSwap
+  ? { ...PALETTE, [d.accentSwap.role]: PALETTE[d.accentSwap.with] }
+  : { ...PALETTE };
+
+const levelColors = [
+  colorMap.accent,
+  colorMap.red,
+  colorMap.yellow,
+  colorMap.green,
+  colorMap.violet,
+];
 const levelColor = levelColors[(d.level - 1) % levelColors.length];
 
 const facts = cs
@@ -69,18 +85,33 @@ const statusLabel = {
   loading: `IN PROGRESS — ${d.year}`,
 } as const;
 const statusTone = {
-  shipped: '#7CE04A',
-  updated: 'var(--accent)',
-  loading: '#FFC53D',
+  shipped: colorMap.green,
+  updated: colorMap.accent,
+  loading: colorMap.yellow,
 } as const;
+
+/* The lead runs to ~210 characters, which a search result cuts off mid
+   sentence. Trim for the meta tag only — the page still shows it in full. */
+const pageDescription = metaDescription(cs?.lead ?? d.summary);
 
 const br = (s: string) => s.replace(/\n/g, '<br />');
 ---
 
 <Layout
   title={cs ? `${d.title} — case study | ${site.name}` : `${d.title} | ${site.name}`}
-  description={cs?.lead ?? d.summary}
+  description={pageDescription}
   navVariant="case"
+  image={d.screenshot}
+  ogType="article"
+  schema={caseStudySchema({
+    title: d.title,
+    description: pageDescription,
+    url: new URL(Astro.url.pathname, Astro.site).href,
+    image: d.screenshot && new URL(d.screenshot.src, Astro.site).href,
+    year: d.year,
+    tags: d.tags,
+    externalHref: d.externalHref,
+  })}
 >
   <!-- ========== HEADER BLOCK + FACT BAR ========== -->
   <section class="mx-auto max-w-[1180px] px-10 pt-[88px] pb-14">
@@ -148,22 +179,22 @@ const br = (s: string) => s.replace(/\n/g, '<br />');
     }
   </section>
 
-  <!-- ========== HERO SHOT ========== -->
+  {/* ========== HERO SHOT ==========
+      No frame and no label row: the plate's own background is the page
+      background, so the mockup reads as floating in the page. Wrapping browser
+      chrome inside panel chrome fights it, and the domain is already baked into
+      the title bar. */}
   <section class="mx-auto max-w-[1180px] px-10 pb-[88px]" data-reveal>
-    <div
-      class="border-4 border-border p-3"
-      style="background: #0E1326; box-shadow: 12px 12px 0 rgba(0,0,0,0.55)"
-    >
-      <div
-        class="mb-3 flex items-center justify-between font-pixel text-[8px] tracking-[1px] text-text-dim"
-      >
-        <span>{cs?.heroLabel ?? `${d.title.toUpperCase().replace(/[^A-Z0-9]+/g, '-')}.PNG`}</span>
-        {cs && <span>01 / 04</span>}
-      </div>
-      <div class="h-[520px] w-full">
-        <PixelImage src={cs?.heroImage ?? d.cover} alt={`${d.title} — main screen`} pixel={8} />
-      </div>
-    </div>
+    <ProjectPlate
+      src={d.screenshot}
+      alt={`${d.title} — ${d.domain}`}
+      variant="hero"
+      brand={d.brand}
+      field={d.field}
+      block={d.block}
+      domain={d.domain}
+      priority
+    />
   </section>
 
   <ColorBar />
@@ -173,7 +204,7 @@ const br = (s: string) => s.replace(/\n/g, '<br />');
       <>
   {/* ========== 01 THE PROBLEM ========== */}
   <section class="mx-auto max-w-[1180px] px-10 py-[84px]" data-reveal>
-    <Eyebrow label="01 — THE PROBLEM" color="#FF3B5C" class="mb-[30px]" />
+    <Eyebrow label="01 — THE PROBLEM" color={colorMap.red} class="mb-[30px]" />
     <div
       class="grid items-start"
       style="grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr)); gap: 52px"
@@ -203,12 +234,20 @@ const br = (s: string) => s.replace(/\n/g, '<br />');
         class="border-4 border-border p-[26px]"
         style="background: #0E1326; box-shadow: 10px 10px 0 rgba(0,0,0,0.55)"
       >
-        <div class="mb-[22px] font-pixel text-[9px] tracking-[2px] text-red">WHAT WAS BREAKING</div>
+        <div
+          class="mb-[22px] font-pixel text-[9px] tracking-[2px]"
+          style={`color: ${colorMap.red}`}
+        >
+          WHAT WAS BREAKING
+        </div>
         <div class="grid gap-[18px]">
           {
             cs.problems.map((p) => (
               <div class="flex items-start gap-3.5">
-                <div class="mt-2 h-2.5 w-2.5 shrink-0 bg-red" />
+                <div
+                  class="mt-2 h-2.5 w-2.5 shrink-0"
+                  style={`background: ${colorMap.red}`}
+                />
                 <div class="text-[21px] leading-[1.4] text-text-muted">{p}</div>
               </div>
             ))
@@ -249,7 +288,7 @@ const br = (s: string) => s.replace(/\n/g, '<br />');
 
   {/* ========== 03 WHAT I BUILT ========== */}
   <section class="mx-auto max-w-[1180px] px-10 py-[84px]">
-    <Eyebrow label="03 — WHAT I BUILT" color="#7CE04A" class="mb-[30px]" />
+    <Eyebrow label="03 — WHAT I BUILT" color={colorMap.green} class="mb-[30px]" />
     <div class="grid gap-10">
       {
         cs.buildSections.map((b, i) => (
@@ -275,14 +314,7 @@ const br = (s: string) => s.replace(/\n/g, '<br />');
                 {b.body}
               </p>
             </div>
-            <div
-              class="border-4 border-border p-3"
-              style="background: #0E1326; box-shadow: 12px 12px 0 rgba(0,0,0,0.55)"
-            >
-              <div class="h-[330px] w-full">
-                <PixelImage src={b.image} alt={b.title} pixel={8} />
-              </div>
-            </div>
+            {b.image && <Screenshot src={b.image} alt={b.title} caption={b.caption} />}
           </div>
         ))
       }
@@ -292,7 +324,7 @@ const br = (s: string) => s.replace(/\n/g, '<br />');
   {/* ========== 04 THE HARD PART ========== */}
   <section class="border-t-4 border-b-4 border-rule" style="background: #0B0F1F" data-reveal>
     <div class="mx-auto max-w-[1180px] px-10 py-[84px]">
-      <Eyebrow label="04 — THE HARD PART" color="#B98CFF" class="mb-[30px]" />
+      <Eyebrow label="04 — THE HARD PART" color={colorMap.violet} class="mb-[30px]" />
       <div
         class="grid items-start"
         style="grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr)); gap: 52px"
@@ -328,14 +360,14 @@ const br = (s: string) => s.replace(/\n/g, '<br />');
 
   {/* ========== 05 OUTCOME ========== */}
   <section class="mx-auto max-w-[1180px] px-10 py-[84px]" data-reveal>
-    <Eyebrow label="05 — OUTCOME" color="#7CE04A" class="mb-[30px]" />
+    <Eyebrow label="05 — OUTCOME" color={colorMap.green} class="mb-[30px]" />
     <h2
       class="m-0 mb-10 font-pixel leading-[1.7] text-text"
       style="font-size: clamp(15px, 1.7vw, 20px)"
       set:html={br(cs.outcomeTitle)}
     />
 
-    <CellStrip minWidth={240} class="mb-11">
+    <CellStrip minWidth={240} class={cs.quote ? 'mb-11' : ''}>
       {
         cs.metrics.map((m, i) => (
           <Cell padding="30px 28px" last={i === cs.metrics.length - 1}>
@@ -351,39 +383,16 @@ const br = (s: string) => s.replace(/\n/g, '<br />');
       }
     </CellStrip>
 
-    <div
-      class="grid items-start"
-      style="grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 44px"
-    >
-      {
-        cs.quote && (
-          <div>
-            <div class="mb-[18px] font-pixel text-[9px] tracking-[2px] text-text-dim">
-              WHAT THE CLIENT SAID
-            </div>
-            <PullQuote text={cs.quote.text} attribution={cs.quote.attribution} />
+    {
+      cs.quote && (
+        <div>
+          <div class="mb-[18px] font-pixel text-[9px] tracking-[2px] text-text-dim">
+            WHAT THE CLIENT SAID
           </div>
-        )
-      }
-      <div>
-        <div class="mb-[18px] font-pixel text-[9px] tracking-[2px] text-orange">
-          WHAT I'D DO DIFFERENTLY
+          <PullQuote text={cs.quote.text} attribution={cs.quote.attribution} />
         </div>
-        {
-          cs.retrospective.map((p, i) => (
-            <p
-              class:list={[
-                'text-[22px] leading-[1.5] text-text-muted',
-                i === cs.retrospective.length - 1 ? 'm-0' : 'm-0 mb-4',
-              ]}
-              style="text-wrap: pretty"
-            >
-              {p}
-            </p>
-          ))
-        }
-      </div>
-    </div>
+      )
+    }
   </section>
       </>
     )

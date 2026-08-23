@@ -1,0 +1,267 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { deriveField, deriveBlock } from '../lib/color';
+
+interface Props {
+  /** The one viewport capture per project. 2560×1440, not a full-page scroll.
+   *  Absent while a project is written up but not yet photographed — the plate
+   *  still renders, with an empty screen. */
+  src?: ImageMetadata;
+  alt: string;
+  /** hero = mockup alone on the page background, for the case study.
+   *  cover = the same mockup on the pixel field, for the project card. */
+  variant: 'hero' | 'cover';
+  /** One colour pulled from the client's product. */
+  brand: string;
+  /** Derived from `brand` unless a project overrides them. */
+  field?: string;
+  block?: string;
+  /** Baked into the hero's title bar. The cover carries no type — the card
+   *  already sets the project title as real text. */
+  domain?: string;
+  priority?: boolean;
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  variant,
+  brand,
+  field = deriveField(brand),
+  block = deriveBlock(brand),
+  domain,
+  priority = false,
+  class: klass = '',
+} = Astro.props;
+
+/* The screen takes the capture's own aspect ratio rather than a hardcoded
+   16:9. Real captures come off a browser viewport at ~1.88, not 1.778, and
+   cover-cropping that difference costs 2.7% off each side — invisible on a
+   site with a centred container, but it ate a third of Timr's sidebar, which
+   starts flush at x=0. Matching the source means nothing is ever cropped and
+   nothing is ever letterboxed.
+
+   Clamped so a stray full-page capture (tall, ratio well under 1) can't
+   stretch the window down the page — that one gets cover-cropped instead,
+   which is the right failure for a shot that breaks the capture spec. */
+const SCREEN_MIN_RATIO = 1.6;
+const SCREEN_MAX_RATIO = 2.2;
+const screenRatio = src
+  ? Math.min(SCREEN_MAX_RATIO, Math.max(SCREEN_MIN_RATIO, src.width / src.height))
+  : 16 / 9;
+
+/* The window renders at 100% (hero) / 84% (cover) of the plate, minus its own
+   border and padding. Cap the srcset at the source so Astro never upscales. */
+const CANDIDATES = [480, 720, 960, 1280, 1600, 1800];
+const widths = src
+  ? [...new Set([...CANDIDATES.filter((w) => w < src.width), src.width])].sort((a, b) => a - b)
+  : [];
+/* The screen is the plate minus the window's border and padding, which are
+   themselves a fraction of the plate — so it settles at a fixed percentage of
+   the plate regardless of size: 94.3% on the hero (full-width window) and
+   78.5% on the cover (84% window). The plate in turn is the viewport minus the
+   section gutters, hence the subtracted pixels. Guessing a plain vw here
+   overstated the cover by ~28% on a phone and shipped a needlessly large file. */
+const sizes =
+  variant === 'hero'
+    ? '(min-width: 1260px) 1038px, calc(94vw - 75px)'
+    : '(min-width: 1100px) 430px, calc(78vw - 69px)';
+---
+
+<div
+  class:list={['plate', klass]}
+  data-variant={variant}
+  style={`--brand: ${brand}; --field: ${field}; --block: ${block}`}
+>
+  {
+    variant === 'cover' && (
+      <>
+        <div class="plate__grid" aria-hidden="true" />
+        <div class="plate__block plate__block--a" aria-hidden="true" />
+        <div class="plate__block plate__block--b" aria-hidden="true" />
+      </>
+    )
+  }
+
+  <div class="plate__window">
+    <div class="plate__bar" aria-hidden="true">
+      <span class="plate__dot plate__dot--brand"></span>
+      <span class="plate__dot"></span>
+      <span class="plate__dot"></span>
+      {variant === 'hero' && domain && <span class="plate__domain">{domain}</span>}
+    </div>
+    <div class="plate__screen" style={`aspect-ratio: ${screenRatio}`}>
+      {
+        src && (
+          <Image
+            src={src}
+            alt={alt}
+            widths={widths}
+            sizes={sizes}
+            loading={priority ? 'eager' : 'lazy'}
+            fetchpriority={priority ? 'high' : 'auto'}
+          />
+        )
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Every length below is the handoff's own number (hero-plates.md, "Geometry")
+     multiplied by --px. The plate was authored 1200px wide, so one authored
+     pixel is 1/1200 of the rendered width — which keeps the chrome in
+     proportion at 1100px on a case study and at 283px in a card on a phone.
+     Hardcoding the px values would give a phone a 12px window border. */
+  .plate {
+    container-type: inline-size;
+    --px: calc(100cqw / 1200);
+
+    /* Title-bar chrome, as a fraction of the handoff's authored sizes. The
+       cover keeps them as drawn; only the hero scales them down — see below. */
+    --chrome: 1;
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* The hero sits on the page background so the mockup reads as floating in
+     the page — no field, no frame. The cover has to earn attention in a grid
+     of cards, so it keeps the full field.
+
+     The handoff insets the hero's window to 80% inside a 16:9 plate, but that
+     margin is painted in the page background and exists only to keep the drop
+     shadow off the plate edge. Running the window to the container's full
+     width and letting the shadow fall into the section's 40px gutter reads the
+     same — floating on the page — and buys ~11% more height for the
+     screenshot, which is the part anyone came to look at. */
+  .plate[data-variant='hero'] {
+    background: #080a14;
+    overflow: visible;
+
+    /* The dots and domain were drawn for a 960px window. Running the hero to
+       the full container width without shrinking them leaves 23px dots and a
+       16px domain reading as oversized furniture around the screenshot. At
+       0.62 the domain lands on ~10px — the same Press Start 2P size as the
+       site's eyebrows — and the dots settle to ~14px. Structure (border,
+       padding, shadow, screen) stays at the authored geometry; this scales the
+       decoration alone, and only here: the cover's window is still 84%, where
+       the authored sizes are already in proportion. */
+    --chrome: 0.62;
+  }
+
+  .plate[data-variant='cover'] {
+    aspect-ratio: 4 / 3;
+    background: var(--field);
+    overflow: hidden;
+  }
+
+  .plate__grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.38;
+    background-size: calc(75 * var(--px)) calc(75 * var(--px));
+    background-image:
+      linear-gradient(var(--brand) calc(5 * var(--px)), transparent calc(5 * var(--px))),
+      linear-gradient(90deg, var(--brand) calc(5 * var(--px)), transparent calc(5 * var(--px)));
+  }
+
+  .plate__block {
+    position: absolute;
+  }
+
+  .plate__block--a {
+    width: calc(300 * var(--px));
+    height: calc(300 * var(--px));
+    left: calc(-70 * var(--px));
+    bottom: calc(120 * var(--px));
+    background: var(--brand);
+    opacity: 0.5;
+  }
+
+  .plate__block--b {
+    width: calc(200 * var(--px));
+    height: calc(200 * var(--px));
+    right: calc(110 * var(--px));
+    top: calc(-60 * var(--px));
+    background: var(--block);
+    opacity: 0.3;
+  }
+
+  .plate__window {
+    position: relative;
+    box-sizing: border-box;
+    flex: none;
+    background: #141a2e;
+    border: calc(12 * var(--px)) solid #10121a;
+    padding: calc(22 * var(--px));
+  }
+
+  .plate[data-variant='hero'] .plate__window {
+    width: 100%;
+    box-shadow: calc(22 * var(--px)) calc(22 * var(--px)) 0 rgba(0, 0, 0, 0.5);
+  }
+
+  .plate[data-variant='cover'] .plate__window {
+    width: 84%;
+    box-shadow: calc(34 * var(--px)) calc(34 * var(--px)) 0 rgba(0, 0, 0, 0.45);
+  }
+
+  .plate__bar {
+    display: flex;
+    align-items: center;
+    gap: calc(17 * var(--px) * var(--chrome));
+    margin-bottom: calc(20 * var(--px));
+  }
+
+  .plate__dot {
+    flex: none;
+    width: calc(25 * var(--px) * var(--chrome));
+    height: calc(25 * var(--px) * var(--chrome));
+    background: #2a3457;
+  }
+
+  .plate__dot--brand {
+    background: var(--brand);
+  }
+
+  .plate__domain {
+    font-family: var(--font-pixel);
+    font-size: calc(17 * var(--px) * var(--chrome));
+    letter-spacing: calc(3 * var(--px) * var(--chrome));
+    color: #7c86a8;
+    margin-left: calc(20 * var(--px) * var(--chrome));
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  /* The label scales with the plate, so it reaches its legibility floor at
+     roughly a 900px plate (~8px Press Start 2P). Below that it degrades into a
+     smudge — about 2.6px on a phone — so drop it and let the dots carry the
+     chrome. A container query, not a media query: what matters is how wide the
+     plate is, not the viewport. */
+  @container (max-width: 900px) {
+    .plate__domain {
+      display: none;
+    }
+  }
+
+  /* aspect-ratio is set inline, per capture — see screenRatio above. The
+     window's height falls out of it, which is what reproduces the handoff's
+     615px-in-675px plate proportions without hardcoding either number. */
+  .plate__screen {
+    background: #0a0e1c;
+    overflow: hidden;
+  }
+
+  .plate__screen :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

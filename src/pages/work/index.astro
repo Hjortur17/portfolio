@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Eyebrow from '../../components/Eyebrow.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
+import { workListSchema } from '../../lib/seo';
 import LoadingQueue from '../../components/LoadingQueue.astro';
 import ColorBar from '../../components/ColorBar.astro';
 import Button from '../../components/Button.astro';
@@ -23,6 +24,13 @@ const loading = all.filter((p) => inFlight.includes(p.data.status));
   title={`Work — ${site.name}`}
   description="Selected projects — what the problem was, what I chose, and what it cost."
   current="work"
+  schema={workListSchema(
+    new URL(Astro.url.pathname, Astro.site).href,
+    projects.map((p) => ({
+      title: p.data.title,
+      url: new URL(`/work/${p.id}`, Astro.site).href,
+    }))
+  )}
 >
   <section class="mx-auto max-w-[1180px] px-10 pt-[88px] pb-11">
     <Eyebrow label="02 — SELECT LEVEL" color="#7CE04A" class="mb-[26px]" />
@@ -42,7 +50,7 @@ const loading = all.filter((p) => inFlight.includes(p.data.status));
     <div class="grid gap-9">
       {
         projects.map((project, i) => (
-          <ProjectCard project={project} imageSide={i % 2 === 0 ? 'left' : 'right'} />
+          <ProjectCard project={project} imageSide={i % 2 === 0 ? 'left' : 'right'} headingLevel={2} />
         ))
       }
     </div>

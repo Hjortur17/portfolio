@@ -1,6 +1,12 @@
 ---
-import '@fontsource/press-start-2p/400.css';
-import '@fontsource/vt323/400.css';
+/* Latin subsets only. The full imports pulled in cyrillic, greek, latin-ext
+   and vietnamese @font-face blocks — 8 faces, 38% of the entire CSS bundle —
+   none of which this site can reach. Every Icelandic character it does use
+   (Æ Ð Ö Ý Þ í ó ö) sits at or below U+00FF, inside latin. The glyph icons
+   above U+00FF (▶ ♥ ✉ ∞) are in no Google subset and already fall back to the
+   system font, so nothing changes for them. */
+import '@fontsource/press-start-2p/latin-400.css';
+import '@fontsource/vt323/latin-400.css';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -8,6 +14,12 @@ import BootScreen from '../components/BootScreen.astro';
 import { getCollection } from 'astro:content';
 import { site } from '../data/site';
 import ogImageDefault from '../assets/og-image.jpg';
+/* Preloaded below. Without these the browser only discovers the fonts after
+   it has fetched and parsed the CSS — a three-hop chain that cost ~600ms of
+   render blocking and, because both faces have fallback metrics nothing like
+   their own, 0.1 CLS as the headings reflowed on swap. */
+import pixelFont from '@fontsource/press-start-2p/files/press-start-2p-latin-400-normal.woff2?url';
+import termFont from '@fontsource/vt323/files/vt323-latin-400-normal.woff2?url';
 import faviconLight from '../assets/logo/logo-light.svg';
 import faviconDark from '../assets/logo/logo-dark.svg';
 
@@ -28,6 +40,13 @@ interface Props {
   /** Social card. Pages with their own art pass it in; everything else gets
    *  the site card. */
   image?: ImageMetadata;
+  /** 'article' for case studies, so shares render as a piece of writing with
+   *  a date rather than as a generic site link. */
+  ogType?: 'website' | 'article';
+  /** JSON-LD for this page, emitted as-is. The homepage describes the Person;
+   *  case studies describe the work. Without it a crawler has to infer who
+   *  this site is about from prose alone. */
+  schema?: Record<string, unknown>;
 }
 
 const {
@@ -39,6 +58,8 @@ const {
   boot = true,
   noindex = false,
   image = ogImageDefault,
+  ogType = 'website',
+  schema,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
@@ -54,6 +75,12 @@ const projectCount = (await getCollection('projects')).length;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {/* Both faces are used above the fold on every page — the wordmark and nav
+        in Press Start 2P, the body copy in VT323 — so both are worth the
+        early fetch. Only the latin subsets; the ext subsets stay lazy. */}
+    <link rel="preload" as="font" type="font/woff2" href={pixelFont} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={termFont} crossorigin />
     {/* Firefox honours `media` here and re-picks live when the OS theme
         flips. Chrome ignores it and falls through to /favicon.svg, which
         carries the same swap in its own internal media query. Between the
@@ -67,7 +94,7 @@ const projectCount = (await getCollection('projects')).length;
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -78,6 +105,18 @@ const projectCount = (await getCollection('projects')).length;
     <meta property="og:image:alt" content={`${site.name} — ${site.role}`} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage} />
+
+    {/* Tints the browser UI on mobile to the page background, so the chrome
+        does not sit as a bright band above a near-black page. */}
+    <meta name="theme-color" content="#080A14" />
+
+    {schema && (
+      <script
+        type="application/ld+json"
+        is:inline
+        set:html={JSON.stringify(schema)}
+      />
+    )}
 
     <!-- Set both flags before first paint: `js` releases the scroll-reveal
          hidden state, and the scanline preference must not flash. -->

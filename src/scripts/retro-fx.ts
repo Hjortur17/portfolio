@@ -125,9 +125,15 @@ function setupPixel(wrap: HTMLElement) {
     // No hover on touch: tap toggles, and the wrapper announces itself.
     wrap.setAttribute('role', 'button');
     wrap.setAttribute('tabindex', '0');
-    wrap.setAttribute('aria-label', 'Toggle full resolution image');
+    /* No aria-label. The chip already reads "TAP FOR FULL RES"; an aria-label
+       of "Toggle full resolution image" replaced that with a name the user
+       cannot see, which fails WCAG 2.5.3 Label in Name — a speech-input user
+       saying what is on screen would not hit this control. aria-pressed
+       carries the state instead. */
+    wrap.setAttribute('aria-pressed', 'false');
     const toggle = () => {
       revealed = !revealed;
+      wrap.setAttribute('aria-pressed', revealed ? 'true' : 'false');
       paint();
     };
     wrap.addEventListener('click', toggle);
