@@ -21,8 +21,6 @@ import ogImageDefault from '../assets/og-image.jpg';
    their own, 0.1 CLS as the headings reflowed on swap. */
 import pixelFont from '@fontsource/press-start-2p/files/press-start-2p-latin-400-normal.woff2?url';
 import termFont from '@fontsource/vt323/files/vt323-latin-400-normal.woff2?url';
-import faviconLight from '../assets/logo/logo-light.svg';
-import faviconDark from '../assets/logo/logo-dark.svg';
 
 interface Props {
   title: string;
@@ -82,12 +80,13 @@ const projectCount = (await getCollection('projects')).length;
         early fetch. Only the latin subsets; the ext subsets stay lazy. */}
     <link rel="preload" as="font" type="font/woff2" href={pixelFont} crossorigin />
     <link rel="preload" as="font" type="font/woff2" href={termFont} crossorigin />
-    {/* Firefox honours `media` here and re-picks live when the OS theme
-        flips. Chrome ignores it and falls through to /favicon.svg, which
-        carries the same swap in its own internal media query. Between the
-        two every browser gets a theme-correct mark. */}
-    <link rel="icon" type="image/svg+xml" href={faviconLight.src} media="(prefers-color-scheme: light)" />
-    <link rel="icon" type="image/svg+xml" href={faviconDark.src} media="(prefers-color-scheme: dark)" />
+    {/* One icon, not three. The `media`-gated pair that used to sit above this
+        left the browser with three candidates for the same rel/type, and the
+        one it picked was not stable across navigations — /work could end up on
+        the light mark while the homepage held the dark one. /favicon.svg
+        carries the light/dark swap in its own internal media query, so a
+        single link is theme-correct everywhere and cannot disagree with
+        itself between pages. */}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>{title}</title>
@@ -138,9 +137,19 @@ const projectCount = (await getCollection('projects')).length;
       {
         !bare && (
           <>
+            {/* `fixed`, not `absolute`. Stretched over the whole document
+                this layer was ~7000px tall on a case study — past the size
+                Chrome will rasterise a gradient at 1:1, so the 3px pattern
+                got resampled into wide grey bands that sat on top of the
+                text. Viewport-sized, it renders at its real scale. A screen
+                overlay should hold still under the content anyway.
+                No mix-blend-multiply: the lines are pure black, and
+                multiplying black at 22% gives exactly what compositing it
+                normally does — same pixels, minus a blend pass over the full
+                viewport on every scroll frame. */}
             <div
               data-scanline-layer
-              class="pointer-events-none absolute inset-0 z-50 mix-blend-multiply"
+              class="pointer-events-none fixed inset-0 z-50"
               style="background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.22) 0px, rgba(0,0,0,0.22) 1px, transparent 1px, transparent 3px)"
             />
             <div
@@ -153,7 +162,10 @@ const projectCount = (await getCollection('projects')).length;
 
       {!bare && <Header current={current} variant={navVariant} />}
 
-      <slot />
+      {/* The landmark screen readers jump to, and the one Lighthouse checks
+          for. The 404 is `bare` and paints its own <main> around its centred
+          flex column, so wrapping here would nest two. */}
+      {bare ? <slot /> : <main><slot /></main>}
 
       {!bare && <Footer />}
     </div>
