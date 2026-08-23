@@ -1,0 +1,11 @@
+---
+interface Props {
+  /** Solid chip with #080A14 text — accent / red / yellow by level. */
+  color: string;
+}
+const { color } = Astro.props;
+---
+<span
+  class="font-pixel text-[9px] text-bg"
+  style={`background: ${color}; padding: 8px 10px`}
+><slot /></span>

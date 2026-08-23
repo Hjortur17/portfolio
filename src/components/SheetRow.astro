@@ -1,0 +1,14 @@
+---
+interface Props {
+  label: string;
+  value: string;
+  valueColor?: string;
+  /** The final row in a sheet has no divider. */
+  last?: boolean;
+}
+const { label, value, valueColor = '#E6ECFF', last = false } = Astro.props;
+---
+<div class:list={['sheet-row', !last && 'border-b-2 border-dashed border-border-dim pb-3']}>
+  <span class="text-[19px] tracking-[1px] text-text-dim">{label}</span>
+  <span class="text-[19px] tracking-[1px]" style={`color: ${valueColor}`}>{value}</span>
+</div>

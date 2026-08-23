@@ -1,0 +1,439 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import Badge from '../../components/Badge.astro';
+import Button from '../../components/Button.astro';
+import Chip from '../../components/Chip.astro';
+import ColorBar from '../../components/ColorBar.astro';
+import CellStrip from '../../components/CellStrip.astro';
+import Cell from '../../components/Cell.astro';
+import DecisionCard from '../../components/DecisionCard.astro';
+import FlowDiagram from '../../components/FlowDiagram.astro';
+import PullQuote from '../../components/PullQuote.astro';
+import ProjectPlate from '../../components/ProjectPlate.astro';
+import Screenshot from '../../components/Screenshot.astro';
+import { site } from '../../data/site';
+import { metaDescription, caseStudySchema } from '../../lib/seo';
+
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects')).sort(
+    (a, b) => a.data.order - b.data.order
+  );
+
+  // Every project gets a page. Ones without a caseStudy block render a compact
+  // version rather than 404ing, so no card on /work is ever a dead link.
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: {
+      project,
+      // Wraps around — null only if this is the sole project, so the teaser
+      // never links back to itself.
+      next: projects.length > 1 ? projects[(i + 1) % projects.length] : null,
+    },
+  }));
+}
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  next: CollectionEntry<'projects'> | null;
+}
+
+const { project, next } = Astro.props;
+const d = project.data;
+const cs = d.caseStudy;
+
+const PALETTE = {
+  accent: 'var(--accent)',
+  red: '#FF3B5C',
+  yellow: '#FFC53D',
+  green: '#7CE04A',
+  violet: '#B98CFF',
+} as const;
+
+/* A project whose brand colour sits too close to one of these substitutes it
+   for the whole page, so the client's colour and ours never appear together.
+   Every page colour reads through this map — hardcoding a hex anywhere below
+   would leak the clashing accent straight back in. */
+const colorMap: Record<string, string> = d.accentSwap
+  ? { ...PALETTE, [d.accentSwap.role]: PALETTE[d.accentSwap.with] }
+  : { ...PALETTE };
+
+const levelColors = [
+  colorMap.accent,
+  colorMap.red,
+  colorMap.yellow,
+  colorMap.green,
+  colorMap.violet,
+];
+const levelColor = levelColors[(d.level - 1) % levelColors.length];
+
+const facts = cs
+  ? [
+      { label: 'MY ROLE', value: cs.role },
+      { label: 'TIMELINE', value: cs.timeline },
+      { label: 'STACK', value: cs.stack },
+      { label: 'TEAM', value: cs.team },
+    ]
+  : [];
+
+/* Mirrors the card's status vocabulary. 'loading' work is still in flight, so
+   it must never render as cleared. */
+const statusLabel = {
+  shipped: `CLEARED — ${d.year}`,
+  updated: `CLEARED — ${d.year}`,
+  loading: `IN PROGRESS — ${d.year}`,
+} as const;
+const statusTone = {
+  shipped: colorMap.green,
+  updated: colorMap.accent,
+  loading: colorMap.yellow,
+} as const;
+
+/* The lead runs to ~210 characters, which a search result cuts off mid
+   sentence. Trim for the meta tag only — the page still shows it in full. */
+const pageDescription = metaDescription(cs?.lead ?? d.summary);
+
+const br = (s: string) => s.replace(/\n/g, '<br />');
+---
+
+<Layout
+  title={cs ? `${d.title} — case study | ${site.name}` : `${d.title} | ${site.name}`}
+  description={pageDescription}
+  navVariant="case"
+  image={d.screenshot}
+  ogType="article"
+  schema={caseStudySchema({
+    title: d.title,
+    description: pageDescription,
+    url: new URL(Astro.url.pathname, Astro.site).href,
+    image: d.screenshot && new URL(d.screenshot.src, Astro.site).href,
+    year: d.year,
+    tags: d.tags,
+    externalHref: d.externalHref,
+  })}
+>
+  <!-- ========== HEADER BLOCK + FACT BAR ========== -->
+  <section class="mx-auto max-w-[1180px] px-10 pt-[88px] pb-14">
+    <div class="mb-[26px] flex flex-wrap items-center gap-3">
+      <Badge color={levelColor}>LEVEL {String(d.level).padStart(2, '0')}</Badge>
+      <span
+        class="text-[19px] tracking-[1px]"
+        style={`color: ${statusTone[d.status]}`}
+      >
+        {statusLabel[d.status]}
+      </span>
+    </div>
+
+    <h1
+      class="m-0 mb-[26px] font-pixel leading-[1.55] text-text"
+      style="font-size: clamp(22px, 3.2vw, 38px); text-shadow: 5px 5px 0 #1A2140"
+      set:html={br(d.title)}
+    />
+
+    <p
+      class="m-0 mb-12 max-w-[54ch] text-[26px] leading-[1.45] text-text-muted"
+      style="text-wrap: pretty"
+    >
+      {cs?.lead ?? d.summary}
+    </p>
+
+    {
+      cs && (
+        <CellStrip minWidth={210}>
+          {facts.map((f, i) => (
+            <Cell label={f.label} last={i === facts.length - 1}>
+              <div class="text-[21px] leading-[1.35] text-text">{f.value}</div>
+            </Cell>
+          ))}
+        </CellStrip>
+      )
+    }
+
+    {/* Without a fact bar there is nowhere else the stack is stated. */}
+    {
+      !cs && (
+        <div class="mb-10 flex flex-wrap gap-2.5">
+          {d.tags.map((tag) => (
+            <Chip variant="tech">{tag}</Chip>
+          ))}
+        </div>
+      )
+    }
+
+    {/* The live-site link. This is the only place it appears anywhere on the
+        site — cards never link off-site. */}
+    {
+      d.externalHref && (
+        <div class={cs ? 'mt-10' : ''}>
+          <Button
+            href={d.externalHref}
+            variant="primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {d.externalLabel} ▶
+          </Button>
+        </div>
+      )
+    }
+  </section>
+
+  {/* ========== HERO SHOT ==========
+      No frame and no label row: the plate's own background is the page
+      background, so the mockup reads as floating in the page. Wrapping browser
+      chrome inside panel chrome fights it, and the domain is already baked into
+      the title bar. */}
+  <section class="mx-auto max-w-[1180px] px-10 pb-[88px]" data-reveal>
+    <ProjectPlate
+      src={d.screenshot}
+      alt={`${d.title} — ${d.domain}`}
+      variant="hero"
+      brand={d.brand}
+      field={d.field}
+      block={d.block}
+      domain={d.domain}
+      priority
+    />
+  </section>
+
+  <ColorBar />
+
+  {
+    cs && (
+      <>
+  {/* ========== 01 THE PROBLEM ========== */}
+  <section class="mx-auto max-w-[1180px] px-10 py-[84px]" data-reveal>
+    <Eyebrow label="01 — THE PROBLEM" color={colorMap.red} class="mb-[30px]" />
+    <div
+      class="grid items-start"
+      style="grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr)); gap: 52px"
+    >
+      <div>
+        <h2
+          class="m-0 mb-6 font-pixel leading-[1.7] text-text"
+          style="font-size: clamp(15px, 1.7vw, 20px)"
+          set:html={br(cs.problemTitle)}
+        />
+        {
+          cs.problemBody.map((p, i) => (
+            <p
+              class:list={[
+                'max-w-[58ch] text-[23px] leading-[1.55] text-text-muted',
+                i === cs.problemBody.length - 1 ? 'm-0' : 'm-0 mb-5',
+              ]}
+              style="text-wrap: pretty"
+            >
+              {p}
+            </p>
+          ))
+        }
+      </div>
+
+      <div
+        class="border-4 border-border p-[26px]"
+        style="background: #0E1326; box-shadow: 10px 10px 0 rgba(0,0,0,0.55)"
+      >
+        <div
+          class="mb-[22px] font-pixel text-[9px] tracking-[2px]"
+          style={`color: ${colorMap.red}`}
+        >
+          WHAT WAS BREAKING
+        </div>
+        <div class="grid gap-[18px]">
+          {
+            cs.problems.map((p) => (
+              <div class="flex items-start gap-3.5">
+                <div
+                  class="mt-2 h-2.5 w-2.5 shrink-0"
+                  style={`background: ${colorMap.red}`}
+                />
+                <div class="text-[21px] leading-[1.4] text-text-muted">{p}</div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ========== 02 THE APPROACH ========== */}
+  <section class="border-t-4 border-b-4 border-rule" style="background: #0B0F1F" data-reveal>
+    <div class="mx-auto max-w-[1180px] px-10 py-[84px]">
+      <Eyebrow label="02 — THE APPROACH" class="mb-[30px]" />
+      <h2
+        class="m-0 mb-5 font-pixel leading-[1.7] text-text"
+        style="font-size: clamp(15px, 1.7vw, 20px)"
+        set:html={br(cs.approachTitle)}
+      />
+      <p
+        class="m-0 mb-[46px] max-w-[58ch] text-[23px] leading-[1.5] text-text-muted"
+        style="text-wrap: pretty"
+      >
+        {cs.approachIntro}
+      </p>
+
+      <div
+        class="grid"
+        style="grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 22px"
+      >
+        {
+          cs.decisions.map((dec, i) => (
+            <DecisionCard n={i + 1} title={dec.title} body={dec.body} color={colorMap[dec.color]} />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ========== 03 WHAT I BUILT ========== */}
+  <section class="mx-auto max-w-[1180px] px-10 py-[84px]">
+    <Eyebrow label="03 — WHAT I BUILT" color={colorMap.green} class="mb-[30px]" />
+    <div class="grid gap-10">
+      {
+        cs.buildSections.map((b, i) => (
+          <div
+            class="grid items-center"
+            style="grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr)); gap: 44px"
+            data-reveal
+          >
+            <div class={i % 2 === 1 ? 'md:order-last' : ''}>
+              <div
+                class="mb-[18px] font-pixel text-[9px] tracking-[2px]"
+                style={`color: ${colorMap[b.color]}`}
+              >
+                {b.eyebrow}
+              </div>
+              <h3
+                class="m-0 mb-[18px] font-pixel leading-[1.65] text-text"
+                style="font-size: clamp(14px, 1.5vw, 17px)"
+              >
+                {b.title}
+              </h3>
+              <p class="m-0 text-[22px] leading-[1.5] text-text-muted" style="text-wrap: pretty">
+                {b.body}
+              </p>
+            </div>
+            {b.image && <Screenshot src={b.image} alt={b.title} caption={b.caption} />}
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* ========== 04 THE HARD PART ========== */}
+  <section class="border-t-4 border-b-4 border-rule" style="background: #0B0F1F" data-reveal>
+    <div class="mx-auto max-w-[1180px] px-10 py-[84px]">
+      <Eyebrow label="04 — THE HARD PART" color={colorMap.violet} class="mb-[30px]" />
+      <div
+        class="grid items-start"
+        style="grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr)); gap: 52px"
+      >
+        <div>
+          <h2
+            class="m-0 mb-6 font-pixel leading-[1.7] text-text"
+            style="font-size: clamp(15px, 1.7vw, 20px)"
+            set:html={br(cs.hardPart.title)}
+          />
+          {
+            cs.hardPart.paragraphs.map((p, i) => (
+              <p
+                class:list={[
+                  'text-[23px] leading-[1.55] text-text-muted',
+                  i === cs.hardPart.paragraphs.length - 1 ? 'm-0' : 'm-0 mb-5',
+                ]}
+                style="text-wrap: pretty"
+              >
+                {p}
+              </p>
+            ))
+          }
+        </div>
+        <FlowDiagram
+          label={cs.hardPart.flowLabel}
+          steps={cs.hardPart.flowSteps}
+          note={cs.hardPart.note}
+        />
+      </div>
+    </div>
+  </section>
+
+  {/* ========== 05 OUTCOME ========== */}
+  <section class="mx-auto max-w-[1180px] px-10 py-[84px]" data-reveal>
+    <Eyebrow label="05 — OUTCOME" color={colorMap.green} class="mb-[30px]" />
+    <h2
+      class="m-0 mb-10 font-pixel leading-[1.7] text-text"
+      style="font-size: clamp(15px, 1.7vw, 20px)"
+      set:html={br(cs.outcomeTitle)}
+    />
+
+    <CellStrip minWidth={240} class={cs.quote ? 'mb-11' : ''}>
+      {
+        cs.metrics.map((m, i) => (
+          <Cell padding="30px 28px" last={i === cs.metrics.length - 1}>
+            <div
+              class="mb-3.5 font-pixel"
+              style={`font-size: clamp(16px, 2vw, 22px); color: ${colorMap[m.color]}`}
+            >
+              {m.value}
+            </div>
+            <div class="text-[21px] leading-[1.4] text-text-muted">{m.label}</div>
+          </Cell>
+        ))
+      }
+    </CellStrip>
+
+    {
+      cs.quote && (
+        <div>
+          <div class="mb-[18px] font-pixel text-[9px] tracking-[2px] text-text-dim">
+            WHAT THE CLIENT SAID
+          </div>
+          <PullQuote text={cs.quote.text} attribution={cs.quote.attribution} />
+        </div>
+      )
+    }
+  </section>
+      </>
+    )
+  }
+
+  <!-- ========== NEXT LEVEL ========== -->
+  <section class="border-t-4 border-rule" style="background: #0B0F1F">
+    <div
+      class="mx-auto flex max-w-[1180px] flex-wrap items-center justify-between gap-8 px-10 py-20"
+    >
+      <div>
+        <div class="mb-[18px] font-pixel text-[9px] tracking-[2px] text-text-dim">
+          {next ? 'NEXT LEVEL' : 'CONTINUE?'}
+        </div>
+        <h2 class="m-0 font-pixel leading-[1.6] text-text" style="font-size: clamp(15px, 1.8vw, 20px)">
+          {next ? next.data.title : 'See the rest\nof the work'}
+        </h2>
+      </div>
+      <div class="flex flex-wrap gap-[18px]">
+        {
+          next ? (
+            <>
+              <Button href={`/work/${next.id}`} variant="primary">
+                CONTINUE ▶
+              </Button>
+              <Button href="/work" variant="secondary">
+                ALL WORK
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button href="/work" variant="primary">
+                ALL WORK ▶
+              </Button>
+              <Button href={`mailto:${site.email}`} variant="secondary">
+                GET IN TOUCH
+              </Button>
+            </>
+          )
+        }
+      </div>
+    </div>
+  </section>
+</Layout>

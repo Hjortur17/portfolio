@@ -1,0 +1,297 @@
+---
+import { categories } from '../data/uses';
+
+/* Every category list and every item detail is rendered server-side and
+   toggled with [hidden]. That keeps the page working without JS (you get the
+   first slot, fully readable) and means the script only moves two integers. */
+const total = categories.length;
+---
+
+<section class="mx-auto max-w-[1180px] px-10 pb-5">
+  <div
+    data-inventory
+    tabindex="0"
+    class="relative border-4 border-border"
+    style="background: #0B0F1F; box-shadow: 12px 12px 0 rgba(0,0,0,0.6); padding: clamp(20px, 3vw, 34px); outline-offset: 6px"
+  >
+    <!-- Readout -->
+    <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="h-3 w-3 bg-red"></div>
+        <span class="font-pixel text-[10px] tracking-[3px] text-text-dim">EQUIPMENT SCREEN</span>
+      </div>
+      <div class="text-[20px] tracking-[1px] text-text-faint">
+        SLOT <span data-slot-no>1</span> / {total} &nbsp;&middot;&nbsp;
+        <span data-item-count>{categories[0].items.length}</span> ITEMS
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-stretch gap-[18px]">
+      <!-- ============ PANE 1 — CATEGORY SLOTS ============ -->
+      <div class="grid content-start gap-2" style="flex: 1 1 240px; min-width: 240px">
+        {
+          categories.map((cat, i) => (
+            <button
+              type="button"
+              data-slot={i}
+              class="flex items-center gap-3.5 border-4 p-3.5 text-left"
+              style={`background: #0E1326; border-color: #2A3457; transition: border-color .12s steps(2), transform .12s steps(2), background .12s steps(2)`}
+            >
+              {/* The inset bevel is what makes this read as a game icon. */}
+              <div
+                class="h-[22px] w-[22px] shrink-0"
+                style={`background: ${cat.color}; box-shadow: inset -6px -6px 0 rgba(0,0,0,0.28)`}
+              />
+              <div class="flex-1">
+                <div class="mb-[7px] font-pixel text-[9px] text-text">{cat.name}</div>
+                <div class="text-[18px] tracking-[1px] text-text-dim">{cat.items.length} items</div>
+              </div>
+            </button>
+          ))
+        }
+
+        <!-- The "CLICK the panel" line is what makes the keyboard guard
+             discoverable rather than mysterious. Do not drop it. -->
+        <div
+          class="mt-2.5 border-3 border-border-dim p-4 text-[19px] leading-[1.55] text-text-dim"
+          style="background: #0E1326"
+        >
+          <div class="mb-3 font-pixel text-[8px] tracking-[2px] text-yellow">CONTROLS</div>
+          <div><span class="text-text">CLICK</span> the panel to take control</div>
+          <div>
+            <span class="text-text">↑ ↓</span> browse items &nbsp;
+            <span class="text-text">← →</span> change slot
+          </div>
+          <div class="flex items-center gap-2">
+            <span><span class="text-text">ENTER</span> open the link</span>
+            <span
+              data-caret
+              class="inline-block h-[14px] w-2 bg-green"
+              style="animation: hf-blink 1s steps(1, end) infinite"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ PANE 2 — ITEM LIST ============ -->
+      <div
+        class="border-4 border-border p-6"
+        style="flex: 2 1 420px; min-width: 320px; background: #0E1326; box-shadow: 8px 8px 0 rgba(0,0,0,0.5)"
+      >
+        {
+          categories.map((cat, ci) => (
+            <div data-list={ci} hidden={ci !== 0}>
+              <div class="mb-3.5 flex flex-wrap items-center gap-3 border-b-3 border-border-dim pb-3.5">
+                <div class="h-3.5 w-3.5 shrink-0" style={`background: ${cat.color}`} />
+                <span class="font-pixel text-[12px] text-text">{cat.name}</span>
+                <span class="ml-auto text-[18px] tracking-[1px] text-text-faint">{cat.tagline}</span>
+              </div>
+
+              <div class="grid">
+                {cat.items.map((item, ii) => {
+                  const Tag = item.href ? 'a' : 'button';
+                  return (
+                    <Tag
+                      data-row={`${ci}-${ii}`}
+                      data-cat={ci}
+                      data-item={ii}
+                      href={item.href}
+                      type={item.href ? undefined : 'button'}
+                      target={item.href ? '_blank' : undefined}
+                      rel={item.href ? 'noopener noreferrer' : undefined}
+                      class="flex w-full items-baseline gap-3 border-l-4 border-transparent px-3 py-[11px] text-left text-[21px]"
+                      style="transition: background .1s steps(2)"
+                    >
+                      <span
+                        class="shrink-0"
+                        style={`color: ${item.href ? cat.color : 'transparent'}`}
+                        aria-hidden="true"
+                      >
+                        ▶
+                      </span>
+                      <span class="shrink-0 tracking-[1px] text-text-dim">{item.label}</span>
+                      {/* min-width:0 + overflow-wrap are load-bearing: without
+                          them a long URL forces the pane wider than its column. */}
+                      <span
+                        class="flex-1 text-right"
+                        style={`min-width: 0; overflow-wrap: anywhere; color: ${item.href ? 'var(--accent)' : '#E6ECFF'}`}
+                      >
+                        {item.value}
+                      </span>
+                    </Tag>
+                  );
+                })}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- ============ PANE 3 — ITEM DETAIL ============ -->
+      <div
+        class="flex flex-col border-4 border-border p-[22px]"
+        style="flex: 1 1 260px; min-width: 250px; background: #141A2E; box-shadow: 8px 8px 0 rgba(0,0,0,0.5)"
+        aria-live="polite"
+      >
+        <div class="mb-4 font-pixel text-[9px] tracking-[2px] text-text-dim">ITEM DETAIL</div>
+
+        {
+          categories.map((cat, ci) =>
+            cat.items.map((item, ii) => (
+              <div
+                data-detail={`${ci}-${ii}`}
+                hidden={!(ci === 0 && ii === 0)}
+                class="flex flex-1 flex-col"
+              >
+                <div class="mb-4 border-3 border-border-dim p-[18px]" style="background: #0B0F1F">
+                  <div class="mb-3 h-3.5 w-3.5" style={`background: ${cat.color}`} />
+                  <div class="text-[25px] leading-[1.25] text-text" style="overflow-wrap: anywhere">
+                    {item.value}
+                  </div>
+                  <div class="mt-2 text-[18px] tracking-[1px] text-text-dim">
+                    {cat.name} / {item.label}
+                  </div>
+                </div>
+
+                <p class="m-0 text-[21px] leading-[1.45] text-text-muted" style="text-wrap: pretty">
+                  {item.note}
+                </p>
+
+                <div class="mt-auto pt-5">
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="btn-primary !px-4 !py-3.5 !text-[9px]"
+                      style="box-shadow: 5px 5px 0 #0D4A63"
+                    >
+                      ENTER — OPEN ▶
+                    </a>
+                  ) : (
+                    <span class="text-[19px] text-text-faint">NO LINK — JUST A THING I USE</span>
+                  )}
+                </div>
+              </div>
+            ))
+          )
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { categories } from '../data/uses';
+
+  const panel = document.querySelector<HTMLElement>('[data-inventory]');
+  if (panel) {
+    const lengths = categories.map((c) => c.items.length);
+    const colors = categories.map((c) => c.color);
+
+    let cat = 0;
+    let item = 0;
+
+    const slots = [...panel.querySelectorAll<HTMLElement>('[data-slot]')];
+    const lists = [...panel.querySelectorAll<HTMLElement>('[data-list]')];
+    const rows = [...panel.querySelectorAll<HTMLElement>('[data-row]')];
+    const details = [...panel.querySelectorAll<HTMLElement>('[data-detail]')];
+    const slotNo = panel.querySelector<HTMLElement>('[data-slot-no]');
+    const itemCount = panel.querySelector<HTMLElement>('[data-item-count]');
+
+    function render() {
+      // Lengths differ (4–6), so every selection has to clamp.
+      item = Math.max(0, Math.min(item, lengths[cat] - 1));
+
+      slots.forEach((el, i) => {
+        const on = i === cat;
+        el.style.background = on ? '#141A2E' : '#0E1326';
+        el.style.borderColor = on ? colors[i] : '#2A3457';
+        // The selected slot slides out of the column like a pulled cartridge.
+        el.style.transform = on ? 'translateX(6px)' : 'translateX(0)';
+        el.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+
+      lists.forEach((el, i) => {
+        el.hidden = i !== cat;
+      });
+
+      rows.forEach((el) => {
+        const [c, i] = (el.dataset.row || '').split('-').map(Number);
+        const on = c === cat && i === item;
+        el.style.background = on ? '#141A2E' : 'transparent';
+        el.style.borderLeftColor = on ? colors[c] : 'transparent';
+        const cursor = el.querySelector<HTMLElement>('span[aria-hidden]');
+        // Kept in flow when inactive, never hidden — otherwise rows shift.
+        if (cursor) cursor.style.color = on || el.hasAttribute('href') ? colors[c] : 'transparent';
+      });
+
+      details.forEach((el) => {
+        el.hidden = el.dataset.detail !== `${cat}-${item}`;
+      });
+
+      if (slotNo) slotNo.textContent = String(cat + 1);
+      if (itemCount) itemCount.textContent = String(lengths[cat]);
+    }
+
+    slots.forEach((el, i) => {
+      el.addEventListener('click', () => {
+        cat = i;
+        item = 0; // selecting a category always resets the item
+        render();
+      });
+    });
+
+    rows.forEach((el) => {
+      const select = () => {
+        const [c, i] = (el.dataset.row || '').split('-').map(Number);
+        cat = c;
+        item = i;
+        render();
+      };
+      el.addEventListener('mouseenter', select);
+      el.addEventListener('focus', select);
+      // Click matters on touch, where mouseenter never fires.
+      el.addEventListener('click', select);
+    });
+
+    /* The guard is not optional. An earlier unguarded version swallowed
+       arrow-key scrolling for the whole document. */
+    window.addEventListener('keydown', (e) => {
+      if (!panel.contains(document.activeElement)) return;
+
+      const n = lengths[cat];
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
+          item = (item + 1) % n;
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          item = (item - 1 + n) % n;
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          cat = (cat + 1) % lengths.length;
+          item = 0;
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          cat = (cat - 1 + lengths.length) % lengths.length;
+          item = 0;
+          break;
+        case 'Enter': {
+          const href = categories[cat].items[item].href;
+          if (href && document.activeElement === panel) {
+            window.open(href, '_blank', 'noopener');
+          }
+          return;
+        }
+        default:
+          return;
+      }
+      render();
+    });
+
+    render();
+  }
+</script>

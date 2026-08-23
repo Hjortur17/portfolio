@@ -1,0 +1,38 @@
+---
+interface Props {
+  /** Small Press Start 2P label at the top of the panel. */
+  label?: string;
+  labelColor?: string;
+  /** Right-hand side of the label row, e.g. the red hearts. */
+  meta?: string;
+  metaColor?: string;
+  background?: string;
+  shadow?: string;
+  padding?: string;
+  class?: string;
+}
+const {
+  label,
+  labelColor = 'var(--color-yellow, #FFC53D)',
+  meta,
+  metaColor = '#FF3B5C',
+  background = '#0E1326',
+  shadow = '10px 10px 0 rgba(0,0,0,0.55)',
+  padding = '24px',
+  class: klass = '',
+} = Astro.props;
+---
+<div
+  class:list={['border-4 border-border', klass]}
+  style={`background: ${background}; box-shadow: ${shadow}; padding: ${padding}`}
+>
+  {
+    label && (
+      <div class="mb-5 flex items-center justify-between font-pixel text-[9px] tracking-[2px]">
+        <span style={`color: ${labelColor}`}>{label}</span>
+        {meta && <span style={`color: ${metaColor}`}>{meta}</span>}
+      </div>
+    )
+  }
+  <slot />
+</div>

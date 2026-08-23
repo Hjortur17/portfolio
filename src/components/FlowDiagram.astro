@@ -1,0 +1,45 @@
+---
+interface Props {
+  label: string;
+  steps: { label: string; color?: 'accent' | 'green' | 'violet' }[];
+  note: string;
+}
+const { label, steps, note } = Astro.props;
+
+const colorMap: Record<string, string> = {
+  accent: 'var(--accent)',
+  green: '#7CE04A',
+  violet: '#B98CFF',
+};
+---
+<div
+  class="border-4 border-border p-[26px]"
+  style="background: #141A2E; box-shadow: 10px 10px 0 rgba(0,0,0,0.55)"
+>
+  <div class="mb-[22px] font-pixel text-[9px] tracking-[2px] text-violet">{label}</div>
+  <div class="grid gap-3">
+    {
+      steps.map((step, i) => (
+        <>
+          {/* A highlighted step is not hoverable — its colour is the statement. */}
+          {step.color ? (
+            <div
+              class="border-3 bg-surface px-4 py-3.5 text-[20px] tracking-[1px]"
+              style={`border-color: ${colorMap[step.color]}; color: ${colorMap[step.color]}`}
+            >
+              {step.label}
+            </div>
+          ) : (
+            <div class="flow-step">{step.label}</div>
+          )}
+          {i < steps.length - 1 && (
+            <div class="text-center text-[20px] text-text-faint" aria-hidden="true">
+              ▼
+            </div>
+          )}
+        </>
+      ))
+    }
+    <div class="mt-2 text-[19px] leading-[1.4] text-text-dim">{note}</div>
+  </div>
+</div>

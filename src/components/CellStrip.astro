@@ -1,0 +1,15 @@
+---
+/* The bordered-cell strip. The case study's fact bar and its metric strip are
+   the same component — cells divided by 4px borders, zero gap. */
+interface Props {
+  minWidth?: number;
+  class?: string;
+}
+const { minWidth = 210, class: klass = '' } = Astro.props;
+---
+<div
+  class:list={['grid border-4 border-border bg-surface', klass]}
+  style={`grid-template-columns: repeat(auto-fit, minmax(min(${minWidth}px, 100%), 1fr)); gap: 0`}
+>
+  <slot />
+</div>

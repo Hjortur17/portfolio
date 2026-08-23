@@ -1,0 +1,12 @@
+---
+import { site } from '../data/site';
+---
+
+<footer class="border-t-4 border-rule">
+  <div
+    class="mx-auto flex max-w-[1180px] flex-wrap items-center justify-between gap-4 px-10 py-7 font-term text-[18px] tracking-[1px] text-text-faint"
+  >
+    <p>&copy; {new Date().getFullYear()} {site.name}</p>
+    <p>{site.location}</p>
+  </div>
+</footer>

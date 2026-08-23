@@ -1,0 +1,87 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Chip from './Chip.astro';
+
+/* Projects that aren't finished yet, shown as a boot-log queue rather than
+ * full cards. Deliberately understated — these have no screenshots and no
+ * results, so a grid of 400px cards would read as filler, the same reason the
+ * handoff cut the skills grid from the tools band. */
+
+interface Props {
+  projects: CollectionEntry<'projects'>[];
+}
+
+const { projects } = Astro.props;
+
+const statusLabel: Record<string, string> = {
+  'in-progress': 'IN PROGRESS',
+  loading: 'LOADING',
+};
+const statusColor: Record<string, string> = {
+  'in-progress': '#FFC53D',
+  loading: '#FFC53D',
+};
+---
+
+<div
+  class="border-4 border-border p-7"
+  style="background: #0E1326; box-shadow: 10px 10px 0 rgba(0,0,0,0.55)"
+>
+  <div class="mb-6 flex items-center justify-between gap-4">
+    <span class="font-pixel text-[9px] tracking-[2px] text-yellow">LOADING — QUEUE</span>
+    <span class="text-[19px] tracking-[1px] text-text-faint">
+      {projects.length} IN FLIGHT
+    </span>
+  </div>
+
+  <ul class="m-0 grid list-none gap-7 p-0">
+    {
+      projects.map((p) => (
+        <li class="queue-row">
+          {/* Dot leaders are literal periods that fill and clip, so they stay
+              aligned at any width without a border-bottom fake. */}
+          <div class="flex items-baseline gap-2 whitespace-nowrap">
+            <span class="shrink-0 text-[21px] tracking-[1px] text-text">{p.data.title}</span>
+            <span
+              class="min-w-0 flex-1 overflow-hidden text-[21px] text-text-faint"
+              aria-hidden="true"
+            >
+              ................................................................
+            </span>
+            <span
+              class="shrink-0 text-[19px] tracking-[1px]"
+              style={`color: ${statusColor[p.data.status] ?? '#7C86A8'}`}
+            >
+              {statusLabel[p.data.status] ?? p.data.status.toUpperCase()}
+            </span>
+          </div>
+
+          <p
+            class="m-0 mt-2.5 max-w-[62ch] text-[20px] leading-[1.45] text-text-muted"
+            style="text-wrap: pretty"
+          >
+            {p.data.summary}
+          </p>
+
+          {p.data.tags.length > 0 && (
+            <div class="mt-3.5 flex flex-wrap gap-2.5">
+              {p.data.tags.map((tag) => (
+                <Chip variant="tech">{tag}</Chip>
+              ))}
+            </div>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  /* Same menu-cursor feel as the character-sheet rows. */
+  .queue-row {
+    transition: padding-left 0.1s steps(2);
+  }
+  .queue-row:hover {
+    padding-left: 8px;
+  }
+</style>

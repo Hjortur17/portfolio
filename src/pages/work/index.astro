@@ -1,0 +1,101 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { workListSchema } from '../../lib/seo';
+import LoadingQueue from '../../components/LoadingQueue.astro';
+import ColorBar from '../../components/ColorBar.astro';
+import Button from '../../components/Button.astro';
+import { site } from '../../data/site';
+
+const all = (await getCollection('projects')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+/* Same split as the homepage: finished work gets cards, everything still in
+   flight goes in the queue below rather than showing an empty card. */
+const inFlight = ['in-progress', 'loading'];
+const projects = all.filter((p) => !inFlight.includes(p.data.status));
+const loading = all.filter((p) => inFlight.includes(p.data.status));
+---
+
+<Layout
+  title={`Work — ${site.name}`}
+  description="Selected projects — what the problem was, what I chose, and what it cost."
+  current="work"
+  schema={workListSchema(
+    new URL(Astro.url.pathname, Astro.site).href,
+    projects.map((p) => ({
+      title: p.data.title,
+      url: new URL(`/work/${p.id}`, Astro.site).href,
+    }))
+  )}
+>
+  <section class="mx-auto max-w-[1180px] px-10 pt-[88px] pb-11">
+    <Eyebrow label="02 — SELECT LEVEL" color="#7CE04A" class="mb-[26px]" />
+    <h1
+      class="m-0 mb-[26px] font-pixel leading-[1.55] text-text"
+      style="font-size: clamp(22px, 3.2vw, 38px); text-shadow: 5px 5px 0 #1A2140"
+    >
+      All work
+    </h1>
+    <p class="m-0 max-w-[56ch] text-[26px] leading-[1.45] text-text-muted" style="text-wrap: pretty">
+      Six projects that shipped and one that did not. Each page covers what was
+      actually broken, the decisions that fixed it, and the parts I got wrong.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-[1180px] px-10 pb-[100px]">
+    <div class="grid gap-9">
+      {
+        projects.map((project, i) => (
+          <ProjectCard project={project} imageSide={i % 2 === 0 ? 'left' : 'right'} headingLevel={2} />
+        ))
+      }
+    </div>
+  </section>
+
+  {
+    loading.length > 0 && (
+      <section id="loading" class="border-t-4 border-rule" style="background: #0B0F1F">
+        <div class="mx-auto max-w-[1180px] px-10 py-[84px]" data-reveal>
+          <Eyebrow label="03 — LOADING" color="#FFC53D" class="mb-3.5" />
+          <h2
+            class="m-0 mb-5 font-pixel leading-[1.6] text-text"
+            style="font-size: clamp(16px, 2vw, 22px)"
+          >
+            Still loading
+          </h2>
+          <p
+            class="m-0 mb-12 max-w-[56ch] text-[23px] leading-[1.5] text-text-muted"
+            style="text-wrap: pretty"
+          >
+            Started, still unfinished, and honest about why.
+          </p>
+
+          <LoadingQueue projects={loading} />
+        </div>
+      </section>
+    )
+  }
+
+  <ColorBar />
+
+  <section class="border-t-4 border-rule" style="background: #0B0F1F">
+    <div
+      class="mx-auto flex max-w-[1180px] flex-wrap items-center justify-between gap-8 px-10 py-20"
+    >
+      <div>
+        <div class="mb-[18px] font-pixel text-[9px] tracking-[2px] text-text-dim">NEXT LEVEL</div>
+        <h2 class="m-0 font-pixel leading-[1.6] text-text" style="font-size: clamp(15px, 1.8vw, 20px)">
+          Got a level for<br />me to build?
+        </h2>
+      </div>
+      <div class="flex flex-wrap gap-[18px]">
+        <Button href={`mailto:${site.email}`} variant="primary">✉ SAY HELLO</Button>
+        <Button href="/" variant="secondary">◀ HOME</Button>
+      </div>
+    </div>
+  </section>
+</Layout>

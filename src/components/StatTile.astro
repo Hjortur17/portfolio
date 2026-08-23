@@ -1,0 +1,16 @@
+---
+interface Props {
+  value: string;
+  label: string;
+  color: string;
+  /** Override for the value's size — e.g. a lone glyph like "∞" reads small next to multi-character values. */
+  valueClass?: string;
+}
+const { value, label, color, valueClass = '' } = Astro.props;
+---
+<div class="stat-tile">
+  <div class:list={['stat-tile__value font-pixel', valueClass]} style={`color: ${color}`}>
+    {value}
+  </div>
+  <div class="stat-tile__label text-[17px] tracking-[1px] text-text-dim">{label}</div>
+</div>

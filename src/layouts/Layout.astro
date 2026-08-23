@@ -1,70 +1,174 @@
 ---
-import Navbar from "../components/Navbar.astro";
+/* Latin subsets only. The full imports pulled in cyrillic, greek, latin-ext
+   and vietnamese @font-face blocks — 8 faces, 38% of the entire CSS bundle —
+   none of which this site can reach. Every Icelandic character it does use
+   (Æ Ð Ö Ý Þ í ó ö) sits at or below U+00FF, inside latin. The glyph icons
+   above U+00FF (▶ ♥ ✉ ∞) are in no Google subset and already fall back to the
+   system font, so nothing changes for them. */
+import '@fontsource/press-start-2p/latin-400.css';
+import '@fontsource/vt323/latin-400.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BootScreen from '../components/BootScreen.astro';
+import Analytics from '@vercel/analytics/astro';
+import { getCollection } from 'astro:content';
+import { site } from '../data/site';
+import ogImageDefault from '../assets/og-image.jpg';
+/* Preloaded below. Without these the browser only discovers the fonts after
+   it has fetched and parsed the CSS — a three-hop chain that cost ~600ms of
+   render blocking and, because both faces have fallback metrics nothing like
+   their own, 0.1 CLS as the headings reflowed on swap. */
+import pixelFont from '@fontsource/press-start-2p/files/press-start-2p-latin-400-normal.woff2?url';
+import termFont from '@fontsource/vt323/files/vt323-latin-400-normal.woff2?url';
+import faviconLight from '../assets/logo/logo-light.svg';
+import faviconDark from '../assets/logo/logo-dark.svg';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Which nav item is the current page. */
+  current?: string;
+  /** Case-study pages swap the nav for a single "back to work" link. */
+  navVariant?: 'default' | 'case';
+  /** The 404 paints its own overlays and pins its own header. */
+  bare?: boolean;
+  /** Set false to never boot on this page. The 404 must appear instantly —
+   *  people arrive there from stale links, often as their first page, and the
+   *  whole job of that page is to get them somewhere useful fast. */
+  boot?: boolean;
+  noindex?: boolean;
+  /** Social card. Pages with their own art pass it in; everything else gets
+   *  the site card. */
+  image?: ImageMetadata;
+  /** 'article' for case studies, so shares render as a piece of writing with
+   *  a date rather than as a generic site link. */
+  ogType?: 'website' | 'article';
+  /** JSON-LD for this page, emitted as-is. The homepage describes the Person;
+   *  case studies describe the work. Without it a crawler has to infer who
+   *  this site is about from prose alone. */
+  schema?: Record<string, unknown>;
+}
+
+const {
+  title,
+  description = site.description,
+  current,
+  navVariant = 'default',
+  bare = false,
+  boot = true,
+  noindex = false,
+  image = ogImageDefault,
+  ogType = 'website',
+  schema,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image.src, Astro.site).href;
+
+/* The boot log prints the real project count, so the line stays true as the
+   collection grows. */
+const projectCount = (await getCollection('projects')).length;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {/* Both faces are used above the fold on every page — the wordmark and nav
+        in Press Start 2P, the body copy in VT323 — so both are worth the
+        early fetch. Only the latin subsets; the ext subsets stay lazy. */}
+    <link rel="preload" as="font" type="font/woff2" href={pixelFont} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={termFont} crossorigin />
+    {/* Firefox honours `media` here and re-picks live when the OS theme
+        flips. Chrome ignores it and falls through to /favicon.svg, which
+        carries the same swap in its own internal media query. Between the
+        two every browser gets a theme-correct mark. */}
+    <link rel="icon" type="image/svg+xml" href={faviconLight.src} media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/svg+xml" href={faviconDark.src} media="(prefers-color-scheme: dark)" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Lexend:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content={String(image.width)} />
+    <meta property="og:image:height" content={String(image.height)} />
+    <meta property="og:image:alt" content={`${site.name} — ${site.role}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+
+    {/* Tints the browser UI on mobile to the page background, so the chrome
+        does not sit as a bright band above a near-black page. */}
+    <meta name="theme-color" content="#080A14" />
+
+    {schema && (
+      <script
+        type="application/ld+json"
+        is:inline
+        set:html={JSON.stringify(schema)}
+      />
+    )}
+
+    <!-- Set both flags before first paint: `js` releases the scroll-reveal
+         hidden state, and the scanline preference must not flash. -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      try {
+        if (localStorage.getItem('scanlines') === 'off') {
+          document.documentElement.dataset.scanlines = 'off';
+        }
+      } catch (e) {}
+    </script>
   </head>
-  <body class="bg-neutral-50 text-neutral-900">
-    <Navbar />
 
-    <div class="xl:px-0 mx-auto xl:max-w-[1400px] w-full max-w-full px-8">
+  <body>
+    {boot && <BootScreen projectCount={projectCount} />}
+
+    <div class="relative min-h-screen">
+      {
+        !bare && (
+          <>
+            <div
+              data-scanline-layer
+              class="pointer-events-none absolute inset-0 z-50 mix-blend-multiply"
+              style="background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.22) 0px, rgba(0,0,0,0.22) 1px, transparent 1px, transparent 3px)"
+            />
+            <div
+              class="pointer-events-none absolute inset-0 z-51"
+              style="box-shadow: inset 0 0 220px rgba(0,0,0,0.85)"
+            />
+          </>
+        )
+      }
+
+      {!bare && <Header current={current} variant={navVariant} />}
+
       <slot />
+
+      {!bare && <Footer />}
     </div>
 
-    <footer
-      class="xl:px-0 mx-auto xl:max-w-[1400px] w-full max-w-full px-8 mt-48 mb-20"
-    >
-      <div class="flex gap-6 text-neutral-400 mb-12">
-        <a
-          href="https://github.com/Hjortur17"
-          target="_blank"
-          class="uppercase font-thin underline underline-offset-6 hover:text-neutral-900 ease-in-out duration-300"
-          >GitHub</a
-        >
+    <script>
+      import '../scripts/retro-fx';
+    </script>
 
-        <a
-          href="https://dribbble.com/Hjortur17"
-          target="_blank"
-          class="uppercase font-thin underline underline-offset-6 hover:text-neutral-900 ease-in-out duration-300"
-        >
-          Dribbble
-        </a>
-
-        <a
-          href="https://www.linkedin.com/in/hjortur-freyr/"
-          target="_blank"
-          class="uppercase font-thin underline underline-offset-6 hover:text-neutral-900 ease-in-out duration-300"
-        >
-          LinkedIn
-        </a>
-        </a>
-
-        <a
-          href="mailto:hjorturfreyr@hjorturfreyr.com"
-          target="_blank"
-          class="uppercase font-thin underline underline-offset-6 hover:text-neutral-900 ease-in-out duration-300"
-        >
-          Drop me a line
-        </a>
-      </div>
-
-      <p class="text-neutral-400 font-thin uppercase">
-        &copy; {new Date().getFullYear()} Hjörtur Freyr. All rights reserved.
-      </p>
-    </footer>
+    <Analytics />
   </body>
 </html>
+
+<style is:global>
+  /* The scanline toggle. Static — never animate it. */
+  html[data-scanlines='off'] [data-scanline-layer] {
+    opacity: 0;
+  }
+</style>
